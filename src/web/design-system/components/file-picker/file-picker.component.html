@@ -11,7 +11,7 @@
     (dragover)="dragOver($event)"
     (dragleave)="dragLeave($event)"
     (drop)="drop($event)">
-    <input #fileInput class="lsd-sr-only" type="file" tabindex="-1"
+    <input #fileInput class="lsd-sr-only" type="file" tabindex="-1" [attr.aria-labelledby]="id() + '-label'"
       [accept]="accept() ?? ''" [disabled]="disabled()" [multiple]="multiple()" (change)="choose($event)" />
     <button class="lsd-file-picker__browse rounded-md bg-accent-primary text-sm font-semibold text-text-on-accent"
       type="button" [disabled]="disabled()" [attr.aria-describedby]="description() ? id() + '-description' : null"

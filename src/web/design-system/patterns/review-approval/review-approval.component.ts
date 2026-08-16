@@ -38,7 +38,7 @@ export class ReviewApprovalComponent {
   readonly rejected = output<void>();
 
   protected readonly pending = computed(() => this.decision() === 'pending');
-  protected readonly unavailable = computed(() => !this.pending() || this.processing());
+  protected readonly unavailable = computed(() => !this.pending() || this.processing() !== null);
   protected readonly statusText = computed(() => {
     if (this.processing() === 'approve') return 'Recording approval';
     if (this.processing() === 'reject') return 'Recording rejection';

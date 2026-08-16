@@ -1,5 +1,9 @@
 # File picker and dropzone
 
+## Purpose
+
+Use the file picker to validate a caller-selected batch and emit accepted and rejected files without uploading them.
+
 `FilePickerComponent` provides a native, keyboard-accessible file chooser with drag/drop enhancement. The starter contains no reusable upload component, so this capability is Lake Shore Drive-owned and business-neutral.
 
 ## API
@@ -26,3 +30,23 @@ Do state accepted formats and size limits in the description, validate again on 
 ## Visual coverage
 
 `file-picker.visual.spec.ts` defines idle, dragging, validation-error, progress, transport-error, disabled, light/dark, and mobile/desktop critical states for the workspace visual runner. Component tests cover native browse, typed selection, type/size/count validation, drop enhancement, and announcement hooks.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { FilePickerComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [FilePickerComponent], templateUrl: './example.html' })
+export class FilePickerExampleComponent {}
+```
+
+```html
+<lsd-file-picker
+  id="evidence-files"
+  label="Add evidence"
+  accept=".pdf"
+  [multiple]="true"
+  (filesSelected)="selectFiles($event)"
+/>
+```

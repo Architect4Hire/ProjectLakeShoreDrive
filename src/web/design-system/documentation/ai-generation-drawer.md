@@ -33,3 +33,13 @@ Do show selected context before generation, pass display-safe sources, and keep 
 ## Visual regression
 
 Capture light/dark desktop and mobile drawers for every generation state, determinate/indeterminate progress, empty/many context sources, long results, failed generation, disabled review actions, and keyboard focus.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { AiGenerationDrawerComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [AiGenerationDrawerComponent], templateUrl: './example.html' })
+export class AiDrawerExampleComponent {}
+```

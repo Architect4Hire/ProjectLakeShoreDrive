@@ -1,5 +1,9 @@
 # Stepper
 
+## Purpose
+
+Use the stepper for an ordered sequence with a controlled active identity and optional activation.
+
 `StepperComponent<T>` communicates progress through an ordered multi-stage flow and optionally provides navigation. It owns presentation and accessibility only; the caller owns stage eligibility and workflow rules.
 
 ## API
@@ -29,3 +33,13 @@ Do use the component for a finite ordered flow and keep labels concise. Do valid
 ## Visual coverage
 
 `stepper.visual.spec.ts` defines light/dark, desktop/mobile overflow, mixed progress, error, and disabled critical states for the workspace visual runner. Component tests cover navigation semantics, typed identity, current/completed announcements, disabled steps, and semantic state styling.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { StepperComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [StepperComponent], templateUrl: './example.html' })
+export class StepperExampleComponent {}
+```

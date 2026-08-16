@@ -49,3 +49,13 @@ Do pass only authorized, display-safe metadata and stable resolvable IDs; keep s
 ## Visual regression
 
 Capture light/dark empty, single, and wrapping collections; long titles/sections/IDs; disabled chips; selected state; and ready, loading, unavailable, and failed previews at desktop and mobile widths. Include keyboard focus and reduced-motion runs.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { SourceCitationsComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [SourceCitationsComponent], templateUrl: './example.html' })
+export class SourceCitationsExampleComponent {}
+```

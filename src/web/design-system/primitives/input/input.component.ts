@@ -17,6 +17,7 @@ export type InputType = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url'
 @Component({
   selector: 'lsd-input',
   standalone: true,
+  host: { '[attr.id]': 'null' },
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

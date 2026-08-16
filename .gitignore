@@ -74,6 +74,12 @@ nunit-*.xml
 # Approval Tests result files
 *.received.*
 
+# Playwright visual-regression output (approved baselines remain committed)
+.angular/
+visual-regression/results/
+playwright-report/
+test-results/
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/

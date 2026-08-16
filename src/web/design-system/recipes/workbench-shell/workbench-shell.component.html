@@ -32,7 +32,7 @@
             (activated)="openNavigation()">Menu</lsd-button>
           <div class="lsd-workbench-shell__engagement"><ng-content select="[lsdWorkbenchEngagement]" /></div>
           <div class="lsd-workbench-shell__search"><ng-content select="[lsdWorkbenchSearch]" /></div>
-          <div class="lsd-workbench-shell__actions" aria-label="Workbench actions">
+          <div class="lsd-workbench-shell__actions" role="group" aria-label="Workbench actions">
             <ng-content select="[lsdWorkbenchCommandPalette]" />
             <ng-content select="[lsdWorkbenchNotifications]" />
             <ng-content select="[lsdWorkbenchTasks]" />

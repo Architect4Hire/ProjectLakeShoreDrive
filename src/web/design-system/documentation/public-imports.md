@@ -8,9 +8,8 @@ import * as DesignSystem from 'src/web/design-system/public-api';
 ```
 
 Features may import only symbols that are deliberately exported by
-`public-api.ts`; no public components or types exist yet. The Angular
-workspace may replace the source path with a configured package alias without
-changing the public entry-point boundary.
+`public-api.ts`. The Angular workspace may replace the source path with a
+configured package alias without changing the public entry-point boundary.
 
 ## Public layers
 

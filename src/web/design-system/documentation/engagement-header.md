@@ -68,3 +68,13 @@ Don't fetch engagement data, calculate permissions, persist context, initiate li
 ## Visual regression
 
 Capture light and dark appearances at desktop, tablet, and mobile widths. Cover working, review, approved, delivery, and archived treatments; long and absent metadata; actions present and absent; long engagement/client names; and horizontal context overflow.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { EngagementHeaderComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [EngagementHeaderComponent], templateUrl: './example.html' })
+export class EngagementHeaderExampleComponent {}
+```

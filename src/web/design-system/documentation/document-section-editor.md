@@ -34,3 +34,13 @@ Do expose authorized section actions, preserve stable version/provenance data, a
 ## Visual regression
 
 Capture light/dark desktop and mobile editors for every save and approval state, all provenance variants, context open/closed, long content, citations, disabled actions, save errors, and keyboard focus.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { DocumentSectionEditorComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [DocumentSectionEditorComponent], templateUrl: './example.html' })
+export class SectionEditorExampleComponent {}
+```

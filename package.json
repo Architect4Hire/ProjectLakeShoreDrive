@@ -1,0 +1,39 @@
+{
+  "name": "project-lake-shore-drive",
+  "private": true,
+  "scripts": {
+    "build": "ng build visual-regression",
+    "lint": "npm run test:integration-manifest && npm run test:boundaries && node src/web/design-system/documentation/check-documentation-coverage.mjs && node src/web/design-system/documentation/check-component-documentation.mjs && node src/web/design-system/documentation/check-responsive-documentation.mjs",
+    "test": "npm run lint && npm run test:e2e && npm run test:visual",
+    "test:e2e": "npm run test:accessibility && npm run test:responsive",
+    "start:visual": "ng serve visual-regression --host 127.0.0.1 --port 4207",
+    "test:visual": "playwright test visual-regression/tests/design-system.visual.spec.ts",
+    "test:visual:update": "playwright test visual-regression/tests/design-system.visual.spec.ts --update-snapshots",
+    "test:accessibility": "playwright test visual-regression/tests/design-system.accessibility.spec.ts",
+    "test:responsive": "playwright test visual-regression/tests/design-system.responsive.spec.ts",
+    "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs",
+    "test:integration-manifest": "node src/web/design-system/testing/check-integration-manifest.mjs"
+  },
+  "devDependencies": {
+    "@angular/build": "22.1.4",
+    "@angular/cli": "22.1.4",
+    "@angular/common": "22.1.2",
+    "@angular/compiler": "22.1.2",
+    "@angular/compiler-cli": "22.1.2",
+    "@angular/core": "22.1.2",
+    "@angular/platform-browser": "22.1.2",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/postcss": "4.1.14",
+    "rxjs": "7.8.2",
+    "tailwindcss": "4.1.14",
+    "typescript": "6.0.2"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "@tailwindcss/oxide@4.1.14": true,
+    "esbuild@0.28.2": true,
+    "lmdb@3.5.6": true,
+    "msgpackr-extract@3.0.4": true
+  }
+}

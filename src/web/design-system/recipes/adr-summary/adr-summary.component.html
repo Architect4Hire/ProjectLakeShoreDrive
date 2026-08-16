@@ -42,7 +42,7 @@
       </section>
     </div>
 
-    <lsd-separator decorative spacing="compact" />
+    <lsd-separator [decorative]="true" spacing="compact" />
     <footer class="lsd-adr-summary__footer">
       <div><ng-content select="[lsdAdrContext]" /></div>
       <div class="lsd-adr-summary__actions" role="group" [attr.aria-label]="actionsLabel() + ' for ' + adr().number">

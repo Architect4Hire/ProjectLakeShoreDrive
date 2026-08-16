@@ -1,5 +1,9 @@
 # Data table
 
+## Purpose
+
+Use the data table for typed, comparable rows with stable identities and optional caller-owned actions.
+
 `DataTableComponent<T, TAction>` is a typed shell for scanning and acting on structured records. The prior starter-derived wrapper supplied only table projection and horizontal overflow; it was replaced because it lacked standalone APIs, states, actions, and responsive adaptation.
 
 ## API
@@ -25,3 +29,25 @@ Do keep column accessors presentational and side-effect free, use stable keys, a
 ## Appearance, motion, and visual coverage
 
 Surfaces, borders, text, status states, and actions use semantic tokens in both appearances. The loading indicator is decorative and becomes static under reduced motion; textual loading status remains authoritative. `data-table.visual.spec.ts` defines populated, loading, empty, error, disabled-action, and mobile-card cases across both appearances for the workspace visual runner.
+
+Do use `cards` when fields remain meaningful as labeled pairs. Don't conceal columns or action authorization inside the component.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { DataTableComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [DataTableComponent], templateUrl: './example.html' })
+export class TableExampleComponent {}
+```
+
+```html
+<lsd-data-table
+  accessibleName="People"
+  [rows]="rows"
+  [columns]="columns"
+  [rowKey]="rowKey"
+  [rowLabel]="rowLabel"
+/>
+```

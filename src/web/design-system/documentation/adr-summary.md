@@ -40,3 +40,15 @@ Do provide concise summaries and already-authorized references, preserve stable 
 ## Visual regression
 
 Capture light/dark desktop, tablet, and mobile layouts; every provenance treatment; approved versus AI-generated states; long content; many/no links; actions present/absent; and keyboard focus on projected controls.
+
+## Standalone Angular import and API
+
+The typed API is `adr`, `headingLevel`, and `actionsLabel`; actions are projected content rather than outputs.
+
+```ts
+import { Component } from '@angular/core';
+import { AdrSummaryComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [AdrSummaryComponent], templateUrl: './example.html' })
+export class AdrSummaryExampleComponent {}
+```

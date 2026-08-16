@@ -1,0 +1,41 @@
+<main class="fixture-page" [attr.data-suite]="suite">
+  <h1>Lake Shore Drive visual fixtures</h1>
+  @if (suite === 'components') {
+    <div class="fixture-grid">
+      <section class="fixture"><h2>Alert banner</h2><lsd-alert-banner id="fixture-alert" title="Review required" severity="warning" [dismissible]="true">Two requirements need evidence.</lsd-alert-banner></section>
+      <section class="fixture"><h2>Citation chip</h2><lsd-citation-chip [citation]="{ sourceId: 'SRC-0042', sourceTitle: 'Platform strategy', sourceSection: 'Integration' }" previewId="preview" /></section>
+      <section class="fixture"><h2>Data table</h2><lsd-data-table accessibleName="Engagement team" [rows]="people" [columns]="columns" [rowKey]="rowKey" [rowLabel]="rowLabel" responsiveMode="cards" /></section>
+      <section class="fixture"><h2>File picker</h2><lsd-file-picker id="fixture-files" label="Add evidence" description="PDF, up to 10 MB" accept=".pdf" /></section>
+      <section class="fixture"><h2>Stepper</h2><lsd-stepper label="Review progress" [steps]="steps" active="decide" /></section>
+      <section class="fixture"><h2>Icon</h2><p><lsd-icon name="search" [accessibility]="{ mode: 'informative', label: 'Search' }" /> Search knowledge</p></section>
+      <section class="fixture"><h2>Notification</h2><lsd-notification-viewport /></section>
+    </div>
+  } @else if (suite === 'recipes') {
+    <div class="fixture-grid">
+      <section class="fixture"><h2>Engagement header</h2><lsd-engagement-header [engagement]="engagement" /></section>
+      <section class="fixture"><h2>Phase navigation</h2><lsd-phase-navigation [states]="{ overview: 'completed', discovery: 'completed', requirements: 'active', architecture: 'attention' }" /></section>
+      <section class="fixture"><h2>Requirement row</h2><lsd-requirement-row [requirement]="requirement" /></section>
+      <section class="fixture"><h2>Knowledge result</h2><lsd-knowledge-result [result]="knowledge" previewId="fixture-preview" [selected]="true" /></section>
+      <section class="fixture"><h2>RAID register</h2><lsd-raid-register [items]="raidItems" /></section>
+      <section class="fixture"><h2>Approval actions</h2><lsd-approval-actions id="fixture-approval" provenance="ai-generated" [warnings]="['Evidence review is incomplete.']" /></section>
+      <section class="fixture"><h2>Workbench shell</h2><lsd-workbench-shell-recipe id="fixture-shell"><nav lsdWorkbenchNavigation>Overview<br>Requirements<br>Architecture</nav><span lsdWorkbenchEngagement>Northwind</span><p>Workbench content</p></lsd-workbench-shell-recipe></section>
+    </div>
+  } @else if (suite === 'errors') {
+    <div class="fixture-grid">
+      <section class="fixture"><h2>Associated field error</h2><lsd-input id="engagement-name" label="Engagement name" description="Use the contractual client name." error="Engagement name is required." [required]="true" /></section>
+      <section class="fixture"><h2>Data error</h2><lsd-data-table accessibleName="Unavailable results" [rows]="[]" [columns]="columns" [rowKey]="rowKey" [rowLabel]="rowLabel" error="The records could not be loaded." /></section>
+      <section class="fixture"><h2>Assertive alert</h2><lsd-alert-banner id="blocking-error" title="Submission failed" severity="danger" announcement="assertive">Correct the identified errors and retry.</lsd-alert-banner></section>
+    </div>
+  } @else if (suite === 'dialog') {
+    <button id="dialog-opener" type="button">Open review</button>
+    <lsd-dialog id="review-dialog" title="Review decision" description="Confirm the proposed architecture decision." [open]="true"><p>The proposal remains a draft.</p><button lsdDialogActions type="button">Continue review</button></lsd-dialog>
+  } @else if (suite === 'drawer') {
+    <button id="drawer-opener" type="button">Open sources</button>
+    <lsd-drawer id="source-drawer" title="Source preview" description="Evidence for the selected statement." [open]="true"><p>ADR-0042, Integration section.</p><button lsdDrawerActions type="button">Open source</button></lsd-drawer>
+  } @else if (suite === 'split') {
+    <lsd-split-view id="responsive-split" accessibleName="Decision comparison" contextLabel="Current decision" outputLabel="Proposed decision">
+      <article lsdSplitViewContext><h2>Current decision</h2><p>Retain synchronous integration.</p></article>
+      <article lsdSplitViewOutput><h2>Proposed decision</h2><p>Use asynchronous domain events.</p></article>
+    </lsd-split-view>
+  }
+</main>

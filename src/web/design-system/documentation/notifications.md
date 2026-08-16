@@ -1,5 +1,9 @@
 # Notifications
 
+## Purpose, API, and variants
+
+Use `NotificationService` with `NotificationViewportComponent` for transient application-level status. The service enqueues the typed notification options documented below; the viewport has no inputs or outputs and renders the current queue.
+
 `NotificationService` and `NotificationViewportComponent` provide a typed, application-wide transient-message API without exposing starter implementation details. The starter snapshot contained no reusable notification mechanism, so this implementation replaces that missing capability.
 
 Place one `<lsd-notification-viewport />` near the application shell root. Inject `NotificationService` and call `notify()` with plain title/message strings, semantic severity, announcement urgency, and an optional action.
@@ -30,3 +34,23 @@ Do reserve assertive announcements for events requiring immediate attention and 
 ## Visual coverage
 
 `notification.visual.spec.ts` defines all severities across light/dark and mobile/desktop, including stacked and action states, for the workspace visual runner. Service and component tests cover queue behavior, defaults, live-region semantics, atomic associations, typed actions, semantic styling, and dismissal.
+
+## Standalone Angular import
+
+```ts
+import { Component, inject } from '@angular/core';
+import { NotificationService, NotificationViewportComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [NotificationViewportComponent], templateUrl: './example.html' })
+export class NotificationExampleComponent {
+  private readonly notifications = inject(NotificationService);
+  protected showSaved(): void {
+    this.notifications.notify({ title: 'Saved', message: 'Changes saved', severity: 'success' });
+  }
+}
+```
+
+```html
+<button type="button" (click)="showSaved()">Show saved notification</button>
+<lsd-notification-viewport />
+```

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const extensions = new Set(['.html', '.ts']);
 const defaultRoots = ['src/web/features', 'src/web/app'];
 const minimumBundleLength = 8;
+const designSystemRoot = path.resolve('src/web/design-system');
 const commonUtilities = new Set([
   'absolute', 'block', 'border', 'contents', 'fixed', 'flex', 'grid', 'hidden',
   'inline', 'relative', 'sticky', 'table',
@@ -14,10 +15,11 @@ const commonUtilities = new Set([
 
 function walk(root) {
   if (!fs.existsSync(root)) return [];
+  const relativeToDesignSystem = path.relative(designSystemRoot, path.resolve(root));
+  if (relativeToDesignSystem === '' || (!relativeToDesignSystem.startsWith(`..${path.sep}`) && relativeToDesignSystem !== '..')) return [];
   const entries = fs.readdirSync(root, { withFileTypes: true });
   return entries.flatMap((entry) => {
     const target = path.join(root, entry.name);
-    if (target.split(path.sep).includes('design-system')) return [];
     return entry.isDirectory() ? walk(target) : extensions.has(path.extname(target)) ? [target] : [];
   });
 }

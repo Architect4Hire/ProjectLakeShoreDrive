@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lake Shore Drive design-system integration manifest",
+  "type": "object",
+  "required": ["schemaVersion", "targetRoot", "copy", "dependencies", "globalStyles", "configuration", "publicApi", "assets", "testSupport", "verification"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "targetRoot": { "const": "src/web/design-system" },
+    "copy": {
+      "type": "object",
+      "required": ["files", "directories", "exclude", "legalFiles"]
+    },
+    "dependencies": {
+      "type": "object",
+      "required": ["runtimePeers", "buildDev", "testDev", "notRequired"]
+    },
+    "globalStyles": {
+      "type": "object",
+      "required": ["entry", "angularJsonPath", "order", "includedFoundations"]
+    },
+    "configuration": {
+      "type": "object",
+      "required": ["createFiles", "angularJsonDelta", "tsconfigDelta"]
+    },
+    "publicApi": {
+      "type": "object",
+      "required": ["module", "layers", "forbidDeepImports"]
+    },
+    "assets": {
+      "type": "object",
+      "required": ["required", "notes"]
+    },
+    "testSupport": {
+      "type": "object",
+      "required": ["copyDirectories", "copyFiles", "exclude", "scripts", "boundaryScripts", "baselinePolicy"]
+    },
+    "verification": { "type": "array", "minItems": 5 }
+  },
+  "additionalProperties": true
+}

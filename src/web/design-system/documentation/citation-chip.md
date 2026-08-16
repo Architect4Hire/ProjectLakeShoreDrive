@@ -1,5 +1,9 @@
 # Citation chip
 
+## Purpose
+
+Use a citation chip to identify one stable source and request its caller-owned preview.
+
 `CitationChipComponent` presents a stable source reference inline and requests a caller-rendered source preview. It composes Badge and Button primitives. It does not retrieve, resolve, authorize, redact, navigate to, or render source content.
 
 ## Typed API and states
@@ -44,3 +48,13 @@ Do use durable source identifiers, supply display-safe titles and section labels
 ## Visual coverage
 
 `citation-chip.visual.spec.ts` covers light/dark appearance, desktop/mobile width, open and disabled states, optional metadata, stable identifier visibility, and long-title truncation.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { CitationChipComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [CitationChipComponent], templateUrl: './example.html' })
+export class CitationExampleComponent {}
+```

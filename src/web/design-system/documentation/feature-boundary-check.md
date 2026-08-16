@@ -1,11 +1,12 @@
 # Feature boundary static check
 
-Traceability: DS-004, DS-005, BR-144.
+Traceability: DS-002 through DS-007, BR-144.
 
 Run from the repository root:
 
 ```text
 node src/web/design-system/testing/check-feature-boundaries.mjs
+node src/web/design-system/testing/check-design-system-boundaries.mjs
 ```
 
 The zero-dependency check scans `src/web/features` and `src/web/app` when they
@@ -35,5 +36,11 @@ private import and a repeated nine-utility bundle, then removes the fixture:
 
 ```text
 node src/web/design-system/testing/check-feature-boundaries.mjs --self-test
+node src/web/design-system/testing/check-design-system-boundaries.mjs --self-test
 ```
 
+The dependency checker parses TypeScript imports, exports, dynamic imports, and `require` calls. Relative production dependencies must resolve inside the design-system root; external dependencies must match the explicit Angular/RxJS allowlist. This containment and allowlist model rejects application aliases and services without guessing from folder names.
+
+The semantic-token rules reject hexadecimal/RGB/HSL literals and named Tailwind palette utilities outside the token layer. Primitive values and elevation colors remain legal only inside `tokens`, where semantic themes resolve them. Documentation, migration evidence, test files, and test tooling are not production UI and are excluded explicitly.
+
+Neither checker uses suppression comments. The two self-tests prove private public-API imports, repeated feature-local utility bundles, escaping application dependencies, unapproved application aliases, raw color literals, and palette utilities are each detected. Run all current-source checks with `npm run test:boundaries`.

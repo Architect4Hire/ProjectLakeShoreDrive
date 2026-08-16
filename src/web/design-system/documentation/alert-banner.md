@@ -1,5 +1,9 @@
 # Alert banner
 
+## Purpose
+
+Use an alert banner for persistent contextual feedback with an explicit severity and announcement mode.
+
 `AlertBannerComponent` communicates page- or section-level status with a semantic severity, title, projected body, optional actions, and optional dismissal. It contains no feature workflow assumptions.
 
 ## API and usage
@@ -34,3 +38,13 @@ Do provide recovery actions near actionable errors and make dismissal optional o
 ## Visual coverage
 
 `alert-banner.visual.spec.ts` defines all severities across light/dark and desktop/mobile critical states, including actions and dismissibility, for the workspace visual runner. Component tests cover live-region behavior, associations, composition, semantic styling, and dismissal.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { AlertBannerComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [AlertBannerComponent], templateUrl: './example.html' })
+export class AlertExampleComponent {}
+```

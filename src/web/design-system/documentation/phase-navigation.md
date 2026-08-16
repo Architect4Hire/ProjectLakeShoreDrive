@@ -68,3 +68,13 @@ Don't infer phase progress, automatically activate the next phase, fetch counts,
 ## Visual regression
 
 Capture light and dark appearances, horizontal desktop/mobile and vertical rail layouts, every state treatment, first and last phases active, mixed completed/attention states, keyboard focus, and horizontal overflow at narrow widths.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { PhaseNavigationComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [PhaseNavigationComponent], templateUrl: './example.html' })
+export class PhaseNavigationExampleComponent {}
+```

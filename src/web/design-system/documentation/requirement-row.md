@@ -68,3 +68,13 @@ Don't fetch evidence, resolve citations, calculate authorization, persist edits,
 ## Visual regression
 
 Capture light and dark appearances at desktop, tablet, and mobile widths. Cover all priorities; human-approved and AI-draft statuses; long IDs/titles; many, one, and no references; projected citation controls; actions present/absent; and keyboard focus.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { RequirementRowComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [RequirementRowComponent], templateUrl: './example.html' })
+export class RequirementRowExampleComponent {}
+```

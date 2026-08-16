@@ -59,3 +59,13 @@ Don't fetch engagement or account data here, hide unauthorized actions here, per
 ## Visual regression
 
 Capture light and dark desktop shells with persistent navigation, tablet and mobile shells with navigation open and closed, and layouts with and without engagement context. Include focus-visible and reduced-motion runs in the accessibility suite.
+
+## Standalone Angular import
+
+```ts
+import { Component } from '@angular/core';
+import { WorkbenchShellRecipeComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [WorkbenchShellRecipeComponent], templateUrl: './example.html' })
+export class WorkbenchShellExampleComponent {}
+```

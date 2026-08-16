@@ -1,0 +1,115 @@
+{
+  "$schema": "./integration-manifest.schema.json",
+  "schemaVersion": 1,
+  "traceability": ["DS-002", "DS-003", "DS-004", "DS-005", "BR-144"],
+  "targetRoot": "src/web/design-system",
+  "copy": {
+    "files": [
+      "src/web/design-system/public-api.ts",
+      "src/web/design-system/integration-manifest.json",
+      "src/web/design-system/integration-manifest.schema.json"
+    ],
+    "directories": [
+      "src/web/design-system/tokens",
+      "src/web/design-system/foundations",
+      "src/web/design-system/primitives",
+      "src/web/design-system/components",
+      "src/web/design-system/patterns",
+      "src/web/design-system/recipes",
+      "src/web/design-system/layouts",
+      "src/web/design-system/icons",
+      "src/web/design-system/utilities",
+      "src/web/design-system/documentation"
+    ],
+    "exclude": [
+      "src/web/design-system/documentation/migration",
+      "src/web/design-system/**/*.spec.ts",
+      "src/web/design-system/**/*.visual.spec.ts"
+    ],
+    "legalFiles": ["docs/design/third-party-notices.md"]
+  },
+  "dependencies": {
+    "runtimePeers": {
+      "@angular/common": "22.1.2",
+      "@angular/core": "22.1.2",
+      "rxjs": "7.8.2"
+    },
+    "buildDev": {
+      "@angular/build": "22.1.4",
+      "@angular/cli": "22.1.4",
+      "@angular/compiler": "22.1.2",
+      "@angular/compiler-cli": "22.1.2",
+      "@tailwindcss/postcss": "4.1.14",
+      "tailwindcss": "4.1.14",
+      "typescript": "6.0.2"
+    },
+    "testDev": {
+      "@angular/platform-browser": "22.1.2",
+      "@axe-core/playwright": "4.13.0",
+      "@playwright/test": "1.62.1"
+    },
+    "notRequired": ["zone.js"]
+  },
+  "globalStyles": {
+    "entry": "src/web/design-system/foundations/tailwind.css",
+    "angularJsonPath": "projects.<target-project>.architect.build.options.styles",
+    "order": "before application-specific global styles",
+    "includedFoundations": ["appearance.css", "interaction-states.css", "motion.css", "typography.css"]
+  },
+  "configuration": {
+    "createFiles": [
+      {
+        "path": "postcss.config.mjs",
+        "content": "export default { plugins: { '@tailwindcss/postcss': {} } };\n"
+      }
+    ],
+    "angularJsonDelta": {
+      "projects.<target-project>.architect.build.options.styles.prepend": "src/web/design-system/foundations/tailwind.css"
+    },
+    "tsconfigDelta": {
+      "compilerOptions.strict": true,
+      "angularCompilerOptions.strictTemplates": true
+    }
+  },
+  "publicApi": {
+    "module": "src/web/design-system/public-api",
+    "packageAliasExample": "@lsd/design-system",
+    "layers": ["tokens", "foundations", "primitives", "components", "patterns", "recipes", "layouts", "icons"],
+    "forbidDeepImports": true
+  },
+  "assets": {
+    "required": [],
+    "notes": "Components use the local typed icon registry; starter images, fonts, branding, avatars, and icon packs are not required."
+  },
+  "testSupport": {
+    "copyDirectories": ["visual-regression"],
+    "copyFiles": ["playwright.config.ts"],
+    "exclude": [
+      "visual-regression/results",
+      "visual-regression/test-results",
+      "visual-regression/playwright-report"
+    ],
+    "scripts": {
+      "test:integration-manifest": "node src/web/design-system/testing/check-integration-manifest.mjs",
+      "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs",
+      "test:accessibility": "playwright test visual-regression/tests/design-system.accessibility.spec.ts",
+      "test:responsive": "playwright test visual-regression/tests/design-system.responsive.spec.ts",
+      "test:visual": "playwright test visual-regression/tests/design-system.visual.spec.ts",
+      "test:visual:update": "playwright test visual-regression/tests/design-system.visual.spec.ts --update-snapshots"
+    },
+    "boundaryScripts": [
+      "src/web/design-system/testing/check-integration-manifest.mjs",
+      "src/web/design-system/testing/check-feature-boundaries.mjs",
+      "src/web/design-system/testing/check-design-system-boundaries.mjs"
+    ],
+    "baselinePolicy": "Copy approved baselines; do not regenerate them automatically during installation."
+  },
+  "excludedStarterMaterial": [
+    "starter routes and demo pages",
+    "authentication and dashboard examples",
+    "starter business models and services",
+    "starter images, branding, avatars, fonts, and icon packs",
+    "private migration comparison snapshot"
+  ],
+  "verification": ["npm ci", "npm run build", "npm run lint", "npm test", "node src/web/design-system/testing/check-integration-manifest.mjs"]
+}

@@ -39,3 +39,15 @@ Do supply already-authorized display data, stable IDs, concise descriptions, exp
 ## Visual regression
 
 Capture light/dark desktop tables, horizontal overflow, populated and dense registers, every RAID type and assessment level, tablet loading/error states, and mobile populated/empty cards with actions and long descriptions.
+
+## Standalone Angular import and API
+
+Inputs are the accessible name, typed `items`, optional row `actions`, and loading/empty/error presentation. `itemAction` emits the caller-owned action identity and item.
+
+```ts
+import { Component } from '@angular/core';
+import { RaidRegisterComponent } from 'src/web/design-system/public-api';
+
+@Component({ standalone: true, imports: [RaidRegisterComponent], templateUrl: './example.html' })
+export class RaidRegisterExampleComponent {}
+```
