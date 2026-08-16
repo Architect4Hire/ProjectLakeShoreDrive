@@ -1,0 +1,47 @@
+@import 'tailwindcss' source(none);
+@import './appearance.css';
+@import './interaction-states.css';
+@import './motion.css';
+@import './typography.css';
+
+/* Scan design-system implementation only; migration snapshots and features are excluded. */
+@source '../components';
+@source '../icons';
+@source '../layouts';
+@source '../patterns';
+@source '../primitives';
+@source '../recipes';
+@source '../utilities';
+
+/* Deliberate feature-safe semantic utility surface. */
+@source inline('bg-surface-page bg-surface-panel bg-surface-raised');
+@source inline('text-text-primary text-text-muted text-accent-primary');
+@source inline('text-status-success text-status-warning text-status-danger text-status-info');
+@source inline('border-border-default');
+
+@theme inline {
+  --color-surface-page: var(--lsd-color-surface-page);
+  --color-surface-panel: var(--lsd-color-surface-panel);
+  --color-surface-raised: var(--lsd-color-surface-raised);
+  --color-text-primary: var(--lsd-color-text-primary);
+  --color-text-muted: var(--lsd-color-text-muted);
+  --color-text-on-accent: var(--lsd-color-text-on-accent);
+  --color-text-on-success: var(--lsd-color-text-on-success);
+  --color-text-on-warning: var(--lsd-color-text-on-warning);
+  --color-text-on-danger: var(--lsd-color-text-on-danger);
+  --color-text-on-info: var(--lsd-color-text-on-info);
+  --color-border-default: var(--lsd-color-border-default);
+  --color-status-success: var(--lsd-color-status-success);
+  --color-status-warning: var(--lsd-color-status-warning);
+  --color-status-danger: var(--lsd-color-status-danger);
+  --color-status-info: var(--lsd-color-status-info);
+  --color-accent-primary: var(--lsd-color-accent-primary);
+  --color-ai-draft-surface: var(--lsd-color-ai-draft-surface);
+  --color-ai-draft-text: var(--lsd-color-ai-draft-text);
+  --color-ai-draft-border: var(--lsd-color-ai-draft-border);
+  --color-ai-draft-accent: var(--lsd-color-ai-draft-accent);
+  --color-ai-approved-surface: var(--lsd-color-ai-approved-surface);
+  --color-ai-approved-text: var(--lsd-color-ai-approved-text);
+  --color-ai-approved-border: var(--lsd-color-ai-approved-border);
+  --color-ai-approved-accent: var(--lsd-color-ai-approved-accent);
+}

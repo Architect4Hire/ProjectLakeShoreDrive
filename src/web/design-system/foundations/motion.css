@@ -1,0 +1,38 @@
+:root {
+  --motion-duration-none: 0ms;
+  --motion-duration-fast: 100ms;
+  --motion-duration-default: 200ms;
+  --motion-duration-slow: 300ms;
+  --motion-duration-deliberate: 500ms;
+  --motion-easing-linear: linear;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-enter: cubic-bezier(0, 0, 0, 1);
+  --motion-easing-exit: cubic-bezier(0.3, 0, 1, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fast: 0ms;
+    --motion-duration-default: 0ms;
+    --motion-duration-slow: 0ms;
+    --motion-duration-deliberate: 0ms;
+  }
+
+  :where([data-lsd-design-system], [data-lsd-design-system] *) {
+    animation-delay: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0ms !important;
+    transition-duration: 0ms !important;
+  }
+
+  :where([data-lsd-design-system], [data-lsd-design-system] *)::before,
+  :where([data-lsd-design-system], [data-lsd-design-system] *)::after {
+    animation-delay: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0ms !important;
+    transition-duration: 0ms !important;
+  }
+}

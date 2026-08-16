@@ -1,0 +1,4 @@
+html {
+  background-color: var(--lsd-color-surface-page, Canvas);
+  color: var(--lsd-color-text-primary, CanvasText);
+}

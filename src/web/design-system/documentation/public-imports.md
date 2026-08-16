@@ -46,8 +46,8 @@ It must not be exported from the application-facing entry point.
 
 ## Enforcement
 
-When the Angular workspace and lint configuration are added, configure an
-import-boundary rule that permits feature imports from the public entry point
-and rejects deep imports under `src/web/design-system/`. Until that toolchain
-exists, public API review and this documented boundary are the enforcement
-mechanisms.
+Run `node src/web/design-system/testing/check-feature-boundaries.mjs` in CI.
+It permits the public entry point and rejects deep imports under
+`src/web/design-system/`. It also detects exact repeated Tailwind bundles with
+eight or more utilities while allowing legitimate one-off layout composition.
+See `documentation/feature-boundary-check.md` for integration and migration.
