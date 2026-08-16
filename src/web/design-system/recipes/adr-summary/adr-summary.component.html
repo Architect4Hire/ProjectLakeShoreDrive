@@ -1,0 +1,53 @@
+<lsd-surface tone="panel" padding="default" radius="panel" border="default"
+  [accessibility]="{ role: 'region', label: adr().number + ': ' + adr().title }">
+  <article class="lsd-adr-summary" [attr.aria-labelledby]="headingId()">
+    <header class="lsd-adr-summary__header">
+      <div class="lsd-adr-summary__identity">
+        <span class="text-sm font-semibold text-text-muted">{{ adr().number }}</span>
+        @switch (headingLevel()) {
+          @case (2) { <h2 class="text-lg font-semibold" [id]="headingId()">{{ adr().title }}</h2> }
+          @case (3) { <h3 class="text-lg font-semibold" [id]="headingId()">{{ adr().title }}</h3> }
+          @case (4) { <h4 class="text-lg font-semibold" [id]="headingId()">{{ adr().title }}</h4> }
+        }
+      </div>
+      <div class="lsd-adr-summary__badges" aria-label="ADR status and provenance">
+        <lsd-badge [variant]="adr().status.variant">{{ adr().status.label }}</lsd-badge>
+        <lsd-badge [variant]="provenancePresentation().variant">{{ provenancePresentation().label }}</lsd-badge>
+      </div>
+    </header>
+
+    <div class="lsd-adr-summary__body">
+      <section aria-label="Decision"><h4 class="text-sm font-semibold">Decision</h4><p>{{ adr().decision }}</p></section>
+      <section aria-label="Rationale summary"><h4 class="text-sm font-semibold">Rationale</h4><p class="text-sm text-text-muted">{{ adr().rationaleSummary }}</p></section>
+    </div>
+
+    <div class="lsd-adr-summary__links">
+      <section aria-label="Linked requirements">
+        <h4 class="text-xs font-semibold text-text-muted">Requirements</h4>
+        <div class="lsd-adr-summary__reference-list">
+          @for (reference of adr().linkedRequirements ?? []; track reference.id) {
+            <lsd-badge size="small" variant="neutral" [accessibleLabel]="reference.label + ', ' + reference.id">{{ reference.label }} · {{ reference.id }}</lsd-badge>
+          }
+          <ng-content select="[lsdAdrRequirements]" />
+        </div>
+      </section>
+      <section aria-label="Linked patterns">
+        <h4 class="text-xs font-semibold text-text-muted">Patterns</h4>
+        <div class="lsd-adr-summary__reference-list">
+          @for (reference of adr().linkedPatterns ?? []; track reference.id) {
+            <lsd-badge size="small" variant="info" [accessibleLabel]="reference.label + ', ' + reference.id">{{ reference.label }} · {{ reference.id }}</lsd-badge>
+          }
+          <ng-content select="[lsdAdrPatterns]" />
+        </div>
+      </section>
+    </div>
+
+    <lsd-separator decorative spacing="compact" />
+    <footer class="lsd-adr-summary__footer">
+      <div><ng-content select="[lsdAdrContext]" /></div>
+      <div class="lsd-adr-summary__actions" role="group" [attr.aria-label]="actionsLabel() + ' for ' + adr().number">
+        <ng-content select="[lsdAdrActions]" />
+      </div>
+    </footer>
+  </article>
+</lsd-surface>

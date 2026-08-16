@@ -1,0 +1,25 @@
+<lsd-drawer [id]="id()" [title]="model().operation" [description]="'AI generation for ' + model().target + '. Generated content requires human review.'"
+  size="wide" [open]="open()" (closeRequested)="closeRequested.emit($event)">
+  <div class="lsd-ai-generation-drawer">
+    <div class="lsd-ai-generation-drawer__summary">
+      <div><span class="text-xs font-semibold text-text-muted">Operation</span><strong>{{ model().operation }}</strong><span class="text-sm text-text-muted">{{ model().target }}</span></div>
+      <lsd-badge variant="ai-draft">AI operation · Not approved</lsd-badge>
+    </div>
+    <lsd-surface tone="panel" padding="compact" radius="panel" border="default" [accessibility]="{ role: 'region', label: 'Selected generation context' }">
+      <div class="lsd-ai-generation-drawer__section-heading"><h3 class="text-sm font-semibold">Selected context</h3><ng-content select="[lsdAiGenerationContextActions]" /></div>
+      <dl class="lsd-ai-generation-drawer__context">
+        @for (item of model().context; track item.label) { <div><dt>{{ item.label }}</dt><dd>{{ item.count }}</dd></div> }
+      </dl>
+      <ng-content select="[lsdAiGenerationContext]" />
+    </lsd-surface>
+    <lsd-ai-generation-progress [id]="id() + '-progress'" [title]="model().operation" [state]="model().state"
+      [mode]="model().progressMode ?? 'indeterminate'" [value]="model().progressValue ?? 0" [max]="model().progressMax ?? 100"
+      [announcement]="model().announcement ?? null" [cancellable]="cancellable()" (cancelRequested)="cancelRequested.emit()" />
+    <div class="lsd-ai-generation-drawer__sources"><h3 class="text-sm font-semibold">Sources</h3><ng-content select="[lsdAiGenerationSources]" /></div>
+    <lsd-ai-content [id]="id() + '-result'" title="Result preview" [provenance]="model().provenance" [state]="contentState()"
+      [actionsDisabled]="actionsDisabled() || active()" (accepted)="accepted.emit()" (rejected)="rejected.emit()" (regenerateRequested)="regenerateRequested.emit()">
+      <ng-content select="[lsdAiGenerationResult]" />
+      <div lsdAiSecondaryActions><ng-content select="[lsdAiGenerationReviewActions]" /></div>
+    </lsd-ai-content>
+  </div>
+</lsd-drawer>

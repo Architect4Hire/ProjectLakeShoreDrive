@@ -1,0 +1,14 @@
+<lsd-data-table
+  density="compact"
+  responsiveMode="cards"
+  [accessibleName]="accessibleName()"
+  [rows]="items()"
+  [columns]="columns"
+  [rowKey]="rowKey"
+  [rowLabel]="rowLabel"
+  [actions]="actions()"
+  [loading]="loading()"
+  [loadingMessage]="loadingMessage()"
+  [emptyMessage]="emptyMessage()"
+  [error]="error()"
+  (rowAction)="forwardAction($event)" />

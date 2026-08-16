@@ -1,0 +1,46 @@
+<lsd-surface tone="panel" padding="compact" radius="panel" border="default"
+  [accessibility]="{ role: 'region', label: requirement().id + ': ' + requirement().title }">
+  <article class="lsd-requirement-row" [attr.aria-labelledby]="headingId()">
+    <div class="lsd-requirement-row__identity">
+      <span class="lsd-requirement-row__id text-sm font-semibold text-text-muted">{{ requirement().id }}</span>
+      @switch (headingLevel()) {
+        @case (2) { <h2 class="font-semibold" [id]="headingId()">{{ requirement().title }}</h2> }
+        @case (3) { <h3 class="font-semibold" [id]="headingId()">{{ requirement().title }}</h3> }
+        @case (4) { <h4 class="font-semibold" [id]="headingId()">{{ requirement().title }}</h4> }
+      }
+    </div>
+
+    <div class="lsd-requirement-row__state" aria-label="Requirement status and priority">
+      <lsd-badge size="small" [variant]="requirement().status.variant">{{ requirement().status.label }}</lsd-badge>
+      <lsd-badge size="small" [variant]="priorityPresentation().variant">{{ priorityPresentation().label }}</lsd-badge>
+    </div>
+
+    <section class="lsd-requirement-row__references" aria-label="Traceability">
+      <span class="lsd-requirement-row__mobile-label text-xs font-semibold text-text-muted">Traceability</span>
+      <div class="lsd-requirement-row__reference-list">
+        @for (reference of requirement().traceability ?? []; track reference.id) {
+          <lsd-badge size="small" variant="neutral" [accessibleLabel]="reference.label + ', ' + reference.id">
+            {{ reference.label }} · {{ reference.id }}
+          </lsd-badge>
+        }
+        <ng-content select="[lsdRequirementTraceability]" />
+      </div>
+    </section>
+
+    <section class="lsd-requirement-row__references" aria-label="Evidence">
+      <span class="lsd-requirement-row__mobile-label text-xs font-semibold text-text-muted">Evidence</span>
+      <div class="lsd-requirement-row__reference-list">
+        @for (reference of requirement().evidence ?? []; track reference.id) {
+          <lsd-badge size="small" variant="info" [accessibleLabel]="reference.label + ', ' + reference.id">
+            {{ reference.label }} · {{ reference.id }}
+          </lsd-badge>
+        }
+        <ng-content select="[lsdRequirementEvidence]" />
+      </div>
+    </section>
+
+    <div class="lsd-requirement-row__actions" role="group" [attr.aria-label]="actionsLabel() + ' for ' + requirement().id">
+      <ng-content select="[lsdRequirementActions]" />
+    </div>
+  </article>
+</lsd-surface>

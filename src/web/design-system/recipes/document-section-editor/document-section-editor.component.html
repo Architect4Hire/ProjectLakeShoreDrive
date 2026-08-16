@@ -1,0 +1,16 @@
+<lsd-structured-editor [id]="id()" [accessibleName]="section().title + ' section editor'" [sections]="sections()"
+  [saveState]="saveState()" [saveError]="saveError()" [splitViewAvailable]="contextAvailable()"
+  [splitViewOpen]="splitViewOpen()" (splitViewOpenChange)="splitViewOpen.set($event)">
+  <div lsdEditorToolbar class="lsd-document-section-editor__toolbar">
+    <lsd-badge [variant]="provenance().variant">{{ provenance().label }}</lsd-badge>
+    <lsd-badge [variant]="approval().variant">{{ approval().label }}</lsd-badge>
+    @if (section().versionLabel; as version) { <lsd-badge variant="neutral">{{ version }}</lsd-badge> }
+  </div>
+  <div lsdEditorActions><lsd-button impact="minimal" tone="info" [disabled]="actionsDisabled()" (activated)="requestHistory()">Version history</lsd-button></div>
+  <ng-template [lsdEditorSectionActions]="section().id"><div class="lsd-document-section-editor__actions"><ng-content select="[lsdDocumentSectionActions]" /><ng-content select="[lsdDocumentSectionApprovalActions]" /></div></ng-template>
+  <ng-template [lsdEditorSectionContent]="section().id">
+    <div class="lsd-document-section-editor__content"><ng-content select="[lsdDocumentSectionContent]" /></div>
+    <div class="lsd-document-section-editor__citations"><ng-content select="[lsdDocumentSectionCitations]" /></div>
+  </ng-template>
+  <div lsdEditorContext><ng-content select="[lsdDocumentSectionContext]" /></div>
+</lsd-structured-editor>

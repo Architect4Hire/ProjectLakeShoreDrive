@@ -1,0 +1,16 @@
+<lsd-surface tone="page" padding="none" radius="none" border="none" [accessibility]="{ role: 'region', label: comparison().title }">
+  <header class="lsd-decision-comparison__header"><div><h2 class="text-lg font-semibold">{{ comparison().title }}</h2><p class="text-sm text-text-muted">{{ comparison().kind === 'current-proposed' ? 'Current versus proposed decision' : 'Historical versus new ADR content' }}</p></div><div class="lsd-decision-comparison__actions" role="group" [attr.aria-label]="comparison().title + ' actions'"><ng-content select="[lsdDecisionComparisonActions]" /></div></header>
+  <lsd-split-view [id]="id() + '-split'" [accessibleName]="comparison().title" [contextLabel]="comparison().left.label" [outputLabel]="comparison().right.label" [ratio]="ratio()" [compactPane]="compactPane()" (compactPaneChange)="compactPane.set($event)">
+    <article lsdSplitViewContext [attr.aria-labelledby]="id() + '-left-title'">
+      <header class="lsd-decision-comparison__pane-header"><div><span class="text-xs font-semibold text-text-muted">{{ comparison().left.id }}</span><h3 class="font-semibold" [id]="id() + '-left-title'">{{ comparison().left.label }}</h3></div>@if (comparison().left.status; as status) { <lsd-badge [variant]="status.variant">{{ status.label }}</lsd-badge> }</header>
+      @if (comparison().left.changedBy || comparison().left.changedAt) { <p class="text-xs text-text-muted">{{ comparison().left.changedBy }} {{ comparison().left.changedAt }}</p> }
+      <div class="lsd-decision-comparison__content"><ng-content select="[lsdDecisionComparisonLeft]" /></div>
+    </article>
+    <article lsdSplitViewOutput [attr.aria-labelledby]="id() + '-right-title'">
+      <header class="lsd-decision-comparison__pane-header"><div><span class="text-xs font-semibold text-text-muted">{{ comparison().right.id }}</span><h3 class="font-semibold" [id]="id() + '-right-title'">{{ comparison().right.label }}</h3></div>@if (comparison().right.status; as status) { <lsd-badge [variant]="status.variant">{{ status.label }}</lsd-badge> }</header>
+      @if (comparison().right.changedBy || comparison().right.changedAt) { <p class="text-xs text-text-muted">{{ comparison().right.changedBy }} {{ comparison().right.changedAt }}</p> }
+      <div class="lsd-decision-comparison__content"><ng-content select="[lsdDecisionComparisonRight]" /></div>
+    </article>
+  </lsd-split-view>
+  <footer class="lsd-decision-comparison__summary"><ng-content select="[lsdDecisionComparisonSummary]" /></footer>
+</lsd-surface>

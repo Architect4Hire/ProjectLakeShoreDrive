@@ -1,0 +1,18 @@
+<div class="lsd-approval-actions" [attr.data-mode]="mode()" [style.--lsd-approval-sticky-layer]="stickyLayer">
+  <lsd-surface tone="raised" padding="compact" radius="panel" border="strong" elevation="sticky" [accessibility]="{ role: 'region', label: label() }">
+    @if (warnings().length) {
+      <lsd-alert-banner [id]="id() + '-warnings'" title="Validation warnings" severity="warning" announcement="polite">
+        <ul>@for (warning of warnings(); track warning) { <li>{{ warning }}</li> }</ul>
+      </lsd-alert-banner>
+    }
+    <div class="lsd-approval-actions__bar">
+      <div class="lsd-approval-actions__state"><lsd-badge [variant]="statusView().variant">{{ statusView().label }}</lsd-badge><lsd-badge [variant]="provenanceView().variant">{{ provenanceView().label }}</lsd-badge><ng-content select="[lsdApprovalContext]" /></div>
+      <div class="lsd-approval-actions__buttons" role="group" [attr.aria-label]="label() + ' actions'">
+        <ng-content select="[lsdApprovalSecondaryActions]" />
+        <lsd-button tone="warning" impact="light" [disabled]="unavailable(requestChangeDisabled())" [loading]="processing() === 'request-change'" loadingLabel="Requesting changes" (activated)="changeRequested.emit()">Request changes</lsd-button>
+        <lsd-button tone="danger" impact="light" [disabled]="unavailable(rejectDisabled())" [loading]="processing() === 'reject'" loadingLabel="Rejecting" (activated)="rejected.emit()">Reject</lsd-button>
+        <lsd-button tone="success" [disabled]="unavailable(approveDisabled())" [loading]="processing() === 'approve'" loadingLabel="Approving" (activated)="approved.emit()">Approve</lsd-button>
+      </div>
+    </div>
+  </lsd-surface>
+</div>

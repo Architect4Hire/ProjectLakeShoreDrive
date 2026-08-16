@@ -1,0 +1,7 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-approval-actions[data-mode='sticky'] { position: sticky; z-index: var(--lsd-approval-sticky-layer); inset-block-end: 0; }
+.lsd-approval-actions__bar, .lsd-approval-actions__state, .lsd-approval-actions__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.lsd-approval-actions__bar { justify-content: space-between; margin-block-start: 0.75rem; }
+.lsd-approval-actions__buttons { justify-content: flex-end; }
+@media (max-width: 47.99rem) { .lsd-approval-actions__bar { display: grid; } .lsd-approval-actions__buttons { justify-content: stretch; } }
+@media (max-width: 29.99rem) { .lsd-approval-actions__buttons { align-items: stretch; flex-direction: column; } }

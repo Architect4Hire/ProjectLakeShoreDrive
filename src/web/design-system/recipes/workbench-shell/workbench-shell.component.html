@@ -1,0 +1,52 @@
+<a class="lsd-workbench-shell__skip" [href]="'#' + contentId()" [style.--lsd-workbench-skip-layer]="skipLayer">Skip to workbench content</a>
+
+<div class="lsd-workbench-shell bg-surface-page text-text-primary">
+  @if (navigationOpen()) {
+    <button class="lsd-workbench-shell__scrim" type="button" aria-label="Close navigation" [style.--lsd-workbench-scrim-layer]="scrimLayer" (click)="closeNavigation()"></button>
+  }
+
+  <aside
+    class="lsd-workbench-shell__navigation"
+    [attr.aria-label]="navigationLabel()"
+    [attr.data-open]="navigationOpen()"
+    [attr.id]="navigationId()"
+    [style.--lsd-workbench-overlay-layer]="overlayLayer">
+    <lsd-surface tone="panel" padding="none" radius="none" border="none">
+      <div class="lsd-workbench-shell__navigation-heading">
+        <span class="font-semibold">{{ navigationTitle() }}</span>
+        <lsd-button class="lsd-workbench-shell__navigation-close" size="small" impact="minimal" tone="neutral"
+          accessibleLabel="Close navigation" (activated)="closeNavigation()">Close</lsd-button>
+      </div>
+      <div class="lsd-workbench-shell__navigation-content">
+        <ng-content select="[lsdWorkbenchNavigation]" />
+      </div>
+    </lsd-surface>
+  </aside>
+
+  <div class="lsd-workbench-shell__workspace">
+    <header class="lsd-workbench-shell__header" [style.--lsd-workbench-sticky-layer]="stickyLayer">
+      <lsd-surface tone="raised" padding="none" radius="none" border="none" elevation="sticky">
+        <div class="lsd-workbench-shell__toolbar">
+          <lsd-button class="lsd-workbench-shell__navigation-trigger" size="small" impact="minimal" tone="neutral"
+            accessibleLabel="Open primary navigation" [controls]="navigationId()" [expanded]="navigationOpen()"
+            (activated)="openNavigation()">Menu</lsd-button>
+          <div class="lsd-workbench-shell__engagement"><ng-content select="[lsdWorkbenchEngagement]" /></div>
+          <div class="lsd-workbench-shell__search"><ng-content select="[lsdWorkbenchSearch]" /></div>
+          <div class="lsd-workbench-shell__actions" aria-label="Workbench actions">
+            <ng-content select="[lsdWorkbenchCommandPalette]" />
+            <ng-content select="[lsdWorkbenchNotifications]" />
+            <ng-content select="[lsdWorkbenchTasks]" />
+            <ng-content select="[lsdWorkbenchUserMenu]" />
+          </div>
+        </div>
+        <div class="lsd-workbench-shell__context"><ng-content select="[lsdWorkbenchContext]" /></div>
+      </lsd-surface>
+    </header>
+
+    <main class="lsd-workbench-shell__content" tabindex="-1" [attr.aria-label]="contentLabel()" [id]="contentId()">
+      <ng-content />
+    </main>
+
+    <footer class="lsd-workbench-shell__footer"><ng-content select="[lsdWorkbenchFooter]" /></footer>
+  </div>
+</div>

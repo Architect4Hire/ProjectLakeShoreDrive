@@ -1,0 +1,46 @@
+<lsd-surface tone="panel" padding="default" radius="panel" border="default"
+  [accessibility]="{ role: 'region', label: 'Engagement: ' + engagement().name }">
+  <div class="lsd-engagement-header">
+    <div class="lsd-engagement-header__primary">
+      <div class="lsd-engagement-header__identity">
+        <div class="lsd-engagement-header__title-row">
+          @if (headingLevel() === 1) {
+            <h1 class="text-xl font-semibold" [id]="headingId()">{{ engagement().name }}</h1>
+          } @else {
+            <h2 class="text-xl font-semibold" [id]="headingId()">{{ engagement().name }}</h2>
+          }
+          <lsd-badge [variant]="statusPresentation().variant" [announce]="announceStatus()">
+            {{ statusPresentation().label }}
+          </lsd-badge>
+        </div>
+        <p class="text-sm text-text-muted">
+          <span>{{ engagement().clientName }}</span>
+          @if (engagement().engagementType; as engagementType) {
+            <span aria-hidden="true"> · </span><span>{{ engagementType }}</span>
+          }
+        </p>
+      </div>
+
+      <div class="lsd-engagement-header__actions" role="group" [attr.aria-label]="actionsLabel()">
+        <ng-content select="[lsdEngagementHeaderActions]" />
+      </div>
+    </div>
+
+    @if (engagement().clientMetadata?.length) {
+      <dl class="lsd-engagement-header__metadata" aria-label="Client metadata">
+        @for (item of engagement().clientMetadata; track item.label) {
+          <div class="lsd-engagement-header__metadata-item">
+            <dt class="text-xs font-semibold text-text-muted">{{ item.label }}</dt>
+            <dd class="text-sm">{{ item.value }}</dd>
+          </div>
+        }
+      </dl>
+    }
+
+    <lsd-separator decorative spacing="compact" />
+
+    <nav class="lsd-engagement-header__context" [attr.aria-label]="contextSwitcherLabel()">
+      <ng-content select="[lsdEngagementHeaderContextSwitcher]" />
+    </nav>
+  </div>
+</lsd-surface>

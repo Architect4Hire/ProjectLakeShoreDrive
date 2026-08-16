@@ -1,0 +1,14 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-phase-navigation { min-inline-size: 0; }
+.lsd-phase-navigation__list { display: flex; max-inline-size: 100%; gap: 0.25rem; overflow-x: auto; scroll-padding-inline: 0.5rem; scrollbar-width: thin; }
+.lsd-phase-navigation__item { flex: 0 0 auto; scroll-snap-align: start; }
+.lsd-phase-navigation__item[aria-current='page'] { position: relative; }
+.lsd-phase-navigation__item[aria-current='page']::after { position: absolute; inset: auto 0.5rem -0.25rem; block-size: 0.1875rem; border-radius: 999px; background: var(--lsd-color-accent-primary); content: ''; }
+
+.lsd-phase-navigation[data-orientation='vertical'] .lsd-phase-navigation__list { display: grid; overflow: visible; }
+.lsd-phase-navigation[data-orientation='vertical'] .lsd-phase-navigation__item { min-inline-size: 0; }
+.lsd-phase-navigation[data-orientation='vertical'] .lsd-phase-navigation__item[aria-current='page']::after { inset: 0.25rem auto 0.25rem -0.25rem; inline-size: 0.1875rem; block-size: auto; }
+
+@media (max-width: 47.99rem) {
+  .lsd-phase-navigation[data-orientation='horizontal'] .lsd-phase-navigation__list { scroll-snap-type: inline proximity; }
+}

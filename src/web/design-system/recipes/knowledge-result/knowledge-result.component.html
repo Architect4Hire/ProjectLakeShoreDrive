@@ -1,0 +1,14 @@
+<lsd-surface tone="panel" padding="default" radius="panel" border="default" [accessibility]="{ role: 'region', label: result().title }">
+  <article class="lsd-knowledge-result">
+    <header class="lsd-knowledge-result__header"><div><p class="text-xs font-semibold text-text-muted">{{ result().artifactType }} · {{ result().sourceId }}</p><h3 class="font-semibold">{{ result().title }}</h3></div><div class="lsd-knowledge-result__badges"><lsd-badge [variant]="approvalView().variant">{{ approvalView().label }}</lsd-badge><lsd-badge [variant]="confidentialityView().variant">{{ confidentialityView().label }}</lsd-badge></div></header>
+    <p class="lsd-knowledge-result__scope text-sm text-text-muted">Scope: {{ result().scope.clientLabel || 'No client label' }}@if (result().scope.engagementLabel) { <span> · {{ result().scope.engagementLabel }}</span> }</p>
+    <p class="lsd-knowledge-result__excerpt">{{ result().excerpt }}</p>
+    <ul class="lsd-knowledge-result__tags" aria-label="Knowledge tags">@for (tag of result().tags; track tag) { <li><lsd-badge size="small" variant="neutral">{{ tag }}</lsd-badge></li> }</ul>
+    <footer class="lsd-knowledge-result__actions" role="group" [attr.aria-label]="'Source actions for ' + result().title">
+      <lsd-citation-chip [citation]="citation()" [previewId]="previewId()" [previewOpen]="previewOpen()" [disabled]="actionsDisabled()" (previewRequested)="previewRequested.emit(result())" />
+      <lsd-button impact="minimal" tone="info" [disabled]="actionsDisabled()" (activated)="openSourceRequested.emit(result())">Open source</lsd-button>
+      <lsd-button [impact]="selected() ? 'light' : 'bold'" tone="primary" [disabled]="actionsDisabled()" [pressed]="selected()" (activated)="selectionRequested.emit(result())">{{ selected() ? 'Selected for context' : 'Use as context' }}</lsd-button>
+      <ng-content select="[lsdKnowledgeResultActions]" />
+    </footer>
+  </article>
+</lsd-surface>

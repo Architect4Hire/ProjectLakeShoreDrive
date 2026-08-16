@@ -1,0 +1,8 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-decision-comparison__header, .lsd-decision-comparison__pane-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.lsd-decision-comparison__header { margin-block-end: 1rem; }
+.lsd-decision-comparison__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.lsd-decision-comparison__content { margin-block-start: 1rem; }
+.lsd-decision-comparison__summary { margin-block-start: 1rem; }
+.lsd-decision-comparison__summary:empty, .lsd-decision-comparison__actions:empty { display: none; }
+@media (max-width: 47.99rem) { .lsd-decision-comparison__header { display: grid; } }

@@ -1,0 +1,40 @@
+<lsd-surface tone="panel" padding="compact" radius="panel" border="default"
+  [accessibility]="{ role: 'region', label: label() }">
+  <div class="lsd-source-citations">
+    <div class="lsd-source-citations__heading">
+      <h3 class="text-sm font-semibold">{{ label() }}</h3>
+      <span class="text-xs text-text-muted">{{ citations().length }} {{ citations().length === 1 ? 'source' : 'sources' }}</span>
+    </div>
+    <div class="lsd-source-citations__list" role="list" [attr.aria-label]="label()">
+      @for (citation of citations(); track citation.sourceId) {
+        <span role="listitem">
+          <lsd-citation-chip
+            [citation]="citation"
+            [previewId]="previewId()"
+            [previewOpen]="previewOpen() && selectedSourceId() === citation.sourceId"
+            [disabled]="citation.disabled ?? false"
+            (previewRequested)="select($event)" />
+        </span>
+      } @empty {
+        <p class="text-sm text-text-muted" role="status">No source citations</p>
+      }
+    </div>
+    <ng-content select="[lsdSourceCitationsMetadata]" />
+  </div>
+</lsd-surface>
+
+@if (selectedSource(); as source) {
+  <lsd-source-preview
+    [id]="previewId()"
+    [source]="source"
+    [open]="previewOpen()"
+    [state]="previewState()"
+    [openSourceDisabled]="openSourceDisabled()"
+    (closeRequested)="previewCloseRequested.emit($event)"
+    (retryRequested)="retry($event)"
+    (openSourceRequested)="openSource($event)">
+    <div lsdSourcePreviewPassage><ng-content select="[lsdSourceCitationPassage]" /></div>
+    <div lsdSourcePreviewContext><ng-content select="[lsdSourceCitationContext]" /></div>
+    <div lsdSourcePreviewActions><ng-content select="[lsdSourceCitationActions]" /></div>
+  </lsd-source-preview>
+}

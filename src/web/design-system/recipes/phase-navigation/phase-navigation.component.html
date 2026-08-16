@@ -1,0 +1,22 @@
+<lsd-surface tone="panel" padding="compact" radius="panel" border="default">
+  <nav class="lsd-phase-navigation" [attr.aria-label]="label()" [attr.data-orientation]="orientation()">
+    <ol class="lsd-phase-navigation__list">
+      @for (phase of phases; track phase.id) {
+        <li class="lsd-phase-navigation__item" [attr.aria-current]="stateOf(phase.id) === 'active' ? 'page' : null">
+          <lsd-button
+            size="small"
+            [fullWidth]="orientation() === 'vertical'"
+            [impact]="stateOf(phase.id) === 'active' ? 'light' : 'minimal'"
+            [tone]="presentationOf(phase.id).tone"
+            [accessibleLabel]="phase.label + (presentationOf(phase.id).badge ? ', ' + presentationOf(phase.id).badge : '')"
+            (activated)="requestPhase(phase.id)">
+            <span>{{ phase.label }}</span>
+            @if (presentationOf(phase.id).badge; as badge) {
+              <lsd-badge size="small" [variant]="presentationOf(phase.id).variant">{{ badge }}</lsd-badge>
+            }
+          </lsd-button>
+        </li>
+      }
+    </ol>
+  </nav>
+</lsd-surface>

@@ -1,0 +1,6 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-document-section-editor__toolbar, .lsd-document-section-editor__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.lsd-document-section-editor__content { min-inline-size: 0; }
+.lsd-document-section-editor__citations { margin-block-start: 1rem; }
+.lsd-document-section-editor__citations:empty { display: none; }
+@media (max-width: 29.99rem) { .lsd-document-section-editor__actions { align-items: stretch; flex-direction: column; } }

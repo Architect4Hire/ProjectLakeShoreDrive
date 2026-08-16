@@ -1,0 +1,8 @@
+import type { DecisionComparisonKind } from './decision-comparison.component'; import type { SplitViewRatio } from '../../patterns';
+interface Case{readonly name:string;readonly appearance:'light'|'dark';readonly viewport:'desktop'|'mobile';readonly kind:DecisionComparisonKind;readonly ratio:SplitViewRatio;readonly pane:'context'|'output';}
+export const decisionComparisonVisualCases:readonly Case[]=[
+ {name:'current-proposed-light-desktop',appearance:'light',viewport:'desktop',kind:'current-proposed',ratio:'balanced',pane:'output'},
+ {name:'historical-new-dark-desktop',appearance:'dark',viewport:'desktop',kind:'historical-new',ratio:'context-wide',pane:'context'},
+ {name:'current-mobile-left',appearance:'light',viewport:'mobile',kind:'current-proposed',ratio:'output-wide',pane:'context'},
+ {name:'historical-mobile-right',appearance:'dark',viewport:'mobile',kind:'historical-new',ratio:'balanced',pane:'output'},];
+describe('decision comparison visual coverage',()=>{it('covers appearances, widths, kinds, ratios, and compact panes',()=>{expect(new Set(decisionComparisonVisualCases.map(x=>x.appearance))).toEqual(new Set(['light','dark']));expect(new Set(decisionComparisonVisualCases.map(x=>x.viewport))).toEqual(new Set(['desktop','mobile']));expect(new Set(decisionComparisonVisualCases.map(x=>x.kind))).toEqual(new Set(['current-proposed','historical-new']));expect(new Set(decisionComparisonVisualCases.map(x=>x.ratio))).toEqual(new Set(['balanced','context-wide','output-wide']));expect(new Set(decisionComparisonVisualCases.map(x=>x.pane))).toEqual(new Set(['context','output']));});});

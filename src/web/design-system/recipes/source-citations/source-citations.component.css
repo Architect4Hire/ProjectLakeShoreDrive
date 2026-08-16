@@ -1,0 +1,7 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-source-citations { display: grid; min-inline-size: 0; gap: 0.75rem; }
+.lsd-source-citations__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.lsd-source-citations__list { display: flex; min-inline-size: 0; flex-wrap: wrap; gap: 0.5rem; }
+@media (max-width: 29.99rem) {
+  .lsd-source-citations__list { display: grid; align-items: stretch; }
+}
