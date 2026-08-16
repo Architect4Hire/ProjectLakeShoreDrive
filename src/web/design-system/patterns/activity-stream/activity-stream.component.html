@@ -1,0 +1,45 @@
+<lsd-surface tone="panel" padding="default" radius="panel" border="default" [accessibility]="{ role: 'region', label: accessibleName() }">
+  @if (items().length === 0) {
+    <lsd-state-feedback
+      [id]="id() + '-empty'"
+      kind="empty"
+      [title]="emptyTitle()"
+      [description]="emptyDescription()" />
+  } @else {
+    <ol class="lsd-activity-stream" [attr.aria-label]="accessibleName()" [attr.id]="id()">
+      @for (item of items(); track item.identity; let index = $index; let count = $count) {
+        <li class="lsd-activity-stream__item">
+          <span class="lsd-activity-stream__marker" aria-hidden="true"></span>
+          <article class="lsd-activity-stream__event" [attr.aria-labelledby]="id() + '-action-' + index">
+            <header class="lsd-activity-stream__header">
+              <div>
+                <p class="lsd-activity-stream__action" [id]="id() + '-action-' + index">
+                  <strong>{{ item.actor }}</strong> {{ item.action }}
+                </p>
+                <time class="lsd-activity-stream__time text-text-muted" [attr.datetime]="item.occurredAt">
+                  {{ item.timestampLabel }}
+                </time>
+              </div>
+              <lsd-badge size="small" [variant]="attributionVariant(item.attribution)">
+                {{ attributionLabel(item.attribution) }}
+              </lsd-badge>
+            </header>
+            @if (item.source) {
+              <p class="lsd-activity-stream__source text-text-muted"><span class="lsd-sr-only">Source: </span>{{ item.source }}</p>
+            }
+            @if (item.hasDetails && detailsTemplate()) {
+              <details class="lsd-activity-stream__details">
+                <summary>{{ detailsLabel() }}</summary>
+                <div class="lsd-activity-stream__details-content">
+                  <ng-container
+                    [ngTemplateOutlet]="detailsTemplate()!.template"
+                    [ngTemplateOutletContext]="{ $implicit: item, index, count }" />
+                </div>
+              </details>
+            }
+          </article>
+        </li>
+      }
+    </ol>
+  }
+</lsd-surface>

@@ -134,7 +134,6 @@ USAGE: Record source repository, license type, and files requiring retention.
 BEHAVIOR: Create or update only the design-system third-party notice/attribution document if required. STOP.
 ```
 
-
 # Phase 1 — Extract the production design-system boundary
 
 ## Prompt DS-004 — Create the design-system root structure
@@ -216,7 +215,6 @@ USAGE: Replace hard-coded starter labels/data with typed inputs, content project
 
 BEHAVIOR: Verify no design-system primitive depends on starter dashboard domain models. STOP.
 ```
-
 
 # Phase 2 — Tokens, foundations, themes, and Tailwind boundary
 
@@ -460,7 +458,6 @@ USAGE: Favor import-boundary enforcement plus targeted class-pattern detection.
 BEHAVIOR: Verify the rule catches at least one synthetic violation. STOP.
 ```
 
-
 # Phase 3 — Primitive controls
 
 ## Prompt DS-020 — Create the Button primitive
@@ -642,7 +639,6 @@ USAGE: Adapt useful starter implementations only when they satisfy the Lake Shor
 
 BEHAVIOR: Add focused unit/component tests and documentation; verify keyboard and both appearances. STOP.
 ```
-
 
 # Phase 4 — Composite components
 
@@ -866,7 +862,6 @@ USAGE: Preserve useful starter behavior where it is production-quality; replace 
 BEHAVIOR: Add tests, docs, responsive verification, and visual-regression coverage for critical states. STOP.
 ```
 
-
 # Phase 5 — Business-neutral UX patterns
 
 ## Prompt DS-040 — Create Empty/Loading/Error state patterns
@@ -1008,7 +1003,6 @@ USAGE: Use content projection and typed configuration only where it improves cla
 
 BEHAVIOR: Document composition, responsive behavior, and accessibility; add tests for interaction states. STOP.
 ```
-
 
 # Phase 6 — AI-specific UX patterns
 
@@ -1191,7 +1185,6 @@ USAGE: Expose typed presentation contracts only; all sensitive data decisions re
 
 BEHAVIOR: Document states and add accessibility plus visual-regression tests. STOP.
 ```
-
 
 # Phase 7 — Workbench layouts and Lake Shore Drive recipes
 
@@ -1435,7 +1428,6 @@ USAGE: Use typed view models/interfaces owned by the design-system recipe only w
 BEHAVIOR: Document use, states, responsive behavior, and accessibility; add visual-regression coverage. STOP.
 ```
 
-
 # Phase 8 — Documentation, quality gates, and drop-in packaging
 
 ## Prompt DS-068 — Create the design-system documentation index
@@ -1639,6 +1631,7 @@ BEHAVIOR: Report the exact folder tree, dependency deltas, verification commands
 ```
 
 ---
+
 # Completion definition
 
 The transformation is complete only when:

@@ -1,0 +1,72 @@
+<section class="lsd-search-results" [attr.aria-label]="accessibleName()" [attr.id]="id()">
+  <lsd-filter-action-bar
+    [id]="id() + '-tools'"
+    [accessibleName]="accessibleName() + ' controls'"
+    [activeFilterCount]="activeFilterCount()">
+    <div lsdFilterBarSearch><ng-content select="[lsdSearchQuery]" /></div>
+    <div lsdFilterBarFilters><ng-content select="[lsdSearchFacets]" /></div>
+    <div lsdFilterBarActions><ng-content select="[lsdSearchActions]" /></div>
+  </lsd-filter-action-bar>
+
+  @if (state() === 'idle') {
+    <lsd-state-feedback [id]="id() + '-idle'" kind="empty" [title]="idleTitle()" />
+  } @else if (state() === 'loading') {
+    <lsd-state-feedback [id]="id() + '-loading'" kind="loading" title="Searching" [description]="query() || undefined" />
+  } @else if (state() === 'error') {
+    <lsd-state-feedback
+      [id]="id() + '-error'"
+      kind="recoverable-error"
+      [title]="errorTitle()"
+      [description]="errorDescription()">
+      <div lsdStateActions><ng-content select="[lsdSearchErrorActions]" /></div>
+    </lsd-state-feedback>
+  } @else if (results().length === 0) {
+    <lsd-state-feedback [id]="id() + '-empty'" kind="empty" [title]="emptyTitle()" [description]="resultSummary()">
+      <div lsdStateActions><ng-content select="[lsdSearchEmptyActions]" /></div>
+    </lsd-state-feedback>
+  } @else {
+    <p class="lsd-search-results__summary text-text-muted" role="status">{{ resultSummary() }}</p>
+    <ol class="lsd-search-results__list" aria-label="Matching results">
+      @for (result of results(); track result.identity; let index = $index; let count = $count) {
+        <li>
+          <lsd-surface tone="panel" padding="default" radius="panel" border="default" [accessibility]="{ role: 'none' }">
+            <article
+              #resultItem
+              class="lsd-search-results__result"
+              [attr.aria-labelledby]="id() + '-result-title-' + index"
+              [attr.tabindex]="activeIndex() === index ? 0 : -1"
+              (focus)="activeIndex.set(index); resultFocused.emit(result.identity)"
+              (keydown)="handleResultKeydown($event, index, result.identity)">
+              <h2 class="lsd-search-results__title" [id]="id() + '-result-title-' + index">{{ result.title }}</h2>
+              @if (result.description) { <p class="text-text-muted">{{ result.description }}</p> }
+              @if (result.metadata?.length) {
+                <dl class="lsd-search-results__metadata">
+                  @for (metadata of result.metadata; track metadata.label) {
+                    <div><dt>{{ metadata.label }}</dt><dd>{{ metadata.value }}</dd></div>
+                  }
+                </dl>
+              }
+              @if (contentTemplate()) {
+                <div class="lsd-search-results__content">
+                  <ng-container
+                    [ngTemplateOutlet]="contentTemplate()!.template"
+                    [ngTemplateOutletContext]="{ $implicit: result, index, count }" />
+                </div>
+              }
+              @if (result.hasDetails && detailsTemplate()) {
+                <details class="lsd-search-results__details">
+                  <summary>{{ detailsLabel() }}</summary>
+                  <div class="lsd-search-results__details-content">
+                    <ng-container
+                      [ngTemplateOutlet]="detailsTemplate()!.template"
+                      [ngTemplateOutletContext]="{ $implicit: result, index, count }" />
+                  </div>
+                </details>
+              }
+            </article>
+          </lsd-surface>
+        </li>
+      }
+    </ol>
+  }
+</section>

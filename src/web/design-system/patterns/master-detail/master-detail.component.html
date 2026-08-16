@@ -1,0 +1,38 @@
+<section
+  class="lsd-master-detail"
+  [attr.aria-label]="masterLabel() + ' and ' + detailLabel()"
+  [attr.data-view]="view()"
+  [attr.id]="id()">
+  <lsd-surface tone="panel" padding="none" radius="panel" border="default" [accessibility]="{ role: 'none' }">
+    <div
+      #masterPane
+      class="lsd-master-detail__master"
+      role="region"
+      tabindex="-1"
+      [attr.aria-label]="masterLabel()"
+      [attr.id]="id() + '-master'">
+      <ng-content select="[lsdMasterDetailMaster]" />
+    </div>
+  </lsd-surface>
+
+  <lsd-surface tone="raised" padding="none" radius="panel" border="default" [accessibility]="{ role: 'none' }">
+    <div
+      #detailPane
+      class="lsd-master-detail__detail"
+      role="region"
+      tabindex="-1"
+      [attr.aria-label]="detailLabel()"
+      [attr.id]="id() + '-detail'">
+      <div class="lsd-master-detail__back">
+        <lsd-button impact="minimal" tone="neutral" size="small" (activated)="showMaster()">
+          {{ backLabel() }}
+        </lsd-button>
+      </div>
+      @if (detailAvailable()) {
+        <ng-content select="[lsdMasterDetailDetail]" />
+      } @else {
+        <div class="lsd-master-detail__placeholder text-text-muted"><ng-content select="[lsdMasterDetailPlaceholder]" /></div>
+      }
+    </div>
+  </lsd-surface>
+</section>

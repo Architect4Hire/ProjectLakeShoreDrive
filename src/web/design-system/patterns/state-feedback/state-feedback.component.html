@@ -1,0 +1,44 @@
+<lsd-surface
+  tone="panel"
+  padding="comfortable"
+  radius="panel"
+  border="default"
+  [accessibility]="{ role: 'none' }">
+  <section
+    class="lsd-state-feedback"
+    [attr.aria-busy]="busy()"
+    [attr.aria-describedby]="description() ? descriptionId() : null"
+    [attr.aria-labelledby]="labelledBy()"
+    [attr.aria-live]="live()"
+    [attr.id]="id()"
+    [attr.role]="role()">
+    @if (isError()) {
+      <lsd-alert-banner
+        [id]="id() + '-alert'"
+        [title]="title()"
+        [severity]="errorSeverity()"
+        announcement="off">
+        @if (description()) { <p [id]="descriptionId()">{{ description() }}</p> }
+      </lsd-alert-banner>
+    } @else {
+      @if (kind() === 'loading') {
+        <span class="lsd-state-feedback__spinner" aria-hidden="true"></span>
+      }
+      <h2 class="lsd-state-feedback__title" [id]="titleId()">{{ title() }}</h2>
+      @if (description()) {
+        <p class="lsd-state-feedback__description text-text-muted" [id]="descriptionId()">{{ description() }}</p>
+      }
+      @if (kind() === 'skeleton') {
+        <div class="lsd-state-feedback__skeleton" aria-hidden="true">
+          @for (_ of lines(); track $index) {
+            <span class="lsd-state-feedback__skeleton-line"></span>
+          }
+        </div>
+      }
+    }
+
+    <div class="lsd-state-feedback__body"><ng-content /></div>
+    <div class="lsd-state-feedback__actions"><ng-content select="[lsdStateActions]" /></div>
+    <ng-content select="[lsdStateDetails]" />
+  </section>
+</lsd-surface>

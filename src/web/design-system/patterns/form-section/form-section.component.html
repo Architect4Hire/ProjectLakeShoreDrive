@@ -1,0 +1,48 @@
+<lsd-surface
+  tone="panel"
+  [padding]="surfacePadding()"
+  radius="panel"
+  border="default"
+  [accessibility]="{ role: 'none' }">
+  <fieldset
+    class="lsd-form-section"
+    [attr.aria-describedby]="describedBy()"
+    [attr.data-density]="density()"
+    [disabled]="disabled()"
+    [id]="id()">
+    <legend class="lsd-form-section__legend" [id]="id() + '-title'">{{ title() }}</legend>
+
+    <div class="lsd-form-section__header">
+      @if (guidance()) {
+        <p class="lsd-form-section__guidance text-text-muted" [id]="id() + '-guidance'">{{ guidance() }}</p>
+      }
+      <div class="lsd-form-section__actions" role="group" [attr.aria-label]="title() + ' actions'">
+        <ng-content select="[lsdFormSectionActions]" />
+      </div>
+    </div>
+
+    @if (errorTitle()) {
+      <lsd-alert-banner
+        [id]="id() + '-error'"
+        [title]="errorTitle()!"
+        severity="danger"
+        [announcement]="errorAnnouncement()">
+        <ng-content select="[lsdFormSectionErrors]" />
+      </lsd-alert-banner>
+    }
+
+    <div class="lsd-form-section__fields"><ng-content /></div>
+
+    @if (hasDisclosure()) {
+      <details
+        class="lsd-form-section__disclosure"
+        [open]="disclosureExpanded()"
+        (toggle)="disclosureToggled($event)">
+        <summary>{{ disclosureLabel() }}</summary>
+        <div class="lsd-form-section__disclosure-content">
+          <ng-content select="[lsdFormSectionDisclosure]" />
+        </div>
+      </details>
+    }
+  </fieldset>
+</lsd-surface>

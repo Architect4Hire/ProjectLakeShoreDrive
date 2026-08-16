@@ -1,0 +1,47 @@
+<lsd-surface tone="panel" padding="default" radius="prominent" border="default" [accessibility]="{ role: 'region', label: title() }">
+  <div class="lsd-review-approval">
+    <header class="lsd-review-approval__header">
+      <div>
+        <h2 [id]="id() + '-title'">{{ title() }}</h2>
+        <div class="lsd-review-approval__badges">
+          <lsd-badge [variant]="provenancePresentation().variant">{{ provenancePresentation().label }}</lsd-badge>
+          <lsd-badge [variant]="decisionVariant()" [announce]="decision() !== 'pending'">{{ statusText() }}</lsd-badge>
+        </div>
+      </div>
+      <div class="lsd-review-approval__provenance"><ng-content select="[lsdReviewProvenance]" /></div>
+    </header>
+
+    <lsd-split-view
+      [id]="id() + '-comparison'"
+      [accessibleName]="title() + ' comparison'"
+      [contextLabel]="currentLabel()"
+      [outputLabel]="proposedLabel()"
+      ratio="balanced">
+      <div lsdSplitViewContext><ng-content select="[lsdReviewCurrent]" /></div>
+      <div lsdSplitViewOutput><ng-content select="[lsdReviewProposed]" /></div>
+    </lsd-split-view>
+
+    <footer class="lsd-review-approval__footer">
+      <div class="lsd-review-approval__secondary-actions"><ng-content select="[lsdReviewActions]" /></div>
+      <div class="lsd-review-approval__decision-actions" role="group" aria-label="Review decision">
+        <lsd-button
+          impact="light"
+          tone="danger"
+          [disabled]="unavailable()"
+          [loading]="processing() === 'reject'"
+          loadingLabel="Rejecting proposal"
+          (activated)="reject()">
+          {{ rejectLabel() }}
+        </lsd-button>
+        <lsd-button
+          tone="success"
+          [disabled]="unavailable() || approvalDisabled()"
+          [loading]="processing() === 'approve'"
+          loadingLabel="Approving proposal"
+          (activated)="approve()">
+          {{ approveLabel() }}
+        </lsd-button>
+      </div>
+    </footer>
+  </div>
+</lsd-surface>

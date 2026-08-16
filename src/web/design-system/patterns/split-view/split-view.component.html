@@ -1,0 +1,51 @@
+<section
+  class="lsd-split-view"
+  [attr.aria-label]="accessibleName()"
+  [attr.data-compact-pane]="compactPane()"
+  [attr.data-ratio]="ratio()"
+  [attr.id]="id()">
+  <div class="lsd-split-view__switcher" role="group" [attr.aria-label]="accessibleName() + ' view'">
+    <lsd-button
+      impact="minimal"
+      size="small"
+      tone="neutral"
+      [pressed]="compactPane() === 'context'"
+      (activated)="showPane('context')">
+      {{ contextLabel() }}
+    </lsd-button>
+    <lsd-button
+      impact="minimal"
+      size="small"
+      tone="neutral"
+      [pressed]="compactPane() === 'output'"
+      (activated)="showPane('output')">
+      {{ outputLabel() }}
+    </lsd-button>
+  </div>
+
+  <div class="lsd-split-view__panes">
+    <lsd-surface tone="panel" padding="none" radius="panel" border="default" [accessibility]="{ role: 'none' }">
+      <section
+        #contextPane
+        class="lsd-split-view__pane lsd-split-view__pane--context"
+        role="region"
+        tabindex="-1"
+        [attr.aria-label]="contextLabel()"
+        [attr.id]="id() + '-context'">
+        <ng-content select="[lsdSplitViewContext]" />
+      </section>
+    </lsd-surface>
+
+    <lsd-surface tone="raised" padding="none" radius="panel" border="default" [accessibility]="{ role: 'none' }">
+      <section
+        #outputPane
+        class="lsd-split-view__pane lsd-split-view__pane--output"
+        role="region"
+        tabindex="-1"
+        [attr.aria-label]="outputLabel()"
+        [attr.id]="id() + '-output'">
+        <ng-content select="[lsdSplitViewOutput]" />
+      </section>
+    </lsd-surface>
+  </div>
+</section>
