@@ -1,0 +1,8 @@
+<button
+  [attr.aria-pressed]="pressed()"
+  [class]="classes()"
+  [disabled]="disabled()"
+  [type]="type()"
+  (click)="activated.emit()">
+  <ng-content />
+</button>
