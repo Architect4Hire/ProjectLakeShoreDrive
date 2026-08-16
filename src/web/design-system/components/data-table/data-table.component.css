@@ -1,0 +1,28 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-data-table { min-inline-size: 0; }
+.lsd-data-table__scroll { max-inline-size: 100%; overflow-x: auto; border-radius: 0.5rem; }
+table { inline-size: 100%; border-collapse: collapse; color: var(--lsd-color-text-primary); }
+th, td { padding: 0.75rem 1rem; border-block-end: 1px solid var(--lsd-color-border-default); vertical-align: middle; }
+th { background: var(--lsd-color-surface-raised); font-size: 0.75rem; letter-spacing: 0.025em; text-transform: uppercase; white-space: nowrap; }
+tbody tr:last-child td { border-block-end: 0; }
+table[data-density='compact'] th, table[data-density='compact'] td { padding-block: 0.5rem; }
+.lsd-data-table__actions { white-space: nowrap; }
+.lsd-data-table__actions button + button { margin-inline-start: 0.25rem; }
+.lsd-data-table__actions button, .lsd-data-table__card-actions button { min-block-size: 2.75rem; padding-inline: 0.75rem; }
+.lsd-data-table__state { display: flex; min-block-size: 6rem; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.5rem; padding: 1rem; text-align: center; }
+.lsd-data-table__spinner { block-size: 1.5rem; inline-size: 1.5rem; border: 0.1875rem solid var(--lsd-color-border-default); border-block-start-color: var(--lsd-color-accent-primary); border-radius: 9999px; animation: lsd-data-table-spin var(--motion-duration-deliberate) linear infinite; }
+.lsd-data-table__cards { display: none; margin: 0; padding: 0; list-style: none; }
+.lsd-data-table__card { border-radius: 0.5rem; padding: 1rem; }
+.lsd-data-table__card dl { display: grid; gap: 0.75rem; }
+.lsd-data-table__card dl > div { display: grid; gap: 0.125rem; }
+.lsd-data-table__card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1rem; }
+@keyframes lsd-data-table-spin { to { transform: rotate(360deg); } }
+@media (max-width: 29.999rem) {
+  .lsd-data-table__scroll[data-responsive='cards'] { overflow: visible; border: 0; }
+  .lsd-data-table__scroll[data-responsive='cards'] table { display: none; }
+  .lsd-data-table__scroll[data-responsive='cards'] .lsd-data-table__cards { display: grid; gap: 0.75rem; }
+  .lsd-data-table__card-actions { flex-direction: column; align-items: stretch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lsd-data-table__spinner { animation: none; border-block-start-color: var(--lsd-color-border-default); }
+}

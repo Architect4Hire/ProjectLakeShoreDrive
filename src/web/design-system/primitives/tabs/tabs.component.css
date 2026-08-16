@@ -1,0 +1,31 @@
+:host { display: block; min-inline-size: 0; }
+
+.lsd-tabs__list {
+  display: flex;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  border-block-end-width: 1px;
+  scroll-padding-inline: 1rem;
+  scrollbar-width: thin;
+}
+
+.lsd-tabs__tab {
+  flex: 0 0 auto;
+  min-block-size: 2.75rem;
+  padding-inline: 1rem;
+  border-block-end: 0.1875rem solid transparent;
+  white-space: nowrap;
+  scroll-snap-align: start;
+}
+
+.lsd-tabs__tab[aria-selected='true'] {
+  border-block-end-color: var(--lsd-color-accent-primary);
+  color: var(--lsd-color-text-primary);
+}
+
+.lsd-tabs__panel { padding-block: 1rem; }
+
+@media (max-width: 29.999rem) {
+  .lsd-tabs__list { scroll-snap-type: inline proximity; }
+  .lsd-tabs__tab { min-block-size: 3rem; }
+}

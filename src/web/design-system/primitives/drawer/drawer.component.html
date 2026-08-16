@@ -1,0 +1,32 @@
+<dialog
+  #drawer
+  class="lsd-drawer border border-border-default bg-surface-raised p-0 text-text-primary"
+  [attr.aria-describedby]="descriptionId()"
+  [attr.aria-labelledby]="titleId()"
+  [attr.data-placement]="placement()"
+  [attr.id]="id()"
+  [style.--lsd-drawer-width]="drawerWidth()"
+  [style.box-shadow]="drawerShadow"
+  [style.z-index]="overlayLayer"
+  (cancel)="handleCancel($event)"
+  (click)="handleBackdrop($event)">
+  <div class="lsd-drawer__layout">
+    <header class="lsd-drawer__header">
+      <div class="lsd-drawer__heading">
+        <h2 class="text-lg font-semibold" [id]="titleId()">{{ title() }}</h2>
+        @if (description(); as descriptionText) {
+          <p class="text-sm text-text-muted" [id]="descriptionId()">{{ descriptionText }}</p>
+        }
+      </div>
+      @if (dismissible()) {
+        <button
+          class="lsd-drawer__close rounded-md text-text-muted hover:bg-surface-panel hover:text-text-primary"
+          type="button"
+          [attr.aria-label]="closeLabel()"
+          (click)="requestClose('close-button')">&#215;</button>
+      }
+    </header>
+    <section class="lsd-drawer__content"><ng-content /></section>
+    <footer class="lsd-drawer__actions"><ng-content select="[lsdDrawerActions]" /></footer>
+  </div>
+</dialog>

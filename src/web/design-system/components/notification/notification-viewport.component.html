@@ -1,0 +1,31 @@
+<aside
+  class="lsd-notification-viewport"
+  aria-label="Notifications"
+  [style.max-inline-size]="notificationWidth"
+  [style.z-index]="notificationLayer">
+  @for (notification of notificationService.notifications(); track notification.id) {
+    <section
+      [class]="classes(notification.severity)"
+      [attr.aria-atomic]="true"
+      [attr.aria-describedby]="notification.id + '-message'"
+      [attr.aria-labelledby]="notification.id + '-title'"
+      [attr.aria-live]="notification.announcement"
+      [attr.role]="role(notification.announcement)"
+      [style.box-shadow]="notificationShadow">
+      <span class="lsd-notification__symbol" aria-hidden="true">{{ symbol(notification.severity) }}</span>
+      <div class="lsd-notification__copy">
+        <h2 class="font-semibold" [id]="notification.id + '-title'">{{ notification.title }}</h2>
+        <p class="text-sm text-text-muted" [id]="notification.id + '-message'">{{ notification.message }}</p>
+        @if (notification.action; as action) {
+          <button class="lsd-notification__action text-sm font-semibold text-accent-primary" type="button"
+            (click)="invokeAction(notification)">{{ action.label }}</button>
+        }
+      </div>
+      @if (notification.dismissible) {
+        <button class="lsd-notification__dismiss rounded-md text-text-muted hover:bg-surface-panel hover:text-text-primary"
+          type="button" [attr.aria-label]="'Dismiss ' + notification.title"
+          (click)="dismiss(notification.id)">&#215;</button>
+      }
+    </section>
+  }
+</aside>

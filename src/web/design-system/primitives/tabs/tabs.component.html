@@ -1,0 +1,32 @@
+<div
+  class="lsd-tabs__list border-border-default"
+  role="tablist"
+  [attr.aria-label]="label()">
+  @for (tab of tabs(); track tab.identity; let index = $index) {
+    <button
+      #tabButton
+      class="lsd-tabs__tab text-sm font-semibold text-text-muted hover:bg-surface-raised hover:text-text-primary"
+      role="tab"
+      type="button"
+      [attr.aria-controls]="panelId(index)"
+      [attr.aria-selected]="selectedIndex() === index"
+      [attr.id]="tabId(index)"
+      [attr.tabindex]="selectedIndex() === index ? 0 : -1"
+      [disabled]="tab.disabled"
+      (click)="select(index)"
+      (keydown)="handleKeydown($event, index)">
+      {{ tab.label }}
+    </button>
+  }
+</div>
+
+@if (selectedIndex() >= 0) {
+  <div
+    class="lsd-tabs__panel text-text-primary"
+    role="tabpanel"
+    tabindex="0"
+    [attr.aria-labelledby]="tabId(selectedIndex())"
+    [attr.id]="panelId(selectedIndex())">
+    <ng-container [ngTemplateOutlet]="selectedTemplate()" />
+  </div>
+}

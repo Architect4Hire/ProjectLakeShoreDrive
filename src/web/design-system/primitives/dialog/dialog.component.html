@@ -1,0 +1,31 @@
+<dialog
+  #dialog
+  class="lsd-dialog m-auto border border-border-default bg-surface-raised p-0 text-text-primary"
+  [attr.aria-describedby]="descriptionId()"
+  [attr.aria-labelledby]="titleId()"
+  [attr.id]="id()"
+  [style.box-shadow]="dialogShadow"
+  [style.max-inline-size]="maxInlineSize()"
+  [style.z-index]="contentLayer"
+  (cancel)="handleCancel($event)"
+  (click)="handleBackdrop($event)">
+  <div class="lsd-dialog__layout">
+    <header class="lsd-dialog__header">
+      <div class="lsd-dialog__heading">
+        <h2 class="text-lg font-semibold" [id]="titleId()">{{ title() }}</h2>
+        @if (description(); as descriptionText) {
+          <p class="text-sm text-text-muted" [id]="descriptionId()">{{ descriptionText }}</p>
+        }
+      </div>
+      @if (dismissible()) {
+        <button
+          class="lsd-dialog__close rounded-md text-text-muted hover:bg-surface-panel hover:text-text-primary"
+          type="button"
+          [attr.aria-label]="closeLabel()"
+          (click)="requestClose('close-button')">&#215;</button>
+      }
+    </header>
+    <section class="lsd-dialog__content"><ng-content /></section>
+    <footer class="lsd-dialog__actions"><ng-content select="[lsdDialogActions]" /></footer>
+  </div>
+</dialog>

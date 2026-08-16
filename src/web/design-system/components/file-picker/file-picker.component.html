@@ -1,0 +1,36 @@
+<section class="lsd-file-picker" [attr.aria-labelledby]="id() + '-label'">
+  <div class="lsd-file-picker__heading">
+    <h2 class="font-semibold text-text-primary" [id]="id() + '-label'">{{ label() }}</h2>
+    @if (description(); as descriptionText) { <p class="text-sm text-text-muted" [id]="id() + '-description'">{{ descriptionText }}</p> }
+  </div>
+  <div
+    class="lsd-file-picker__dropzone border border-border-default bg-surface-panel"
+    [attr.aria-disabled]="disabled()"
+    [attr.data-dragging]="dragging()"
+    (dragenter)="dragEnter($event)"
+    (dragover)="dragOver($event)"
+    (dragleave)="dragLeave($event)"
+    (drop)="drop($event)">
+    <input #fileInput class="lsd-sr-only" type="file" tabindex="-1"
+      [accept]="accept() ?? ''" [disabled]="disabled()" [multiple]="multiple()" (change)="choose($event)" />
+    <button class="lsd-file-picker__browse rounded-md bg-accent-primary text-sm font-semibold text-text-on-accent"
+      type="button" [disabled]="disabled()" [attr.aria-describedby]="description() ? id() + '-description' : null"
+      (click)="browse()">{{ browseLabel() }}</button>
+    <span class="text-sm text-text-muted">{{ dropLabel() }}</span>
+  </div>
+  @if (rejections().length) {
+    <div class="lsd-file-picker__validation border border-status-danger bg-status-danger/10 text-sm text-text-primary"
+      role="alert" aria-live="assertive" aria-atomic="true">
+      <span class="font-semibold">Some files could not be selected</span>
+      <ul>
+        @for (rejection of rejections(); track rejection.file.name + ':' + rejection.file.size) { <li>{{ rejection.reason }}</li> }
+      </ul>
+    </div>
+  }
+  <div class="lsd-file-picker__progress" role="status" aria-live="polite" aria-atomic="true">
+    <ng-content select="[lsdFilePickerProgress]" />
+  </div>
+  <div class="lsd-file-picker__error" role="alert" aria-live="assertive" aria-atomic="true">
+    <ng-content select="[lsdFilePickerError]" />
+  </div>
+</section>

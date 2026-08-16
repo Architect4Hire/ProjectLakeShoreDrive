@@ -1,0 +1,48 @@
+<lsd-dialog [id]="id()" [title]="title()" size="medium" [open]="open()" (closeRequested)="close()">
+  <div class="lsd-command-palette">
+    <label class="lsd-sr-only" [for]="id() + '-search'">{{ searchLabel() }}</label>
+    <input
+      lsdDialogInitialFocus
+      class="lsd-command-palette__search border border-border-default bg-surface-panel text-text-primary"
+      type="search"
+      role="combobox"
+      autocomplete="off"
+      aria-autocomplete="list"
+      [attr.aria-activedescendant]="activeDescendant()"
+      [attr.aria-controls]="id() + '-commands'"
+      [attr.aria-expanded]="open()"
+      [attr.id]="id() + '-search'"
+      [attr.placeholder]="placeholder()"
+      [value]="query()"
+      (input)="updateQuery($event)"
+      (keydown)="handleSearchKeydown($event)" />
+
+    <div class="lsd-command-palette__results" role="listbox" [attr.id]="id() + '-commands'" [attr.aria-label]="title()">
+      @for (group of filteredGroups(); track group.id) {
+        <section role="group" [attr.aria-labelledby]="groupId(group)">
+          <h3 class="lsd-command-palette__group-label text-xs font-semibold text-text-muted" [id]="groupId(group)">{{ group.label }}</h3>
+          @for (command of group.commands; track command.id) {
+            <button
+              class="lsd-command-palette__command rounded-md text-text-primary hover:bg-surface-panel"
+              role="option"
+              type="button"
+              tabindex="-1"
+              [attr.aria-disabled]="command.disabled || null"
+              [attr.aria-selected]="isActive(command)"
+              [disabled]="command.disabled"
+              [id]="commandId(command)"
+              (click)="select(command)">
+              <span class="lsd-command-palette__command-copy">
+                <span class="font-semibold">{{ command.label }}</span>
+                @if (command.description) { <span class="text-sm text-text-muted">{{ command.description }}</span> }
+              </span>
+              @if (command.shortcut) { <kbd class="text-xs text-text-muted">{{ command.shortcut }}</kbd> }
+            </button>
+          }
+        </section>
+      } @empty {
+        <p class="lsd-command-palette__empty text-sm text-text-muted" role="status">No matching commands</p>
+      }
+    </div>
+  </div>
+</lsd-dialog>

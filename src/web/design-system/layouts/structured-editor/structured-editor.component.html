@@ -1,0 +1,53 @@
+<section class="lsd-structured-editor" [attr.aria-label]="accessibleName()">
+  <header class="lsd-structured-editor__toolbar border border-border-default bg-surface-panel" [style.z-index]="stickyLayer">
+    <div class="lsd-structured-editor__toolbar-content" role="toolbar" [attr.aria-label]="accessibleName() + ' tools'">
+      <ng-content select="[lsdEditorToolbar]" />
+    </div>
+    <div class="lsd-structured-editor__status text-sm text-text-muted"
+      [attr.role]="saveState() === 'error' ? 'alert' : 'status'"
+      [attr.aria-live]="saveState() === 'error' ? 'assertive' : 'polite'" aria-atomic="true">
+      @if (saveState() === 'saving') { <span class="lsd-structured-editor__spinner" aria-hidden="true"></span> }
+      {{ statusText() }}
+    </div>
+    @if (splitViewAvailable()) {
+      <button #contextToggle class="lsd-structured-editor__context-toggle rounded-md border border-border-default bg-surface-raised text-sm font-semibold text-text-primary"
+        type="button" [attr.aria-controls]="id() + '-context'" [attr.aria-expanded]="splitViewOpen()"
+        (click)="toggleContext()">{{ splitViewOpen() ? hideContextLabel() : showContextLabel() }}</button>
+    }
+    <div class="lsd-structured-editor__document-actions" role="group" aria-label="Document actions">
+      <ng-content select="[lsdEditorActions]" />
+    </div>
+  </header>
+
+  <div class="lsd-structured-editor__split" [attr.data-context-open]="splitViewOpen()">
+    <div class="lsd-structured-editor__canvas bg-surface-page" role="region"
+      [attr.aria-label]="accessibleName() + ' canvas'" [attr.id]="id() + '-canvas'">
+      <ol class="lsd-structured-editor__sections">
+        @for (section of sections(); track section.identity; let index = $index) {
+          <li>
+            <article class="lsd-structured-editor__section border border-border-default bg-surface-panel" [attr.aria-labelledby]="id() + '-section-' + index">
+              <header class="lsd-structured-editor__section-header">
+                <div><h2 class="font-semibold text-text-primary" [id]="id() + '-section-' + index">{{ section.title }}</h2>
+                  @if (section.description) { <p class="text-sm text-text-muted">{{ section.description }}</p> }</div>
+                @if (actionsFor(section.identity); as actions) {
+                  <div class="lsd-structured-editor__section-actions" role="group" [attr.aria-label]="section.title + ' actions'">
+                    <ng-container [ngTemplateOutlet]="actions.template" [ngTemplateOutletContext]="contextFor(section, index)" />
+                  </div>
+                }
+              </header>
+              <div class="lsd-structured-editor__section-content">
+                @if (contentFor(section.identity); as content) {
+                  <ng-container [ngTemplateOutlet]="content.template" [ngTemplateOutletContext]="contextFor(section, index)" />
+                }
+              </div>
+            </article>
+          </li>
+        }
+      </ol>
+    </div>
+    <aside #contextPane class="lsd-structured-editor__context border border-border-default bg-surface-raised"
+      tabindex="-1" [attr.aria-label]="contextLabel()" [attr.id]="id() + '-context'">
+      <ng-content select="[lsdEditorContext]" />
+    </aside>
+  </div>
+</section>

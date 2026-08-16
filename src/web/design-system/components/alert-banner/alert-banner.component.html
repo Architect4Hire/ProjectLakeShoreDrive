@@ -1,0 +1,23 @@
+@if (visible()) {
+  <section
+    [class]="classes()"
+    [attr.aria-describedby]="bodyId()"
+    [attr.aria-labelledby]="titleId()"
+    [attr.aria-live]="live()"
+    [attr.id]="id()"
+    [attr.role]="role()">
+    <span class="lsd-alert-banner__symbol" aria-hidden="true">{{ symbol() }}</span>
+    <div class="lsd-alert-banner__main">
+      <h2 class="font-semibold" [id]="titleId()">{{ title() }}</h2>
+      <div class="lsd-alert-banner__body text-sm" [id]="bodyId()"><ng-content /></div>
+      <div class="lsd-alert-banner__actions"><ng-content select="[lsdAlertActions]" /></div>
+    </div>
+    @if (dismissible()) {
+      <button
+        class="lsd-alert-banner__dismiss rounded-md text-text-muted hover:bg-surface-raised hover:text-text-primary"
+        type="button"
+        [attr.aria-label]="closeLabel()"
+        (click)="dismiss()">&#215;</button>
+    }
+  </section>
+}

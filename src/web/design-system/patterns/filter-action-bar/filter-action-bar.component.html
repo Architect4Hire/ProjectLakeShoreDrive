@@ -1,0 +1,30 @@
+<section class="lsd-filter-action-bar border border-border-default bg-surface-panel" [attr.aria-label]="accessibleName()">
+  <div class="lsd-filter-action-bar__primary">
+    <div class="lsd-filter-action-bar__search"><ng-content select="[lsdFilterBarSearch]" /></div>
+    <button
+      #toggle
+      class="lsd-filter-action-bar__toggle rounded-md border border-border-default bg-surface-raised text-sm font-semibold text-text-primary"
+      type="button"
+      [attr.aria-controls]="id() + '-filters'"
+      [attr.aria-expanded]="filtersExpanded()"
+      (click)="toggleFilters()">
+      {{ filtersLabel() }}
+      @if (normalizedCount() > 0) {
+        <span class="lsd-filter-action-bar__count bg-accent-primary text-text-on-accent" aria-hidden="true">{{ normalizedCount() }}</span>
+        <span class="lsd-sr-only">, {{ normalizedCount() }} active</span>
+      }
+    </button>
+    <div class="lsd-filter-action-bar__actions" role="group" [attr.aria-label]="actionsLabel()">
+      <ng-content select="[lsdFilterBarActions]" />
+    </div>
+  </div>
+  <div
+    #filters
+    class="lsd-filter-action-bar__filters"
+    role="group"
+    [attr.aria-label]="filtersLabel()"
+    [attr.data-expanded]="filtersExpanded()"
+    [attr.id]="id() + '-filters'">
+    <ng-content select="[lsdFilterBarFilters]" />
+  </div>
+</section>

@@ -28,6 +28,9 @@ export const panelSizes = {
   'navigation-wide': '17.5rem',
   'content-reading': '48rem',
   'content-workbench': '90rem',
+  'drawer-compact': '20rem',
+  'drawer-default': '30rem',
+  'drawer-wide': '42rem',
 } as const;
 
 export const responsiveBreakpoints = {
@@ -42,4 +45,3 @@ export type RowSize = keyof typeof rowSizes;
 export type ContentGutter = keyof typeof contentGutters;
 export type PanelSize = keyof typeof panelSizes;
 export type ResponsiveBreakpoint = keyof typeof responsiveBreakpoints;
-

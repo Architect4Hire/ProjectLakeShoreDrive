@@ -1,0 +1,30 @@
+:host { display: contents; }
+
+.lsd-dialog {
+  inline-size: calc(100% - 2rem);
+  max-block-size: calc(100dvh - 2rem);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.lsd-dialog::backdrop {
+  background: color-mix(in srgb, var(--lsd-color-text-primary) 64%, transparent);
+}
+
+.lsd-dialog__layout { display: grid; max-block-size: inherit; grid-template-rows: auto minmax(0, 1fr) auto; }
+.lsd-dialog__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1rem 1rem 0; }
+.lsd-dialog__heading { display: grid; gap: 0.25rem; }
+.lsd-dialog__content { overflow: auto; padding: 1rem; }
+.lsd-dialog__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding: 0 1rem 1rem; }
+.lsd-dialog__actions:empty { display: none; }
+.lsd-dialog__close { display: inline-grid; min-block-size: 2.75rem; min-inline-size: 2.75rem; place-items: center; font-size: 1.5rem; line-height: 1; }
+
+@media (min-width: 30rem) {
+  .lsd-dialog__header { padding: 1.5rem 1.5rem 0; }
+  .lsd-dialog__content { padding: 1.5rem; }
+  .lsd-dialog__actions { padding: 0 1.5rem 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lsd-dialog { scroll-behavior: auto; }
+}

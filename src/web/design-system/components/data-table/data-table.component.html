@@ -1,8 +1,61 @@
-<div class="overflow-x-auto rounded-lg border border-border-default bg-surface-panel">
-  <table
-    class="w-full text-left text-text-primary"
-    [attr.aria-label]="accessibleName()"
-    [attr.data-density]="density()">
-    <ng-content />
-  </table>
-</div>
+<section class="lsd-data-table" [attr.aria-label]="accessibleName()" role="region">
+  @if (error(); as errorMessage) {
+    <div class="lsd-data-table__state border border-status-danger bg-status-danger/10 text-text-primary" role="alert">
+      <span class="font-semibold">Unable to load data</span><span>{{ errorMessage }}</span>
+    </div>
+  } @else if (loading()) {
+    <div class="lsd-data-table__state border border-border-default bg-surface-panel text-text-muted" role="status" aria-live="polite" aria-atomic="true">
+      <span class="lsd-data-table__spinner" aria-hidden="true"></span><span>{{ loadingMessage() }}</span>
+    </div>
+  } @else if (rows().length === 0) {
+    <div class="lsd-data-table__state border border-border-default bg-surface-panel text-text-muted" role="status">{{ emptyMessage() }}</div>
+  } @else {
+    <div class="lsd-data-table__scroll border border-border-default bg-surface-panel" role="region"
+      tabindex="0" [attr.aria-label]="accessibleName() + ' scroll area'" [attr.data-responsive]="responsiveMode()">
+      <table [attr.data-density]="density()">
+        <caption class="lsd-sr-only">{{ accessibleName() }}</caption>
+        <thead><tr>
+          @for (column of columns(); track column.id) { <th scope="col" [class]="alignment(column.align)">{{ column.header }}</th> }
+          @if (actions().length) { <th scope="col" class="text-right">{{ actionsLabel() }}</th> }
+        </tr></thead>
+        <tbody>
+          @for (row of rows(); track keyFor(row, $index)) {
+            <tr>
+              @for (column of columns(); track column.id) { <td [class]="alignment(column.align)">{{ column.value(row) }}</td> }
+              @if (actions().length) {
+                <td class="lsd-data-table__actions text-right">
+                  @for (action of actions(); track action.identity) {
+                    <button class="rounded-md text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                      [disabled]="actionDisabled(action, row)" [attr.aria-label]="action.label + ': ' + rowLabel()(row)"
+                      (click)="activate(action, row)">{{ action.label }}</button>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (responsiveMode() === 'cards') {
+        <ul class="lsd-data-table__cards" role="list">
+          @for (row of rows(); track keyFor(row, $index)) {
+            <li class="lsd-data-table__card border border-border-default bg-surface-panel">
+              <dl>
+                @for (column of columns(); track column.id) {
+                  <div><dt class="text-sm font-semibold text-text-muted">{{ column.header }}</dt><dd>{{ column.value(row) }}</dd></div>
+                }
+              </dl>
+              @if (actions().length) {
+                <div class="lsd-data-table__card-actions" [attr.aria-label]="actionsLabel() + ' for ' + rowLabel()(row)">
+                  @for (action of actions(); track action.identity) {
+                    <button class="rounded-md text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                      [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
+                  }
+                </div>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</section>
