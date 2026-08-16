@@ -1,0 +1,35 @@
+<div class="grid gap-1 text-text-primary">
+  <label class="flex min-h-11 cursor-pointer items-center gap-3 text-sm" [for]="id()">
+    <input
+      class="h-5 w-5 shrink-0 accent-accent-primary"
+      [attr.aria-checked]="indeterminate() ? 'mixed' : null"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-errormessage]="error() ? errorId() : null"
+      [attr.aria-invalid]="error() ? 'true' : null"
+      [attr.name]="name()"
+      [checked]="checked()"
+      [disabled]="disabled()"
+      [id]="id()"
+      [indeterminate]="indeterminate()"
+      [required]="required()"
+      type="checkbox"
+      (change)="updateChecked($event)" />
+    <span class="font-semibold">
+      {{ label() }}
+      @if (required()) {
+        <span class="text-status-danger" aria-hidden="true">*</span>
+        <span class="lsd-sr-only">(required)</span>
+      }
+    </span>
+  </label>
+
+  @if (description()) {
+    <p class="m-0 pl-8 text-sm text-text-muted" [id]="descriptionId()">{{ description() }}</p>
+  }
+
+  @if (error()) {
+    <p class="m-0 pl-8 text-sm font-medium text-status-danger" [id]="errorId()" role="alert">
+      {{ error() }}
+    </p>
+  }
+</div>

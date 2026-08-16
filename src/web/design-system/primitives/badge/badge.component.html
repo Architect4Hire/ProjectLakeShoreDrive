@@ -1,0 +1,8 @@
+<span
+  [attr.aria-label]="accessibleLabel()"
+  [attr.aria-live]="announce() ? 'polite' : null"
+  [attr.role]="announce() ? 'status' : null"
+  [class]="classes()">
+  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-current" aria-hidden="true"></span>
+  <span class="truncate"><ng-content /></span>
+</span>

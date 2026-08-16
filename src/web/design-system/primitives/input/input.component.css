@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+input {
+  font: inherit;
+  inline-size: 100%;
+}
+
+input::placeholder {
+  opacity: 1;
+}
+
+.lsd-input__adornment:empty {
+  display: none;
+}

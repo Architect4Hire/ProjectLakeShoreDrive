@@ -8,7 +8,9 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
   selector: 'lsd-button',
+  standalone: true,
   templateUrl: './button.component.html',
+  styleUrl: './button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
@@ -18,14 +20,19 @@ export class ButtonComponent {
   readonly tone = input<ButtonTone>('primary');
   readonly type = input<ButtonType>('button');
   readonly disabled = input(false);
+  readonly loading = input(false);
+  readonly loadingLabel = input('Loading');
+  readonly accessibleLabel = input<string | undefined>(undefined);
   readonly fullWidth = input(false);
   readonly pressed = input<boolean | undefined>(undefined);
 
   readonly activated = output<void>();
 
+  protected readonly unavailable = computed(() => this.disabled() || this.loading());
+
   protected readonly classes = computed(() =>
     [
-      'inline-flex items-center justify-center font-semibold',
+      'lsd-button inline-flex items-center justify-center gap-2 font-semibold',
       this.sizeClasses[this.size()],
       this.shapeClasses[this.shape()],
       this.impactClasses[this.tone()][this.impact()],
@@ -35,10 +42,16 @@ export class ButtonComponent {
       .join(' '),
   );
 
+  protected activate(): void {
+    if (!this.unavailable()) {
+      this.activated.emit();
+    }
+  }
+
   private readonly sizeClasses: Record<ButtonSize, string> = {
-    small: 'px-3 py-1 text-xs',
-    medium: 'px-5 py-2 text-sm',
-    large: 'px-7 py-2.5 text-lg',
+    small: 'h-8 px-3 text-xs',
+    medium: 'h-10 px-5 text-sm',
+    large: 'h-12 px-7 text-lg',
   };
 
   private readonly shapeClasses: Record<ButtonShape, string> = {

@@ -1,0 +1,12 @@
+@if (orientation() === 'horizontal') {
+  <hr
+    [attr.role]="decorative() ? 'presentation' : null"
+    [style.border-top]="rule()"
+    [style.margin-block]="inset()" />
+} @else {
+  <div
+    [attr.aria-orientation]="decorative() ? null : 'vertical'"
+    [attr.role]="decorative() ? 'presentation' : 'separator'"
+    [style.border-inline-start]="rule()"
+    [style.margin-inline]="inset()"></div>
+}

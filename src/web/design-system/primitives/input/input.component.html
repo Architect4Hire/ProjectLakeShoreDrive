@@ -1,0 +1,45 @@
+<div class="grid gap-1.5 text-text-primary">
+  <label class="text-sm font-semibold" [for]="id()">
+    {{ label() }}
+    @if (required()) {
+      <span class="text-status-danger" aria-hidden="true">*</span>
+      <span class="lsd-sr-only">(required)</span>
+    }
+  </label>
+
+  @if (description()) {
+    <p class="m-0 text-sm text-text-muted" [id]="descriptionId()">{{ description() }}</p>
+  }
+
+  <div
+    class="flex min-h-10 items-center gap-2 rounded-md border border-border-default bg-surface-panel px-3 text-text-primary">
+    <span class="lsd-input__adornment inline-flex shrink-0 text-text-muted" aria-hidden="true">
+      <ng-content select="[lsdInputPrefix]" />
+    </span>
+    <input
+      class="min-w-0 flex-1 border-0 bg-transparent py-2 text-sm text-text-primary placeholder:text-text-muted"
+      [attr.aria-describedby]="describedBy()"
+      [attr.aria-errormessage]="error() ? errorId() : null"
+      [attr.aria-invalid]="error() ? 'true' : null"
+      [attr.autocomplete]="autocomplete()"
+      [attr.inputmode]="inputMode()"
+      [attr.name]="name()"
+      [attr.placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [id]="id()"
+      [readOnly]="readOnly()"
+      [required]="required()"
+      [type]="type()"
+      [value]="value()"
+      (input)="updateValue($event)" />
+    <span class="lsd-input__adornment inline-flex shrink-0 text-text-muted" aria-hidden="true">
+      <ng-content select="[lsdInputSuffix]" />
+    </span>
+  </div>
+
+  @if (error()) {
+    <p class="m-0 text-sm font-medium text-status-danger" [id]="errorId()" role="alert">
+      {{ error() }}
+    </p>
+  }
+</div>

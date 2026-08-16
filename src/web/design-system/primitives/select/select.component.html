@@ -1,0 +1,42 @@
+<div class="grid gap-1.5 text-text-primary">
+  <label class="text-sm font-semibold" [for]="id()">
+    {{ label() }}
+    @if (required()) {
+      <span class="text-status-danger" aria-hidden="true">*</span>
+      <span class="lsd-sr-only">(required)</span>
+    }
+  </label>
+
+  @if (description()) {
+    <p class="m-0 text-sm text-text-muted" [id]="descriptionId()">{{ description() }}</p>
+  }
+
+  <select
+    class="min-h-11 w-full rounded-md border border-border-default bg-surface-panel px-3 py-2 text-sm text-text-primary"
+    [attr.aria-describedby]="describedBy()"
+    [attr.aria-errormessage]="error() ? errorId() : null"
+    [attr.aria-invalid]="error() ? 'true' : null"
+    [attr.name]="name()"
+    [disabled]="disabled()"
+    [id]="id()"
+    [required]="required()"
+    (change)="updateValue($event)">
+    @if (placeholder()) {
+      <option value="" disabled [selected]="selectedKey() === ''">{{ placeholder() }}</option>
+    }
+    @for (option of options(); track $index) {
+      <option
+        [disabled]="option.disabled ?? false"
+        [selected]="selectedKey() === $index.toString()"
+        [value]="$index">
+        {{ option.label }}
+      </option>
+    }
+  </select>
+
+  @if (error()) {
+    <p class="m-0 text-sm font-medium text-status-danger" [id]="errorId()" role="alert">
+      {{ error() }}
+    </p>
+  }
+</div>

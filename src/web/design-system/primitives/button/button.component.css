@@ -1,0 +1,54 @@
+:host {
+  display: inline-block;
+}
+
+:host:has(.w-full) {
+  display: block;
+}
+
+.lsd-button {
+  transition:
+    background-color var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease),
+    color var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease);
+}
+
+.lsd-button__icon:empty {
+  display: none;
+}
+
+.lsd-button__icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.lsd-button__spinner {
+  animation: lsd-button-spin var(--motion-duration-slow, 600ms) linear infinite;
+  border: 0.125rem solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  block-size: 1em;
+  inline-size: 1em;
+}
+
+@keyframes lsd-button-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-width: 47.999rem), (pointer: coarse) {
+  .lsd-button {
+    min-block-size: var(--control-size-touch, 2.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lsd-button {
+    transition: none;
+  }
+
+  .lsd-button__spinner {
+    animation: none;
+    border-inline-end-color: currentColor;
+  }
+}

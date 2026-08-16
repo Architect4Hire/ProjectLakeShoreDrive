@@ -1,0 +1,35 @@
+<div class="grid gap-1.5 text-text-primary">
+  <label class="text-sm font-semibold" [for]="id()">
+    {{ label() }}
+    @if (required()) {
+      <span class="text-status-danger" aria-hidden="true">*</span>
+      <span class="lsd-sr-only">(required)</span>
+    }
+  </label>
+
+  @if (description()) {
+    <p class="m-0 text-sm text-text-muted" [id]="descriptionId()">{{ description() }}</p>
+  }
+
+  <textarea
+    [attr.aria-describedby]="describedBy()"
+    [attr.aria-errormessage]="error() ? errorId() : null"
+    [attr.aria-invalid]="error() ? 'true' : null"
+    [attr.name]="name()"
+    [attr.placeholder]="placeholder()"
+    [class]="classes()"
+    [disabled]="disabled()"
+    [id]="id()"
+    [readOnly]="readOnly()"
+    [required]="required()"
+    [rows]="rows()"
+    [value]="value()"
+    [wrap]="wrap()"
+    (input)="updateValue($event)"></textarea>
+
+  @if (error()) {
+    <p class="m-0 text-sm font-medium text-status-danger" [id]="errorId()" role="alert">
+      {{ error() }}
+    </p>
+  }
+</div>

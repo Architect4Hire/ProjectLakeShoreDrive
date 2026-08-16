@@ -1,0 +1,17 @@
+<span
+  class="relative inline-flex"
+  (focusin)="showFromFocus()"
+  (focusout)="hideFromFocus($event)"
+  (mouseenter)="showFromPointer()"
+  (mouseleave)="hideFromPointer()">
+  <ng-content />
+  <span
+    role="tooltip"
+    [class]="tooltipClass()"
+    [hidden]="!open()"
+    [id]="tooltipId()"
+    [style.box-shadow]="tooltipShadow"
+    [style.z-index]="tooltipLayer">
+    {{ text() }}
+  </span>
+</span>
