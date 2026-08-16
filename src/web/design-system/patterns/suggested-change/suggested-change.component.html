@@ -1,0 +1,67 @@
+<lsd-surface
+  tone="panel"
+  padding="default"
+  radius="prominent"
+  border="strong"
+  [accessibility]="{ role: 'region', label: title() }">
+  <article class="lsd-suggested-change" [attr.data-layout]="layout()" [attr.data-state]="state()">
+    <header class="lsd-suggested-change__header">
+      <div>
+        <h2 class="lsd-suggested-change__title" [id]="id() + '-title'">{{ title() }}</h2>
+        <div class="lsd-suggested-change__badges" aria-label="Suggestion attribution and review state">
+          <lsd-badge [variant]="provenancePresentation().variant">{{ provenancePresentation().label }}</lsd-badge>
+          <lsd-badge [variant]="statePresentation().variant" [announce]="state() !== 'pending' || processing() !== null">
+            {{ statePresentation().label }}
+          </lsd-badge>
+        </div>
+      </div>
+      <strong class="lsd-suggested-change__disclosure">Not architect approved</strong>
+    </header>
+
+    <div class="lsd-suggested-change__provenance" [attr.aria-label]="title() + ' provenance'">
+      <ng-content select="[lsdSuggestedChangeProvenance]" />
+    </div>
+
+    <div
+      class="lsd-suggested-change__content"
+      [class.lsd-suggested-change__content--comparison]="layout() === 'comparison'"
+      [attr.aria-label]="layout() === 'comparison' ? title() + ' before and proposed comparison' : null">
+      @if (layout() === 'comparison') {
+        <lsd-surface tone="panel" padding="default" radius="panel" border="default" [accessibility]="{ role: 'region', label: currentLabel() }">
+          <ng-content select="[lsdSuggestedChangeBefore]" />
+        </lsd-surface>
+      }
+      <lsd-surface tone="raised" padding="none" radius="panel" border="default" [accessibility]="{ role: 'region', label: proposedLabel() }">
+        <div class="lsd-suggested-change__proposal"><ng-content select="[lsdSuggestedChangeProposed]" /></div>
+      </lsd-surface>
+    </div>
+
+    <details class="lsd-suggested-change__context">
+      <summary>Suggestion context</summary>
+      <ng-content select="[lsdSuggestedChangeContext]" />
+    </details>
+
+    <footer class="lsd-suggested-change__footer">
+      <div class="lsd-suggested-change__secondary-actions"><ng-content select="[lsdSuggestedChangeActions]" /></div>
+      <div class="lsd-suggested-change__decision-actions" role="group" aria-label="Suggestion decision">
+        <lsd-button
+          impact="light"
+          tone="danger"
+          [disabled]="unavailable()"
+          [loading]="processing() === 'reject'"
+          loadingLabel="Rejecting suggestion"
+          (activated)="reject()">
+          {{ rejectLabel() }}
+        </lsd-button>
+        <lsd-button
+          tone="success"
+          [disabled]="unavailable() || acceptDisabled()"
+          [loading]="processing() === 'accept'"
+          loadingLabel="Accepting suggestion"
+          (activated)="accept()">
+          {{ acceptLabel() }}
+        </lsd-button>
+      </div>
+    </footer>
+  </article>
+</lsd-surface>

@@ -1,5 +1,7 @@
 <button
   [attr.aria-busy]="loading() || null"
+  [attr.aria-controls]="controls()"
+  [attr.aria-expanded]="expanded()"
   [attr.aria-label]="accessibleLabel()"
   [attr.aria-pressed]="pressed()"
   [class]="classes()"

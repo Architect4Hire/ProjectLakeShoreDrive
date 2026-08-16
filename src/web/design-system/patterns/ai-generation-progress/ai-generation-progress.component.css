@@ -1,0 +1,16 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-ai-generation-progress { border-inline-start: 0.25rem solid var(--lsd-color-ai-draft-accent); display: grid; gap: 1rem; min-inline-size: 0; padding-inline-start: 1rem; }
+.lsd-ai-generation-progress__header, .lsd-ai-generation-progress__footer, .lsd-ai-generation-progress__progress { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.lsd-ai-generation-progress__title { font-size: var(--font-size-lg); font-weight: 700; }
+.lsd-ai-generation-progress__badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 0.5rem; }
+.lsd-ai-generation-progress__disclosure { color: var(--lsd-color-ai-draft-text); font-size: var(--font-size-sm); }
+.lsd-ai-generation-progress__progress { background: var(--lsd-color-ai-draft-surface); border: 0.0625rem dashed var(--lsd-color-ai-draft-border); padding: 0.75rem; }
+.lsd-ai-generation-progress__track { background: var(--lsd-color-surface-raised); border: 0.0625rem solid var(--lsd-color-ai-draft-border); block-size: 0.75rem; flex: 1; overflow: hidden; }
+.lsd-ai-generation-progress__fill { background: var(--lsd-color-ai-draft-accent); block-size: 100%; display: block; transition: inline-size 180ms ease-out; }
+.lsd-ai-generation-progress__track--indeterminate .lsd-ai-generation-progress__fill { animation: lsd-ai-progress 1.4s ease-in-out infinite; inline-size: 35%; }
+.lsd-ai-generation-progress__status { color: var(--lsd-color-text-muted); margin: 0; }
+.lsd-ai-generation-progress__body:empty { display: none; }
+.lsd-ai-generation-progress__footer { border-block-start: 0.0625rem solid var(--lsd-color-border-default); padding-block-start: 1rem; }
+@keyframes lsd-ai-progress { from { transform: translateX(-110%); } to { transform: translateX(300%); } }
+@media (prefers-reduced-motion: reduce) { .lsd-ai-generation-progress__fill { transition: none; } .lsd-ai-generation-progress__track--indeterminate .lsd-ai-generation-progress__fill { animation: none; inline-size: 100%; opacity: 0.55; } }
+@media (max-width: 47.999rem) { .lsd-ai-generation-progress__header, .lsd-ai-generation-progress__footer { align-items: stretch; flex-direction: column; } }

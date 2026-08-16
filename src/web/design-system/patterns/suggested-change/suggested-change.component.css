@@ -1,0 +1,17 @@
+:host { display: block; min-inline-size: 0; }
+.lsd-suggested-change { border-inline-start: 0.25rem solid var(--lsd-color-ai-draft-accent); display: grid; gap: 1rem; min-inline-size: 0; padding-inline-start: 1rem; }
+.lsd-suggested-change__header { align-items: start; display: flex; gap: 1rem; justify-content: space-between; }
+.lsd-suggested-change__title { font-size: var(--font-size-lg); font-weight: 700; }
+.lsd-suggested-change__badges, .lsd-suggested-change__decision-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.lsd-suggested-change__badges { margin-block-start: 0.5rem; }
+.lsd-suggested-change__disclosure { color: var(--lsd-color-ai-draft-text); font-size: var(--font-size-sm); }
+.lsd-suggested-change__provenance { color: var(--lsd-color-text-muted); font-size: var(--font-size-sm); }
+.lsd-suggested-change__provenance:empty, .lsd-suggested-change__secondary-actions:empty { display: none; }
+.lsd-suggested-change__content { display: grid; gap: 1rem; min-inline-size: 0; }
+.lsd-suggested-change__content--comparison { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.lsd-suggested-change__proposal { background: var(--lsd-color-ai-draft-surface); border: 0.0625rem dashed var(--lsd-color-ai-draft-border); color: var(--lsd-color-ai-draft-text); padding: 1rem; }
+.lsd-suggested-change__context { border-block: 0.0625rem solid var(--lsd-color-border-default); padding-block: 0.75rem; }
+.lsd-suggested-change__context summary { cursor: pointer; font-weight: 700; }
+.lsd-suggested-change__footer { align-items: center; border-block-start: 0.0625rem solid var(--lsd-color-border-default); display: flex; gap: 1rem; justify-content: space-between; padding-block-start: 1rem; }
+@media (max-width: 47.999rem) { .lsd-suggested-change__header, .lsd-suggested-change__footer { align-items: stretch; flex-direction: column; } .lsd-suggested-change__content--comparison { grid-template-columns: minmax(0, 1fr); } .lsd-suggested-change__decision-actions { justify-content: flex-end; } }
+@media (max-width: 29.999rem) { .lsd-suggested-change__decision-actions { align-items: stretch; flex-direction: column-reverse; } }

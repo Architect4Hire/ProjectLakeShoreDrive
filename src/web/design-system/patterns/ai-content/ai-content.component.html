@@ -1,0 +1,92 @@
+<lsd-surface
+  tone="panel"
+  padding="default"
+  radius="prominent"
+  border="strong"
+  [accessibility]="{ role: 'region', label: title() }">
+  <article
+    class="lsd-ai-content"
+    [class.lsd-ai-content--attributed]="isAiAttributed()"
+    [class.lsd-ai-content--approved]="provenance() === 'human-approved'"
+    [attr.aria-busy]="busy() || null"
+    [attr.data-provenance]="provenance()"
+    [attr.data-state]="state()">
+    <header class="lsd-ai-content__header">
+      <div>
+        <h2 class="lsd-ai-content__title" [id]="id() + '-title'">{{ title() }}</h2>
+        <div class="lsd-ai-content__badges" aria-label="Content attribution and state">
+          <lsd-badge [variant]="provenancePresentation().variant">{{ provenancePresentation().label }}</lsd-badge>
+          <lsd-badge [variant]="state() === 'failed' ? 'danger' : busy() ? 'warning' : 'ai-draft'" [announce]="busy() || state() === 'failed'">
+            {{ stateLabel() }}
+          </lsd-badge>
+          @if (confidenceLabel(); as label) {
+            <lsd-badge variant="warning" [accessibleLabel]="label">{{ confidence() }} confidence</lsd-badge>
+          }
+        </div>
+      </div>
+      <p class="lsd-ai-content__disclosure">{{ provenance() === 'human-approved' ? 'Approved content' : 'Not architect approved' }}</p>
+    </header>
+
+    @if (busy()) {
+      <div class="lsd-ai-content__generating" role="status" aria-live="polite">
+        <span class="lsd-ai-content__spinner" aria-hidden="true"></span>
+        Generating AI draft. Existing approved content is unchanged.
+      </div>
+    }
+
+    @if (state() === 'failed') {
+      <lsd-alert-banner [id]="id() + '-failure'" title="AI generation failed" severity="danger" announcement="assertive">
+        <p>{{ failureMessage() }}</p>
+      </lsd-alert-banner>
+    } @else {
+      <div class="lsd-ai-content__body"><ng-content /></div>
+    }
+
+    @if (citations().length) {
+      <section class="lsd-ai-content__sources" [attr.aria-labelledby]="id() + '-sources-title'">
+        <h3 [id]="id() + '-sources-title'">Sources</h3>
+        <div class="lsd-ai-content__citation-list">
+          @for (citation of citations(); track citation.id) {
+            <button
+              class="lsd-ai-content__citation"
+              type="button"
+              [attr.aria-pressed]="citation.id === selectedCitationId()"
+              (click)="selectCitation(citation)">
+              <span>{{ citation.label }}</span>
+              @if (citation.locator) { <small>{{ citation.locator }}</small> }
+            </button>
+          }
+        </div>
+        @if (selectedCitation(); as source) {
+          <lsd-surface tone="raised" padding="compact" radius="panel" border="default" [accessibility]="{ role: 'region', label: 'Source preview: ' + source.label }">
+            <strong>{{ source.label }}</strong>
+            @if (source.locator) { <p>{{ source.locator }}</p> }
+            @if (source.description) { <p>{{ source.description }}</p> }
+            <div class="lsd-ai-content__source-preview"><ng-content select="[lsdAiSourcePreview]" /></div>
+          </lsd-surface>
+        }
+      </section>
+    }
+
+    @if (contextInspectorVisible()) {
+      <details class="lsd-ai-content__inspector">
+        <summary>Prompt and context inspector</summary>
+        <p class="lsd-ai-content__inspector-note">Visible because the consuming application authorized this view.</p>
+        <ng-content select="[lsdAiContextInspector]" />
+      </details>
+    }
+
+    <footer class="lsd-ai-content__footer">
+      <div><ng-content select="[lsdAiSecondaryActions]" /></div>
+      <div class="lsd-ai-content__actions" role="group" aria-label="AI content actions">
+        @if (state() === 'failed' || state() === 'draft' || state() === 'suggested' || state() === 'ready') {
+          <lsd-button impact="minimal" tone="info" [disabled]="actionsUnavailable()" [loading]="processing() === 'regenerate'" loadingLabel="Regenerating section" (activated)="regenerate()">Regenerate section</lsd-button>
+        }
+        @if (decisionsAvailable()) {
+          <lsd-button impact="light" tone="danger" [disabled]="actionsUnavailable()" [loading]="processing() === 'reject'" loadingLabel="Rejecting suggestion" (activated)="reject()">Reject</lsd-button>
+          <lsd-button tone="success" [disabled]="actionsUnavailable()" [loading]="processing() === 'accept'" loadingLabel="Accepting suggestion" (activated)="accept()">Accept suggestion</lsd-button>
+        }
+      </div>
+    </footer>
+  </article>
+</lsd-surface>

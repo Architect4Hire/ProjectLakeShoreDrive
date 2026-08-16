@@ -1,0 +1,32 @@
+<lsd-alert-banner
+  [id]="id()"
+  [title]="presentation().title"
+  [severity]="presentation().severity"
+  [announcement]="announcement()">
+  <div class="lsd-ai-confidence" [attr.data-confidence]="level()">
+    <div class="lsd-ai-confidence__labels">
+      <lsd-badge variant="ai-draft">AI assessment</lsd-badge>
+      <lsd-badge [variant]="presentation().variant">{{ presentation().badge }}</lsd-badge>
+      <strong>Not architect approved</strong>
+    </div>
+
+    <p class="lsd-ai-confidence__summary">{{ summary() }}</p>
+    <p class="lsd-ai-confidence__verification">{{ verificationLabel() }}</p>
+
+    @if (showDetails()) {
+      <details class="lsd-ai-confidence__details">
+        <summary>{{ detailsLabel() }}</summary>
+        <section aria-label="Confidence basis">
+          <h3>Basis</h3>
+          <ng-content select="[lsdAiConfidenceBasis]" />
+        </section>
+        <section aria-label="Known limitations">
+          <h3>Known limitations</h3>
+          <ng-content select="[lsdAiConfidenceLimitations]" />
+        </section>
+      </details>
+    }
+  </div>
+
+  <div lsdAlertActions><ng-content select="[lsdAiConfidenceActions]" /></div>
+</lsd-alert-banner>

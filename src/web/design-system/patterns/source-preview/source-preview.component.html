@@ -1,0 +1,55 @@
+<lsd-drawer
+  [id]="id()"
+  [title]="drawerTitle()"
+  [description]="drawerDescription()"
+  [open]="open()"
+  [placement]="placement()"
+  [size]="size()"
+  [dismissible]="dismissible()"
+  closeLabel="Close source preview"
+  (closeRequested)="closeRequested.emit($event)">
+  <div class="lsd-source-preview" [attr.data-source-id]="source().sourceId" [attr.data-state]="state()">
+    <div class="lsd-source-preview__attribution">
+      <lsd-badge variant="ai-draft">AI source evidence</lsd-badge>
+      <strong>Evidence only — not architect approval</strong>
+    </div>
+
+    <dl class="lsd-source-preview__metadata" aria-label="Resolvable source metadata">
+      <div><dt>Source identifier</dt><dd>{{ source().sourceId }}</dd></div>
+      <div><dt>Title</dt><dd>{{ source().sourceTitle }}</dd></div>
+      @if (source().sourceSection) { <div><dt>Section</dt><dd>{{ source().sourceSection }}</dd></div> }
+      @if (source().artifactType) { <div><dt>Artifact type</dt><dd>{{ source().artifactType }}</dd></div> }
+      @if (source().version) { <div><dt>Version</dt><dd>{{ source().version }}</dd></div> }
+      @if (source().locator) { <div><dt>Locator</dt><dd>{{ source().locator }}</dd></div> }
+    </dl>
+
+    @if (state() === 'loading') {
+      <lsd-state-feedback [id]="id() + '-loading'" kind="loading" [title]="loadingMessage()" description="Approved content remains unchanged while the caller resolves this source." />
+    } @else if (state() === 'failed') {
+      <lsd-state-feedback [id]="id() + '-failed'" kind="recoverable-error" title="Source preview failed" [description]="failureMessage()">
+        <lsd-button lsdStateActions impact="light" tone="info" (activated)="retry()">Retry preview</lsd-button>
+      </lsd-state-feedback>
+    } @else if (state() === 'unavailable') {
+      <lsd-state-feedback [id]="id() + '-unavailable'" kind="empty" title="Source preview unavailable" [description]="unavailableMessage()">
+        <lsd-button lsdStateActions impact="light" tone="info" (activated)="retry()">Request preview again</lsd-button>
+      </lsd-state-feedback>
+    } @else {
+      <section class="lsd-source-preview__passage" [attr.aria-labelledby]="id() + '-passage-title'">
+        <h3 [id]="id() + '-passage-title'">Selected passage</h3>
+        <blockquote><ng-content select="[lsdSourcePreviewPassage]" /></blockquote>
+      </section>
+
+      <details class="lsd-source-preview__context">
+        <summary>Surrounding context</summary>
+        <div><ng-content select="[lsdSourcePreviewContext]" /></div>
+      </details>
+    }
+  </div>
+
+  <div lsdDrawerActions class="lsd-source-preview__actions">
+    <ng-content select="[lsdSourcePreviewActions]" />
+    @if (state() === 'ready') {
+      <lsd-button impact="light" tone="info" [disabled]="openSourceDisabled()" (activated)="openSource()">Open source</lsd-button>
+    }
+  </div>
+</lsd-drawer>

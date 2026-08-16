@@ -23,6 +23,8 @@ export class ButtonComponent {
   readonly loading = input(false);
   readonly loadingLabel = input('Loading');
   readonly accessibleLabel = input<string | undefined>(undefined);
+  readonly controls = input<string | undefined>(undefined);
+  readonly expanded = input<boolean | undefined>(undefined);
   readonly fullWidth = input(false);
   readonly pressed = input<boolean | undefined>(undefined);
 

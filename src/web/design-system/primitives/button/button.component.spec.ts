@@ -13,6 +13,8 @@ import { ButtonComponent } from './button.component';
       [loading]="loading"
       [type]="type"
       accessibleLabel="Save document"
+      controls="save-details"
+      [expanded]="expanded"
       (activated)="activations++">
       <svg lsdButtonLeadingIcon aria-label="ignored icon label"></svg>
       Save
@@ -25,6 +27,7 @@ class ButtonTestHostComponent {
   loading = false;
   type: 'button' | 'submit' | 'reset' = 'button';
   activations = 0;
+  expanded = false;
 }
 
 describe('ButtonComponent', () => {
@@ -45,6 +48,8 @@ describe('ButtonComponent', () => {
     expect(nativeButton().tagName).toBe('BUTTON');
     expect(nativeButton().type).toBe('button');
     expect(nativeButton().getAttribute('aria-label')).toBe('Save document');
+    expect(nativeButton().getAttribute('aria-controls')).toBe('save-details');
+    expect(nativeButton().getAttribute('aria-expanded')).toBe('false');
   });
 
   it('emits activation for an enabled native click', () => {

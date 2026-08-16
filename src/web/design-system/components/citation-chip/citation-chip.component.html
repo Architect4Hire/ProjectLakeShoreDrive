@@ -1,0 +1,23 @@
+<span class="lsd-citation-chip" [attr.data-source-id]="citation().sourceId">
+  <lsd-button
+    impact="light"
+    shape="pill"
+    size="small"
+    tone="info"
+    [accessibleLabel]="accessibleLabel()"
+    [controls]="previewId()"
+    [disabled]="disabled()"
+    [expanded]="previewOpen()"
+    (activated)="requestPreview()">
+    <lsd-badge lsdButtonLeadingIcon variant="ai-draft" size="small">AI source</lsd-badge>
+    <span class="lsd-citation-chip__text">
+      <span class="lsd-citation-chip__title">{{ citation().sourceTitle }}</span>
+      @if (citation().sourceSection) {
+        <span class="lsd-citation-chip__section">{{ citation().sourceSection }}</span>
+      }
+      @if (showSourceId()) {
+        <span class="lsd-citation-chip__identifier">{{ citation().sourceId }}</span>
+      }
+    </span>
+  </lsd-button>
+</span>

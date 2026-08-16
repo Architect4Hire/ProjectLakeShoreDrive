@@ -1,0 +1,11 @@
+:host { display: block; }
+.lsd-ai-confidence { display: grid; gap: 0.75rem; }
+.lsd-ai-confidence__labels { align-items: center; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.lsd-ai-confidence__labels strong { color: var(--lsd-color-ai-draft-text); font-size: var(--font-size-sm); }
+.lsd-ai-confidence__summary, .lsd-ai-confidence__verification { margin: 0; }
+.lsd-ai-confidence__verification { font-weight: 700; }
+.lsd-ai-confidence__details { border-block-start: 0.0625rem solid var(--lsd-color-border-default); padding-block-start: 0.75rem; }
+.lsd-ai-confidence__details summary { cursor: pointer; font-weight: 700; }
+.lsd-ai-confidence__details section { margin-block-start: 0.75rem; }
+.lsd-ai-confidence__details h3 { font-size: var(--font-size-sm); font-weight: 700; }
+@media (max-width: 29.999rem) { .lsd-ai-confidence__labels { align-items: flex-start; flex-direction: column; } }

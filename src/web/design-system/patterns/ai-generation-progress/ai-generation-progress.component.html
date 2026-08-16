@@ -1,0 +1,77 @@
+<lsd-surface
+  tone="panel"
+  padding="default"
+  radius="prominent"
+  border="strong"
+  [accessibility]="{ role: 'region', label: title() }">
+  <section
+    class="lsd-ai-generation-progress"
+    [attr.aria-busy]="active() || null"
+    [attr.data-state]="state()">
+    <header class="lsd-ai-generation-progress__header">
+      <div>
+        <h2 class="lsd-ai-generation-progress__title" [id]="id() + '-title'">{{ title() }}</h2>
+        <div class="lsd-ai-generation-progress__badges" aria-label="AI generation status">
+          <lsd-badge variant="ai-draft">AI-generated draft</lsd-badge>
+          <lsd-badge [variant]="statePresentation().variant">{{ statePresentation().badge }}</lsd-badge>
+        </div>
+      </div>
+      <strong class="lsd-ai-generation-progress__disclosure">Not architect approved</strong>
+    </header>
+
+    @if (state() === 'failed') {
+      <lsd-alert-banner [id]="id() + '-failure'" title="AI generation failed" severity="danger" announcement="assertive">
+        <p>{{ failureMessage() }}</p>
+      </lsd-alert-banner>
+    } @else {
+      <div class="lsd-ai-generation-progress__progress">
+        @if (mode() === 'determinate') {
+          <div
+            class="lsd-ai-generation-progress__track"
+            role="progressbar"
+            [attr.aria-label]="progressLabel()"
+            aria-valuemin="0"
+            [attr.aria-valuemax]="normalizedMax()"
+            [attr.aria-valuenow]="normalizedValue()"
+            [attr.aria-valuetext]="percentage() + '% complete'">
+            <span class="lsd-ai-generation-progress__fill" [style.inline-size.%]="percentage()"></span>
+          </div>
+          <span aria-hidden="true">{{ percentage() }}%</span>
+        } @else {
+          <div
+            class="lsd-ai-generation-progress__track lsd-ai-generation-progress__track--indeterminate"
+            role="progressbar"
+            [attr.aria-label]="progressLabel()">
+            <span class="lsd-ai-generation-progress__fill"></span>
+          </div>
+        }
+      </div>
+      <p class="lsd-ai-generation-progress__status">{{ statusText() }}</p>
+    }
+
+    @if (state() !== 'failed') {
+      <div class="lsd-sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {{ announcement() || statusText() }}
+      </div>
+    }
+
+    <div class="lsd-ai-generation-progress__body"><ng-content /></div>
+
+    @if (active() || state() === 'cancelled' || state() === 'completed') {
+      <footer class="lsd-ai-generation-progress__footer">
+        <div><ng-content select="[lsdAiProgressActions]" /></div>
+        @if (cancellable() && active()) {
+          <lsd-button
+            impact="light"
+            tone="danger"
+            [disabled]="state() === 'cancelling'"
+            [loading]="state() === 'cancelling'"
+            loadingLabel="Cancelling generation"
+            (activated)="requestCancel()">
+            {{ cancelLabel() }}
+          </lsd-button>
+        }
+      </footer>
+    }
+  </section>
+</lsd-surface>

@@ -1,0 +1,80 @@
+<lsd-surface tone="panel" padding="default" radius="prominent" border="strong" [accessibility]="{ role: 'region', label: title() }">
+  <section class="lsd-version-comparison" [attr.data-contains-draft]="containsDraft()">
+    <header class="lsd-version-comparison__header">
+      <div>
+        <h2 class="lsd-version-comparison__title" [id]="id() + '-title'">{{ title() }}</h2>
+        <p class="lsd-version-comparison__guidance">Compare version status, authorship, changes, sources, and prompt context before taking a document action.</p>
+      </div>
+      @if (containsDraft()) {
+        <strong class="lsd-version-comparison__disclosure">Contains AI draft — not architect approved</strong>
+      }
+    </header>
+
+    <lsd-split-view
+      [id]="id() + '-versions'"
+      [accessibleName]="title() + ' versions'"
+      [contextLabel]="baseVersion().label"
+      [outputLabel]="comparedVersion().label"
+      ratio="balanced">
+      <article lsdSplitViewContext class="lsd-version-comparison__version" [attr.data-version-status]="baseVersion().status">
+        <header class="lsd-version-comparison__version-header">
+          <h3>{{ baseVersion().label }}</h3>
+          <div class="lsd-version-comparison__badges">
+            <lsd-badge [variant]="basePresentation().variant">{{ basePresentation().label }}</lsd-badge>
+            <lsd-badge variant="neutral">{{ authorshipLabel(baseVersion().authorship) }}</lsd-badge>
+          </div>
+        </header>
+        <dl class="lsd-version-comparison__metadata">
+          <div><dt>Version</dt><dd>{{ baseVersion().versionId }}</dd></div>
+          @if (baseVersion().changedBy) { <div><dt>Changed by</dt><dd>{{ baseVersion().changedBy }}</dd></div> }
+          @if (baseVersion().changedAt) { <div><dt>Changed</dt><dd>{{ baseVersion().changedAt }}</dd></div> }
+          @if (baseVersion().promptVersion) { <div><dt>Prompt version</dt><dd>{{ baseVersion().promptVersion }}</dd></div> }
+          @if (baseVersion().sourceCount !== undefined) { <div><dt>Sources</dt><dd>{{ baseVersion().sourceCount }}</dd></div> }
+        </dl>
+        <div class="lsd-version-comparison__content"><ng-content select="[lsdVersionComparisonBase]" /></div>
+      </article>
+
+      <article lsdSplitViewOutput class="lsd-version-comparison__version" [attr.data-version-status]="comparedVersion().status">
+        <header class="lsd-version-comparison__version-header">
+          <h3>{{ comparedVersion().label }}</h3>
+          <div class="lsd-version-comparison__badges">
+            <lsd-badge [variant]="comparedPresentation().variant">{{ comparedPresentation().label }}</lsd-badge>
+            <lsd-badge variant="neutral">{{ authorshipLabel(comparedVersion().authorship) }}</lsd-badge>
+          </div>
+        </header>
+        <dl class="lsd-version-comparison__metadata">
+          <div><dt>Version</dt><dd>{{ comparedVersion().versionId }}</dd></div>
+          @if (comparedVersion().changedBy) { <div><dt>Changed by</dt><dd>{{ comparedVersion().changedBy }}</dd></div> }
+          @if (comparedVersion().changedAt) { <div><dt>Changed</dt><dd>{{ comparedVersion().changedAt }}</dd></div> }
+          @if (comparedVersion().promptVersion) { <div><dt>Prompt version</dt><dd>{{ comparedVersion().promptVersion }}</dd></div> }
+          @if (comparedVersion().sourceCount !== undefined) { <div><dt>Sources</dt><dd>{{ comparedVersion().sourceCount }}</dd></div> }
+        </dl>
+        <div class="lsd-version-comparison__content"><ng-content select="[lsdVersionComparisonCompared]" /></div>
+      </article>
+    </lsd-split-view>
+
+    <details class="lsd-version-comparison__history">
+      <summary>Generation and change context</summary>
+      <div class="lsd-version-comparison__history-grid">
+        <section aria-label="What changed"><h3>What changed</h3><ng-content select="[lsdVersionComparisonChanges]" /></section>
+        <section aria-label="Sources used"><h3>Sources used</h3><ng-content select="[lsdVersionComparisonSources]" /></section>
+        <section aria-label="Prompt and generation context"><h3>Prompt and generation context</h3><ng-content select="[lsdVersionComparisonContext]" /></section>
+      </div>
+    </details>
+
+    <footer class="lsd-version-comparison__footer">
+      <div><ng-content select="[lsdVersionComparisonActions]" /></div>
+      @if (regenerateAvailable()) {
+        <lsd-button
+          impact="light"
+          tone="info"
+          [disabled]="regenerateDisabled()"
+          [loading]="regenerating()"
+          loadingLabel="Regenerating section"
+          (activated)="requestRegeneration()">
+          {{ regenerateLabel() }}
+        </lsd-button>
+      }
+    </footer>
+  </section>
+</lsd-surface>

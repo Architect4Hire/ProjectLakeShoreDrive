@@ -1,0 +1,9 @@
+:host { display: inline-block; max-inline-size: 100%; }
+.lsd-citation-chip { display: inline-block; max-inline-size: 100%; }
+.lsd-citation-chip__text { align-items: baseline; display: inline-flex; gap: 0.375rem; max-inline-size: 28rem; min-inline-size: 0; }
+.lsd-citation-chip__title { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lsd-citation-chip__section::before { content: '\00b7'; margin-inline-end: 0.375rem; }
+.lsd-citation-chip__section, .lsd-citation-chip__identifier { color: var(--lsd-color-text-muted); font-size: var(--font-size-xs); white-space: nowrap; }
+.lsd-citation-chip__identifier::before { content: '['; }
+.lsd-citation-chip__identifier::after { content: ']'; }
+@media (max-width: 29.999rem) { .lsd-citation-chip__text { align-items: flex-start; flex-direction: column; gap: 0.125rem; max-inline-size: 12rem; } .lsd-citation-chip__section::before { content: none; } }

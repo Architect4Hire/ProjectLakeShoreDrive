@@ -1,0 +1,70 @@
+<lsd-alert-banner
+  [id]="id()"
+  [title]="title()"
+  [severity]="kind() === 'terminal' ? 'danger' : 'warning'"
+  [announcement]="kind() === 'terminal' ? 'assertive' : 'polite'">
+  <div class="lsd-ai-failure" [attr.data-failure-kind]="kind()">
+    <div class="lsd-ai-failure__labels">
+      <lsd-badge variant="ai-draft">AI failure</lsd-badge>
+      <lsd-badge [variant]="kind() === 'terminal' ? 'danger' : 'warning'">
+        {{ kind() === 'terminal' ? 'Terminal' : 'Recoverable' }}
+      </lsd-badge>
+      <strong>No approved content was replaced</strong>
+    </div>
+
+    <p class="lsd-ai-failure__message">{{ message() }}</p>
+
+    @if (correlationVisible() && correlationId()) {
+      <dl class="lsd-ai-failure__correlation">
+        <div><dt>Correlation identifier</dt><dd><code>{{ correlationId() }}</code></dd></div>
+      </dl>
+    }
+
+    @if (detailsAvailable()) {
+      <details class="lsd-ai-failure__details" (toggle)="toggleDetails($event)">
+        <summary>Inspect diagnostic details</summary>
+        <div><ng-content select="[lsdAiFailureDetails]" /></div>
+      </details>
+    }
+
+    @if (copyAnnouncement()) {
+      <p class="lsd-sr-only" role="status" aria-live="polite">{{ copyAnnouncement() }}</p>
+    }
+  </div>
+
+  <div lsdAlertActions class="lsd-ai-failure__actions">
+    <ng-content select="[lsdAiFailureActions]" />
+    @if (canCopyCorrelation()) {
+      <lsd-button
+        impact="minimal"
+        tone="neutral"
+        [disabled]="actionUnavailable()"
+        [loading]="processing() === 'copy-correlation'"
+        loadingLabel="Copying correlation identifier"
+        (activated)="copyCorrelation()">
+        Copy correlation ID
+      </lsd-button>
+    }
+    @if (reportAvailable()) {
+      <lsd-button
+        impact="light"
+        tone="neutral"
+        [disabled]="actionUnavailable()"
+        [loading]="processing() === 'report'"
+        loadingLabel="Reporting AI failure"
+        (activated)="report()">
+        Report problem
+      </lsd-button>
+    }
+    @if (kind() === 'recoverable' && retryAvailable()) {
+      <lsd-button
+        tone="warning"
+        [disabled]="actionUnavailable()"
+        [loading]="processing() === 'retry'"
+        loadingLabel="Retrying AI operation"
+        (activated)="retry()">
+        Retry
+      </lsd-button>
+    }
+  </div>
+</lsd-alert-banner>
