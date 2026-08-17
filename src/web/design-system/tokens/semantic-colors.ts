@@ -28,3 +28,9 @@ export const semanticColorTokenNames = [
 export type SemanticColorToken = (typeof semanticColorTokenNames)[number];
 export type Appearance = 'light' | 'dark';
 export type SemanticColorTheme = Readonly<Record<SemanticColorToken, `#${string}`>>;
+
+/** Accent hue, orthogonal to light/dark appearance. Names match the reference template's picker. */
+export const accentColorNames = ['rose', 'yellow', 'green', 'blue', 'orange', 'red', 'violet'] as const;
+export type AccentColor = (typeof accentColorNames)[number];
+
+export type Direction = 'ltr' | 'rtl';

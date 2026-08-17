@@ -18,6 +18,8 @@
 @starting-style {
   .lsd-drawer[open][data-placement='start'] { transform: translateX(-100%); }
   .lsd-drawer[open][data-placement='end'] { transform: translateX(100%); }
+  .lsd-drawer[open][data-placement='start']:dir(rtl) { transform: translateX(100%); }
+  .lsd-drawer[open][data-placement='end']:dir(rtl) { transform: translateX(-100%); }
 }
 
 .lsd-drawer::backdrop {
