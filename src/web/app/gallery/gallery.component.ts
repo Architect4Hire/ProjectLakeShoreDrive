@@ -48,28 +48,33 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
   ],
   template: `
     <lsd-notification-viewport />
-    <div class="min-h-screen bg-background">
-      <div class="border-b border-border">
-        <div class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold text-foreground">Design System Gallery</h1>
-            <p class="text-sm text-muted-foreground mt-1">Integration reference for Lake Shore Drive design-system components and patterns</p>
+    <main class="min-h-screen bg-surface-page">
+      <div class="border-b border-border-default-default">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex-1">
+            <h1 class="text-3xl font-bold text-text-primary">Design System Gallery</h1>
+            <p class="text-sm text-text-muted mt-1">Integration reference for Lake Shore Drive design-system components and patterns</p>
           </div>
-          <lsd-button tone="neutral" (activated)="toggleTheme()">
+          <lsd-button
+            tone="neutral"
+            (activated)="toggleTheme()"
+            [attr.aria-label]="'Toggle to ' + (appearance() === 'light' ? 'dark' : 'light') + ' mode'"
+            class="flex-shrink-0"
+          >
             <lsd-icon [name]="appearance() === 'light' ? 'info' : 'warning'" size="small" />
             {{ appearance() === 'light' ? 'Dark' : 'Light' }}
           </lsd-button>
         </div>
       </div>
 
-      <div class="max-w-7xl mx-auto px-6 py-8 space-y-12">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-12">
         <!-- PRIMITIVES SECTION -->
         <section>
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Primitives</h2>
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Primitives</h2>
 
           <!-- Buttons -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Buttons</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Buttons</h3>
             <div class="flex flex-wrap gap-4">
               <lsd-button tone="primary">Primary</lsd-button>
               <lsd-button tone="neutral">Neutral</lsd-button>
@@ -83,7 +88,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Button Sizes and Shapes -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Button Variants</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Button Variants</h3>
             <div class="space-y-4">
               <div class="flex flex-wrap gap-3">
                 <lsd-button size="small" tone="primary">Small</lsd-button>
@@ -105,7 +110,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Badges -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Badges</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Badges</h3>
             <div class="flex flex-wrap gap-4">
               <lsd-badge>Default</lsd-badge>
               <lsd-badge>Active</lsd-badge>
@@ -116,7 +121,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Form Controls -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Form Controls</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Form Controls</h3>
             <div class="space-y-4 max-w-md">
               <lsd-input id="input-demo" label="Text Input" placeholder="Enter text..." />
               <lsd-textarea id="textarea-demo" label="Textarea" placeholder="Enter description..." />
@@ -127,25 +132,25 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Separator -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Separator</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Separator</h3>
             <lsd-separator />
           </div>
 
           <!-- Surface -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Surface / Card</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Surface / Card</h3>
             <lsd-surface class="p-6">
-              <h4 class="font-semibold text-foreground mb-2">Surface Component</h4>
-              <p class="text-sm text-muted-foreground">This is a surface primitive with default styling for cards and contained content.</p>
+              <h4 class="font-semibold text-text-primary mb-2">Surface Component</h4>
+              <p class="text-sm text-text-muted">This is a surface primitive with default styling for cards and contained content.</p>
             </lsd-surface>
           </div>
 
           <!-- Tabs -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Tabs</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Tabs</h3>
             <lsd-tabs id="tab-demo" label="Example Tabs" [tabs]="tabItems" selected="discovery">
               <div role="tabpanel" class="p-4">
-                <p class="text-sm text-foreground">Discovery phase content...</p>
+                <p class="text-sm text-text-primary">Discovery phase content...</p>
               </div>
             </lsd-tabs>
           </div>
@@ -153,35 +158,35 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
         <!-- COMPONENTS SECTION -->
         <section>
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Components</h2>
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Components</h2>
 
           <!-- Data Table -->
-          <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Data Table</h3>
-            <div class="overflow-x-auto">
+          <div class="mb-8 -mx-4 sm:mx-0">
+            <h3 class="text-lg font-medium text-text-primary mb-4 px-4 sm:px-0">Data Table</h3>
+            <div class="overflow-x-auto px-4 sm:px-0">
               <table class="w-full text-sm">
-                <thead class="border-b border-border bg-muted">
+                <thead class="border-b border-border-default bg-surface-panel">
                   <tr>
-                    <th class="px-4 py-3 text-left font-medium text-foreground">Item</th>
-                    <th class="px-4 py-3 text-left font-medium text-foreground">Status</th>
-                    <th class="px-4 py-3 text-left font-medium text-foreground">Date</th>
+                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Item</th>
+                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Status</th>
+                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Date</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-b border-border hover:bg-muted/50">
-                    <td class="px-4 py-3 text-foreground">Requirement #1</td>
-                    <td class="px-4 py-3"><lsd-badge>Approved</lsd-badge></td>
-                    <td class="px-4 py-3 text-muted-foreground">2024-01-15</td>
+                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
+                    <td class="px-3 sm:px-4 py-3 text-text-primary">Requirement #1</td>
+                    <td class="px-3 sm:px-4 py-3"><lsd-badge>Approved</lsd-badge></td>
+                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-15</td>
                   </tr>
-                  <tr class="border-b border-border hover:bg-muted/50">
-                    <td class="px-4 py-3 text-foreground">Architecture Pattern</td>
-                    <td class="px-4 py-3"><lsd-badge>In Review</lsd-badge></td>
-                    <td class="px-4 py-3 text-muted-foreground">2024-01-14</td>
+                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
+                    <td class="px-3 sm:px-4 py-3 text-text-primary">Architecture Pattern</td>
+                    <td class="px-3 sm:px-4 py-3"><lsd-badge>In Review</lsd-badge></td>
+                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-14</td>
                   </tr>
-                  <tr class="border-b border-border hover:bg-muted/50">
-                    <td class="px-4 py-3 text-foreground">Design System</td>
-                    <td class="px-4 py-3"><lsd-badge>Complete</lsd-badge></td>
-                    <td class="px-4 py-3 text-muted-foreground">2024-01-13</td>
+                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
+                    <td class="px-3 sm:px-4 py-3 text-text-primary">Design System</td>
+                    <td class="px-3 sm:px-4 py-3"><lsd-badge>Complete</lsd-badge></td>
+                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-13</td>
                   </tr>
                 </tbody>
               </table>
@@ -190,7 +195,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Alert Banners -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Alert Banners</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Alert Banners</h3>
             <div class="space-y-3">
               <lsd-alert-banner id="info-banner" variant="info" title="Information">
                 <p class="text-sm">This is an informational alert banner</p>
@@ -203,7 +208,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Stepper -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Stepper / Progress</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Stepper / Progress</h3>
             <lsd-stepper
               label="Project Phases"
               [steps]="stepperSteps"
@@ -214,11 +219,11 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
         <!-- PATTERNS SECTION -->
         <section>
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Patterns & Layouts</h2>
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Patterns & Layouts</h2>
 
           <!-- Form Section -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Form Section Pattern</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Form Section Pattern</h3>
             <lsd-form-section id="form-section-1" title="Engagement Details">
               <div class="space-y-4">
                 <lsd-input id="client-name" label="Client Name" />
@@ -230,7 +235,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- State Feedback -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">State Feedback</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">State Feedback</h3>
             <div class="space-y-4">
               <lsd-state-feedback id="state-loading" kind="loading" title="Loading">
                 <p class="text-sm">Loading engagement details...</p>
@@ -243,57 +248,57 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
 
           <!-- Activity Stream -->
           <div class="mb-8">
-            <h3 class="text-lg font-medium text-foreground mb-4">Activity Stream</h3>
+            <h3 class="text-lg font-medium text-text-primary mb-4">Activity Stream</h3>
             <lsd-activity-stream id="gallery-activity" [items]="activityItems" />
           </div>
         </section>
 
         <!-- RESPONSIVE LAYOUT SECTION -->
         <section>
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Responsive Layout</h2>
-          <p class="text-sm text-muted-foreground mb-4">Resize your browser to see responsive behavior</p>
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Responsive Layout</h2>
+          <p class="text-sm text-text-muted mb-4">Resize your browser to see responsive behavior</p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <lsd-surface class="p-6">
-              <h4 class="font-semibold text-foreground mb-2">Mobile</h4>
-              <p class="text-sm text-muted-foreground">1 column on mobile</p>
+              <h4 class="font-semibold text-text-primary mb-2">Mobile</h4>
+              <p class="text-sm text-text-muted">1 column on mobile</p>
             </lsd-surface>
             <lsd-surface class="p-6">
-              <h4 class="font-semibold text-foreground mb-2">Tablet</h4>
-              <p class="text-sm text-muted-foreground">2 columns on tablet</p>
+              <h4 class="font-semibold text-text-primary mb-2">Tablet</h4>
+              <p class="text-sm text-text-muted">2 columns on tablet</p>
             </lsd-surface>
             <lsd-surface class="p-6">
-              <h4 class="font-semibold text-foreground mb-2">Desktop</h4>
-              <p class="text-sm text-muted-foreground">3 columns on desktop</p>
+              <h4 class="font-semibold text-text-primary mb-2">Desktop</h4>
+              <p class="text-sm text-text-muted">3 columns on desktop</p>
             </lsd-surface>
           </div>
         </section>
 
         <!-- THEME SUPPORT SECTION -->
         <section>
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Theme Support</h2>
-          <p class="text-sm text-muted-foreground mb-4">Click the theme toggle button at the top to switch between light and dark appearances</p>
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Theme Support</h2>
+          <p class="text-sm text-text-muted mb-4">Click the theme toggle button at the top to switch between light and dark appearances</p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <lsd-surface class="p-6 bg-background border-2 border-border">
-              <h4 class="font-semibold text-foreground mb-2">Light Appearance</h4>
-              <p class="text-sm text-muted-foreground">Uses semantic color tokens for light mode</p>
+            <lsd-surface class="p-6 bg-surface-page border-2 border-border-default">
+              <h4 class="font-semibold text-text-primary mb-2">Light Appearance</h4>
+              <p class="text-sm text-text-muted">Uses semantic color tokens for light mode</p>
             </lsd-surface>
             <lsd-surface class="p-6">
-              <h4 class="font-semibold text-foreground mb-2">Dark Appearance</h4>
-              <p class="text-sm text-muted-foreground">Uses semantic color tokens for dark mode</p>
+              <h4 class="font-semibold text-text-primary mb-2">Dark Appearance</h4>
+              <p class="text-sm text-text-muted">Uses semantic color tokens for dark mode</p>
             </lsd-surface>
           </div>
         </section>
 
         <!-- VERIFICATION CHECKLIST -->
-        <section class="border-t border-border pt-8">
-          <h2 class="text-2xl font-semibold text-foreground mb-6">Integration Verification</h2>
+        <section class="border-t border-border-default pt-8">
+          <h2 class="text-2xl font-semibold text-text-primary mb-6">Integration Verification</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 class="font-medium text-foreground mb-3">✓ Rendered Primitives</h3>
-              <ul class="space-y-2 text-sm text-foreground">
+              <h3 class="font-medium text-text-primary mb-3">✓ Rendered Primitives</h3>
+              <ul class="space-y-2 text-sm text-text-primary">
                 <li>✓ Buttons (all tones, sizes, shapes)</li>
                 <li>✓ Form controls (input, textarea, select, checkbox)</li>
                 <li>✓ Badges</li>
@@ -304,8 +309,8 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
             </div>
 
             <div>
-              <h3 class="font-medium text-foreground mb-3">✓ Rendered Components</h3>
-              <ul class="space-y-2 text-sm text-foreground">
+              <h3 class="font-medium text-text-primary mb-3">✓ Rendered Components</h3>
+              <ul class="space-y-2 text-sm text-text-primary">
                 <li>✓ Data table with badges</li>
                 <li>✓ Alert banners (info, warning)</li>
                 <li>✓ Stepper/Progress indicators</li>
@@ -316,8 +321,8 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
             </div>
 
             <div>
-              <h3 class="font-medium text-foreground mb-3">✓ Responsive Design</h3>
-              <ul class="space-y-2 text-sm text-foreground">
+              <h3 class="font-medium text-text-primary mb-3">✓ Responsive Design</h3>
+              <ul class="space-y-2 text-sm text-text-primary">
                 <li>✓ Mobile-first breakpoints</li>
                 <li>✓ Grid layouts (1/2/3 col)</li>
                 <li>✓ Flexible spacing</li>
@@ -328,8 +333,8 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
             </div>
 
             <div>
-              <h3 class="font-medium text-foreground mb-3">✓ Theme Support</h3>
-              <ul class="space-y-2 text-sm text-foreground">
+              <h3 class="font-medium text-text-primary mb-3">✓ Theme Support</h3>
+              <ul class="space-y-2 text-sm text-text-primary">
                 <li>✓ Light appearance</li>
                 <li>✓ Dark appearance</li>
                 <li>✓ Semantic colors</li>
@@ -341,7 +346,7 @@ import { ActivityStreamComponent } from '../../design-system/patterns/activity-s
           </div>
         </section>
       </div>
-    </div>
+    </main>
   `,
   styles: [
     `
