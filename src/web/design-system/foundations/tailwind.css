@@ -2,6 +2,7 @@
 @import './appearance.css';
 @import './interaction-states.css';
 @import './motion.css';
+@import './radius.css';
 @import './typography.css';
 
 /* Scan design-system implementation only; migration snapshots and features are excluded. */

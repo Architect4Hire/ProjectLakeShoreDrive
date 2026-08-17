@@ -54,7 +54,7 @@
     "entry": "src/web/design-system/foundations/tailwind.css",
     "angularJsonPath": "projects.<target-project>.architect.build.options.styles",
     "order": "before application-specific global styles",
-    "includedFoundations": ["appearance.css", "interaction-states.css", "motion.css", "typography.css"]
+    "includedFoundations": ["appearance.css", "interaction-states.css", "motion.css", "radius.css", "typography.css"]
   },
   "configuration": {
     "createFiles": [

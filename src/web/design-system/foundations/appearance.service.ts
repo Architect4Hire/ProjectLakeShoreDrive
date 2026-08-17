@@ -2,7 +2,6 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, effect, inject, signal } from '@angular/core';
 
 import { elevationTokens } from '../tokens/elevation';
-import { radiusTokens } from '../tokens/radius';
 import { accentPrimaryThemes } from '../tokens/internal/accent-primary-themes';
 import { semanticColorThemes } from '../tokens/internal/semantic-color-themes';
 import {
@@ -37,11 +36,14 @@ export class AppearanceService {
   }
 
   /**
-   * Radius/elevation are appearance-invariant, so they're applied once here
-   * rather than in the appearance effect below. Values are read directly
-   * from tokens/radius.ts and tokens/elevation.ts (never re-typed as a
-   * literal in a foundations CSS file) so check-design-system-boundaries.mjs's
-   * raw-color-literal scan has nothing to flag outside tokens/.
+   * Elevation is appearance-invariant, so it's applied once here rather than
+   * in the appearance effect below. Values are read directly from
+   * tokens/elevation.ts (never re-typed as a literal in a foundations CSS
+   * file) so check-design-system-boundaries.mjs's raw-color-literal scan has
+   * nothing to flag outside tokens/ - shadows have real color values,
+   * unlike radius (see foundations/radius.css - plain lengths, no color
+   * literal, so it's static CSS instead and has no dependency on this
+   * service ever being instantiated).
    */
   private applyStaticTokens(): void {
     if (!isPlatformBrowser(this.platformId)) {
@@ -49,9 +51,6 @@ export class AppearanceService {
     }
 
     const root = this.document.documentElement;
-    for (const [token, value] of Object.entries(radiusTokens)) {
-      root.style.setProperty(`--lsd-radius-${token}`, value);
-    }
     for (const [token, value] of Object.entries(elevationTokens)) {
       root.style.setProperty(`--lsd-elevation-${token}`, value);
     }

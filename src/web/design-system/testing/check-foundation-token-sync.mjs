@@ -5,10 +5,11 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 /**
- * tokens/motion.ts and tokens/typography.ts are hand-duplicated (not generated)
- * into foundations/motion.css and foundations/typography.css because Tailwind's
- * @theme block only wires color tokens today. This script fails the moment the
- * two copies disagree, so drift is caught instead of silently shipping.
+ * tokens/motion.ts, tokens/radius.ts, and tokens/typography.ts are
+ * hand-duplicated (not generated) into foundations/motion.css,
+ * foundations/radius.css, and foundations/typography.css because Tailwind's
+ * @theme block only wires color tokens today. This script fails the moment
+ * a pair disagrees, so drift is caught instead of silently shipping.
  */
 
 function extractTsObject(source, exportName) {
@@ -20,6 +21,21 @@ function extractTsObject(source, exportName) {
     const key = entryMatch[1] ?? entryMatch[2];
     const value = entryMatch[3] ?? entryMatch[4];
     entries.set(key, value);
+  }
+  return entries;
+}
+
+/** Resolves a composed token object (e.g. `control: radiusScale.md`) against its raw scale. */
+function extractComposedTsObject(source, exportName, scaleName, scaleValues) {
+  const match = source.match(new RegExp(`export const ${exportName} = \\{([\\s\\S]*?)\\n\\} as const`));
+  if (!match) throw new Error(`Could not find "export const ${exportName}" in tokens source.`);
+  const entries = new Map();
+  const entryPattern = new RegExp(`(?:'([^']+)'|([A-Za-z][\\w-]*)):\\s*${scaleName}\\.([\\w]+)`, 'g');
+  for (const entryMatch of match[1].matchAll(entryPattern)) {
+    const key = entryMatch[1] ?? entryMatch[2];
+    const scaleKey = entryMatch[3];
+    if (!scaleValues.has(scaleKey)) throw new Error(`"${exportName}.${key}" references unknown "${scaleName}.${scaleKey}".`);
+    entries.set(key, scaleValues.get(scaleKey));
   }
   return entries;
 }
@@ -75,6 +91,15 @@ export function checkFoundationTokenSync(root = process.cwd()) {
     'motion easings',
     extractTsObject(motionTs, 'motionEasings'),
     extractCssCustomProperties(motionCssRoot, 'motion-easing'),
+    failures,
+  );
+
+  const radiusTs = fs.readFileSync(path.join(root, 'src/web/design-system/tokens/radius.ts'), 'utf8');
+  const radiusCss = fs.readFileSync(path.join(root, 'src/web/design-system/foundations/radius.css'), 'utf8');
+  compare(
+    'radius',
+    extractComposedTsObject(radiusTs, 'radiusTokens', 'radiusScale', extractTsObject(radiusTs, 'radiusScale')),
+    extractCssCustomProperties(extractCssRootBlock(radiusCss), 'lsd-radius'),
     failures,
   );
 
@@ -143,6 +168,12 @@ function runSelfTest() {
       path.join(foundationsDir, 'typography.css'),
       ':root {\n  --font-family-interface: Poppins;\n  --font-size-md: 1rem;\n  --line-height-md: 1.5rem;\n  --font-weight-regular: 400;\n  --letter-spacing-normal: 0em;\n}\n',
     );
+    fs.writeFileSync(
+      path.join(tokensDir, 'radius.ts'),
+      "export const radiusScale = {\n  md: '0.375rem',\n} as const;\n\nexport const radiusTokens = {\n  control: radiusScale.md,\n} as const;\n",
+    );
+    fs.writeFileSync(path.join(foundationsDir, 'radius.css'), ':root {\n  --lsd-radius-control: 0.375rem;\n}\n');
+
     const failures = checkFoundationTokenSync(fixtureRoot);
     const mismatch = failures.some((message) => message.includes('motion durations') && message.includes('fast'));
     if (!mismatch || failures.length !== 1) {
@@ -164,7 +195,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       for (const failure of failures) console.error(`- ${failure}`);
       process.exitCode = 1;
     } else {
-      console.log('Foundation token sync check passed: motion and typography CSS match their token sources.');
+      console.log('Foundation token sync check passed: motion, radius, and typography CSS match their token sources.');
     }
   }
 }

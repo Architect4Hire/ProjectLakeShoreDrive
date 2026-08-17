@@ -1,0 +1,21 @@
+/*
+ * Hand-duplicated from tokens/radius.ts, same pattern as motion.css/
+ * typography.css - check-foundation-token-sync.mjs fails the build if this
+ * file and its token source disagree.
+ *
+ * Unlike elevation (which has real color values and therefore has to
+ * be applied at runtime by AppearanceService to stay out of
+ * check-design-system-boundaries.mjs's raw-color-literal scan), radius
+ * values are plain lengths with no color literal at all - there is no
+ * reason for them to depend on AppearanceService ever being instantiated.
+ * Static CSS keeps radius working in every context: SSR's initial paint,
+ * isolated component tests, and any host application that renders design
+ * system components without happening to inject AppearanceService anywhere.
+ */
+:root {
+  --lsd-radius-control: 0.375rem;
+  --lsd-radius-panel: 0.5rem;
+  --lsd-radius-panel-prominent: 0.75rem;
+  --lsd-radius-overlay: 0.5rem;
+  --lsd-radius-pill: 9999px;
+}
