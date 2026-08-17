@@ -433,3 +433,20 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# TypeScript / Node.js / Angular
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm
+.env.local
+.env.*.local
+*.tsbuildinfo
+.eslintcache
+.node_repl_history

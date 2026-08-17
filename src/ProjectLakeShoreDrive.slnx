@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/ai/">
+    <Project Path="ai/ProjectLakeShoreDrive.AI.Abstractions/ProjectLakeShoreDrive.AI.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/services/">
+    <Project Path="services/ProjectLakeShoreDrive.DocumentGeneration.Core/ProjectLakeShoreDrive.DocumentGeneration.Core.csproj" />
+    <Project Path="services/ProjectLakeShoreDrive.DocumentGeneration/ProjectLakeShoreDrive.DocumentGeneration.csproj" />
+    <Project Path="services/ProjectLakeShoreDrive.Engagement.Core/ProjectLakeShoreDrive.Engagement.Core.csproj" />
+    <Project Path="services/ProjectLakeShoreDrive.Engagement/ProjectLakeShoreDrive.Engagement.csproj" />
+    <Project Path="services/ProjectLakeShoreDrive.Knowledge.Core/ProjectLakeShoreDrive.Knowledge.Core.csproj" />
+    <Project Path="services/ProjectLakeShoreDrive.Knowledge/ProjectLakeShoreDrive.Knowledge.csproj" />
+  </Folder>
+  <Project Path="../tests/architecture/ProjectLakeShoreDrive.Architecture.Tests/ProjectLakeShoreDrive.Architecture.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.AI.Abstractions.Tests/ProjectLakeShoreDrive.AI.Abstractions.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.ServiceDefaults.Tests/ProjectLakeShoreDrive.ServiceDefaults.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.Shared.Tests/ProjectLakeShoreDrive.Shared.Tests.csproj" />
+  <Project Path="ProjectLakeShoreDrive.AppHost/ProjectLakeShoreDrive.AppHost.csproj" />
+  <Project Path="ProjectLakeShoreDrive.ServiceDefaults/ProjectLakeShoreDrive.ServiceDefaults.csproj" />
+  <Project Path="ProjectLakeShoreDrive.Shared/ProjectLakeShoreDrive.Shared.csproj" />
+</Solution>
