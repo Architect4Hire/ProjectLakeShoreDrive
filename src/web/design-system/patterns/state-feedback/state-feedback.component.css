@@ -20,12 +20,12 @@
   block-size: 2rem;
   border: 0.125rem solid var(--lsd-color-border-default);
   border-block-start-color: var(--lsd-color-accent-primary);
-  border-radius: 9999px;
+  border-radius: var(--radius-pill);
   inline-size: 2rem;
 }
 
 .lsd-state-feedback__skeleton { display: grid; gap: 0.5rem; inline-size: min(100%, 36rem); }
-.lsd-state-feedback__skeleton-line { background: var(--lsd-color-surface-raised); block-size: 1rem; border-radius: 0.375rem; }
+.lsd-state-feedback__skeleton-line { background: var(--lsd-color-surface-raised); block-size: 1rem; border-radius: var(--radius-control); }
 .lsd-state-feedback__skeleton-line:last-child { inline-size: 70%; }
 
 @keyframes lsd-state-spin { to { transform: rotate(1turn); } }

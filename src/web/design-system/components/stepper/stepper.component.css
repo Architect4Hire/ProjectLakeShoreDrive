@@ -10,7 +10,7 @@
 .lsd-stepper__list { display: flex; min-inline-size: max-content; margin: 0; padding: 0; list-style: none; }
 .lsd-stepper__item { display: flex; align-items: center; }
 .lsd-stepper__control { display: flex; min-block-size: 2.75rem; align-items: center; gap: 0.75rem; padding: 0.5rem; text-align: start; }
-.lsd-stepper__marker { display: inline-grid; block-size: 2rem; inline-size: 2rem; flex: 0 0 auto; place-items: center; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; }
+.lsd-stepper__marker { display: inline-grid; block-size: 2rem; inline-size: 2rem; flex: 0 0 auto; place-items: center; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700; }
 .lsd-stepper__copy { display: grid; gap: 0.125rem; }
 .lsd-stepper__label, .lsd-stepper__description { max-inline-size: 12rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lsd-stepper__connector { block-size: 0.125rem; inline-size: 2rem; }

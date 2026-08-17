@@ -22,7 +22,7 @@
         }
       </div>
       @if (notification.dismissible) {
-        <button class="lsd-notification__dismiss rounded-md text-text-muted hover:bg-surface-panel hover:text-text-primary"
+        <button class="lsd-notification__dismiss rounded-control text-text-muted hover:bg-surface-panel hover:text-text-primary"
           type="button" [attr.aria-label]="'Dismiss ' + notification.title"
           (click)="dismiss(notification.id)">&#215;</button>
       }

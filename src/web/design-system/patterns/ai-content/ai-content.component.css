@@ -14,7 +14,7 @@
 .lsd-ai-content--approved .lsd-ai-content__body { background: var(--lsd-color-ai-approved-surface); border-color: var(--lsd-color-ai-approved-border); border-style: solid; color: var(--lsd-color-ai-approved-text); }
 .lsd-ai-content__sources { display: grid; gap: 0.75rem; }
 .lsd-ai-content__sources h3 { font-size: var(--font-size-sm); font-weight: 700; }
-.lsd-ai-content__citation { background: var(--lsd-color-surface-raised); border: 0.0625rem solid var(--lsd-color-border-default); border-radius: 999px; color: var(--lsd-color-text-primary); cursor: pointer; display: inline-flex; gap: 0.5rem; min-block-size: 2rem; padding: 0.375rem 0.75rem; }
+.lsd-ai-content__citation { background: var(--lsd-color-surface-raised); border: 0.0625rem solid var(--lsd-color-border-default); border-radius: var(--radius-pill); color: var(--lsd-color-text-primary); cursor: pointer; display: inline-flex; gap: 0.5rem; min-block-size: 2rem; padding: 0.375rem 0.75rem; }
 .lsd-ai-content__citation[aria-pressed='true'] { border-color: var(--lsd-color-accent-primary); outline: 0.125rem solid var(--lsd-color-accent-primary); outline-offset: 0.125rem; }
 .lsd-ai-content__citation small { color: var(--lsd-color-text-muted); }
 .lsd-ai-content__inspector { border-block: 0.0625rem solid var(--lsd-color-border-default); padding-block: 0.75rem; }

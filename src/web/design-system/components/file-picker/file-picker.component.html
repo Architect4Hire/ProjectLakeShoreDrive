@@ -13,7 +13,7 @@
     (drop)="drop($event)">
     <input #fileInput class="lsd-sr-only" type="file" tabindex="-1" [attr.aria-labelledby]="id() + '-label'"
       [accept]="accept() ?? ''" [disabled]="disabled()" [multiple]="multiple()" (change)="choose($event)" />
-    <button class="lsd-file-picker__browse rounded-md bg-accent-primary text-sm font-semibold text-text-on-accent"
+    <button class="lsd-file-picker__browse rounded-control bg-accent-primary text-sm font-semibold text-text-on-accent"
       type="button" [disabled]="disabled()" [attr.aria-describedby]="description() ? id() + '-description' : null"
       (click)="browse()">{{ browseLabel() }}</button>
     <span class="text-sm text-text-muted">{{ dropLabel() }}</span>

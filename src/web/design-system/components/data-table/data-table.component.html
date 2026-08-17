@@ -25,7 +25,7 @@
               @if (actions().length) {
                 <td class="lsd-data-table__actions text-right">
                   @for (action of actions(); track action.identity) {
-                    <button class="rounded-md text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                    <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
                       [disabled]="actionDisabled(action, row)" [attr.aria-label]="action.label + ': ' + rowLabel()(row)"
                       (click)="activate(action, row)">{{ action.label }}</button>
                   }
@@ -47,7 +47,7 @@
               @if (actions().length) {
                 <div class="lsd-data-table__card-actions" [attr.aria-label]="actionsLabel() + ' for ' + rowLabel()(row)">
                   @for (action of actions(); track action.identity) {
-                    <button class="rounded-md text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                    <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
                       [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
                   }
                 </div>

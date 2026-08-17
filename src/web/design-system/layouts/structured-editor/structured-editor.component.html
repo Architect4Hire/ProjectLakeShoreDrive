@@ -10,7 +10,7 @@
       {{ statusText() }}
     </div>
     @if (splitViewAvailable()) {
-      <button #contextToggle class="lsd-structured-editor__context-toggle rounded-md border border-border-default bg-surface-raised text-sm font-semibold text-text-primary"
+      <button #contextToggle class="lsd-structured-editor__context-toggle rounded-control border border-border-default bg-surface-raised text-sm font-semibold text-text-primary"
         type="button" [attr.aria-controls]="id() + '-context'" [attr.aria-expanded]="splitViewOpen()"
         (click)="toggleContext()">{{ splitViewOpen() ? hideContextLabel() : showContextLabel() }}</button>
     }

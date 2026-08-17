@@ -1,6 +1,6 @@
 :host { display: contents; }
 .lsd-command-palette { display: grid; gap: 0.75rem; }
-.lsd-command-palette__search { inline-size: 100%; min-block-size: 2.75rem; border-radius: 0.5rem; padding-inline: 0.75rem; }
+.lsd-command-palette__search { inline-size: 100%; min-block-size: 2.75rem; border-radius: var(--radius-panel); padding-inline: 0.75rem; }
 .lsd-command-palette__results { display: grid; max-block-size: min(24rem, 55dvh); gap: 0.75rem; overflow-y: auto; overscroll-behavior: contain; }
 .lsd-command-palette__group-label { padding: 0.5rem 0.75rem 0.25rem; letter-spacing: 0.025em; text-transform: uppercase; }
 .lsd-command-palette__command { display: flex; inline-size: 100%; min-block-size: 2.75rem; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.625rem 0.75rem; text-align: start; }
