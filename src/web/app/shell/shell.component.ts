@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 import {
   AppearanceService,
@@ -8,8 +8,11 @@ import {
   CommandPaletteComponent,
   type CommandPaletteGroup,
   InputComponent,
+  type NavMenuGroup,
+  NavMenuComponent,
   NotificationService,
   NotificationViewportComponent,
+  ProfileMenuComponent,
   WorkbenchShellRecipeComponent,
 } from '../../design-system/public-api';
 
@@ -22,14 +25,14 @@ interface PrimaryNavItem {
   selector: 'lsd-shell',
   standalone: true,
   imports: [
-    RouterLink,
-    RouterLinkActive,
     RouterOutlet,
     BadgeComponent,
     ButtonComponent,
     CommandPaletteComponent,
     InputComponent,
+    NavMenuComponent,
     NotificationViewportComponent,
+    ProfileMenuComponent,
     WorkbenchShellRecipeComponent,
   ],
   template: `
@@ -40,17 +43,11 @@ interface PrimaryNavItem {
       navigationTitle="Lake Shore Drive"
       contentLabel="Workbench content"
       [(navigationOpen)]="navigationOpen">
-      <nav lsdWorkbenchNavigation aria-label="Primary" class="flex flex-col gap-1 p-2">
-        @for (item of navItems; track item.path) {
-          <a
-            [routerLink]="item.path"
-            routerLinkActive="bg-surface-raised text-accent-primary font-semibold"
-            (click)="navigationOpen.set(false)"
-            class="rounded-md px-3 py-2 text-sm text-text-primary hover:bg-surface-raised">
-            {{ item.label }}
-          </a>
-        }
-      </nav>
+      <lsd-nav-menu
+        lsdWorkbenchNavigation
+        accessibleName="Primary"
+        [groups]="navGroups"
+        (itemActivated)="navigationOpen.set(false)" />
 
       <div lsdWorkbenchEngagement class="flex items-center gap-2">
         <lsd-badge variant="neutral">No active engagement</lsd-badge>
@@ -111,14 +108,9 @@ interface PrimaryNavItem {
       </div>
 
       <div lsdWorkbenchUserMenu>
-        <lsd-button
-          size="small"
-          impact="minimal"
-          tone="neutral"
-          accessibleLabel="Account menu"
-          (activated)="announceUnavailable('Account menu')">
-          Guest
-        </lsd-button>
+        <lsd-profile-menu id="app-shell-profile" name="Guest">
+          <button lsdProfileMenuLink type="button" (click)="announceUnavailable('Account settings')">Settings</button>
+        </lsd-profile-menu>
       </div>
 
       <router-outlet />
@@ -144,6 +136,13 @@ export class ShellComponent {
   protected readonly navItems: readonly PrimaryNavItem[] = [
     { path: '/engagements', label: 'Engagements' },
     { path: '/gallery', label: 'Design System Gallery' },
+  ];
+
+  protected readonly navGroups: readonly NavMenuGroup[] = [
+    {
+      id: 'primary',
+      items: this.navItems.map((item) => ({ id: item.path, label: item.label, routerLink: item.path })),
+    },
   ];
 
   protected readonly navigationOpen = signal(false);

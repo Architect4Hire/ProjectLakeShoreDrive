@@ -57,6 +57,8 @@ Import supported TypeScript APIs only through `src/web/design-system/public-api.
 - [Filter action bar](filter-action-bar.md)
 - [Form section](form-section.md)
 - [Master detail and trigger](master-detail.md)
+- [Nav menu](nav-menu.md)
+- [Profile menu](profile-menu.md)
 - [Review approval](review-approval.md)
 - [Search results and result details](search-results.md)
 - [Source preview](source-preview.md)
@@ -69,6 +71,7 @@ Import supported TypeScript APIs only through `src/web/design-system/public-api.
 
 - [ADR summary](adr-summary.md)
 - [AI generation drawer](ai-generation-drawer.md)
+- [App navbar recipe](app-navbar.md)
 - [Approval actions](approval-actions.md)
 - [Decision comparison](decision-comparison.md)
 - [Document section editor](document-section-editor.md)

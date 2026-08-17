@@ -1,5 +1,6 @@
 export * from './adr-summary/adr-summary.component';
 export * from './ai-generation-drawer/ai-generation-drawer.component';
+export * from './app-navbar/app-navbar.component';
 export * from './approval-actions/approval-actions.component';
 export * from './decision-comparison/decision-comparison.component';
 export * from './document-section-editor/document-section-editor.component';

@@ -1,0 +1,60 @@
+<nav class="lsd-nav-menu" [attr.aria-label]="accessibleName()" [attr.data-collapsed]="collapsed()">
+  <button type="button" class="lsd-nav-menu__collapse-toggle rounded-control" (click)="toggleCollapsed()" [attr.aria-label]="toggleLabel()" [attr.aria-pressed]="collapsed()">
+    <lsd-icon name="chevron-left" size="small" />
+  </button>
+  @for (group of groups(); track group.id) {
+    <div class="lsd-nav-menu__group">
+      @if (group.label && !collapsed()) {
+        <span class="lsd-nav-menu__group-label">{{ group.label }}</span>
+      }
+      <ul class="lsd-nav-menu__list" role="list">
+        @for (item of group.items; track item.id) {
+          <li>
+            @if (collapsed()) {
+              <lsd-tooltip [id]="'nav-' + item.id" [text]="item.label" placement="right">
+                <a lsdTooltipTrigger class="lsd-nav-menu__link lsd-nav-menu__link--collapsed rounded-control" [routerLink]="item.routerLink"
+                  routerLinkActive="lsd-nav-menu__link--active" [attr.aria-current]="null" (click)="activate(item)">
+                  @if (item.iconName) {
+                    <lsd-icon [name]="item.iconName" size="small" />
+                  } @else {
+                    <span class="lsd-nav-menu__initial" aria-hidden="true">{{ initialFor(item) }}</span>
+                  }
+                  <span class="lsd-sr-only">{{ item.label }}</span>
+                </a>
+              </lsd-tooltip>
+            } @else {
+              <a class="lsd-nav-menu__link rounded-control" [routerLink]="item.routerLink"
+                routerLinkActive="lsd-nav-menu__link--active" (click)="activate(item)">
+                @if (item.iconName) {
+                  <lsd-icon [name]="item.iconName" size="small" />
+                } @else {
+                  <span class="lsd-nav-menu__initial" aria-hidden="true">{{ initialFor(item) }}</span>
+                }
+                <span class="lsd-nav-menu__label">{{ item.label }}</span>
+              </a>
+              @if (item.children?.length) {
+                <button type="button" class="lsd-nav-menu__expand rounded-control" (click)="toggleExpanded(item)"
+                  [attr.aria-expanded]="isExpanded(item)" [attr.aria-controls]="item.id + '-children'"
+                  [attr.aria-label]="(isExpanded(item) ? 'Collapse ' : 'Expand ') + item.label">
+                  <lsd-icon [name]="isExpanded(item) ? 'chevron-up' : 'chevron-down'" size="small" />
+                </button>
+                @if (isExpanded(item)) {
+                  <ul class="lsd-nav-menu__list lsd-nav-menu__list--nested" role="list" [id]="item.id + '-children'">
+                    @for (child of item.children; track child.id) {
+                      <li>
+                        <a class="lsd-nav-menu__link rounded-control" [routerLink]="child.routerLink"
+                          routerLinkActive="lsd-nav-menu__link--active" (click)="activate(child)">
+                          <span class="lsd-nav-menu__label">{{ child.label }}</span>
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                }
+              }
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>

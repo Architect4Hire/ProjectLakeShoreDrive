@@ -1,0 +1,24 @@
+<div class="lsd-app-navbar">
+  <div class="lsd-app-navbar__logo">
+    <ng-content select="[lsdAppNavbarLogo]" />
+  </div>
+
+  @if (links().length) {
+    <nav class="lsd-app-navbar__links" aria-label="Primary">
+      <ul role="list">
+        @for (link of links(); track link.id) {
+          <li>
+            <a class="rounded-control" [routerLink]="link.routerLink" routerLinkActive="lsd-app-navbar__link--active">{{ link.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+
+  <div class="lsd-app-navbar__actions">
+    <ng-content select="[lsdAppNavbarActions]" />
+    <lsd-profile-menu id="lsd-app-navbar-profile" [name]="profileName()" [email]="profileEmail()">
+      <ng-content select="[lsdProfileMenuLink]" />
+    </lsd-profile-menu>
+  </div>
+</div>

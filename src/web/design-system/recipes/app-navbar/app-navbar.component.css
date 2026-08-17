@@ -1,0 +1,16 @@
+:host { display: block; }
+.lsd-app-navbar { display: flex; align-items: center; gap: 1.5rem; min-block-size: 3.5rem; padding-inline: 1rem; }
+.lsd-app-navbar__logo { display: flex; align-items: center; flex: none; }
+.lsd-app-navbar__logo:empty { display: none; }
+
+.lsd-app-navbar__links { flex: 1 1 auto; min-inline-size: 0; }
+.lsd-app-navbar__links ul { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }
+.lsd-app-navbar__links a { display: flex; align-items: center; min-block-size: 2.75rem; padding-inline: 0.75rem; color: var(--lsd-color-text-primary); font-size: 0.875rem; font-weight: 500; }
+.lsd-app-navbar__links a:hover { background: var(--lsd-color-surface-raised); }
+.lsd-app-navbar__link--active { color: var(--lsd-color-accent-primary); font-weight: 700; }
+
+.lsd-app-navbar__actions { display: flex; flex: none; align-items: center; gap: 0.75rem; margin-inline-start: auto; }
+
+@media (max-width: 47.999rem) {
+  .lsd-app-navbar__links { display: none; }
+}

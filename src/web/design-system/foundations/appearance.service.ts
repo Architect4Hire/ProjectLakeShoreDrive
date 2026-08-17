@@ -65,6 +65,11 @@ export class AppearanceService {
     this.selectedAppearance.update((current) => (current === 'light' ? 'dark' : 'light'));
   }
 
+  /** Resolves an accent option to a paintable hex value for the current appearance, e.g. for swatch previews. Keeps tokens/internal/'s raw-value table encapsulated here rather than importing it into pattern/recipe components. */
+  previewColorFor(accentColor: AccentColor): string {
+    return accentPrimaryThemes[accentColor][this.selectedAppearance()];
+  }
+
   setAccentColor(accentColor: AccentColor): void {
     this.selectedAccentColor.set(accentColor);
   }

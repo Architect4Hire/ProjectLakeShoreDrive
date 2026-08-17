@@ -54,6 +54,8 @@
   { "category": "Patterns", "name": "Form section", "publicModule": "patterns/form-section/form-section.component", "doc": "form-section.md" },
   { "category": "Patterns", "name": "Master detail", "publicModule": "patterns/master-detail/master-detail.component", "doc": "master-detail.md" },
   { "category": "Patterns", "name": "Master detail trigger", "publicModule": "patterns/master-detail/master-detail-trigger.directive", "doc": "master-detail.md" },
+  { "category": "Patterns", "name": "Nav menu", "publicModule": "patterns/nav-menu/nav-menu.component", "doc": "nav-menu.md" },
+  { "category": "Patterns", "name": "Profile menu", "publicModule": "patterns/profile-menu/profile-menu.component", "doc": "profile-menu.md" },
   { "category": "Patterns", "name": "Review approval", "publicModule": "patterns/review-approval/review-approval.component", "doc": "review-approval.md" },
   { "category": "Patterns", "name": "Search result details", "publicModule": "patterns/search-results/search-result-details.directive", "doc": "search-results.md" },
   { "category": "Patterns", "name": "Search results", "publicModule": "patterns/search-results/search-results.component", "doc": "search-results.md" },
@@ -66,6 +68,7 @@
 
   { "category": "Recipes", "name": "ADR summary", "publicModule": "recipes/adr-summary/adr-summary.component", "doc": "adr-summary.md" },
   { "category": "Recipes", "name": "AI generation drawer", "publicModule": "recipes/ai-generation-drawer/ai-generation-drawer.component", "doc": "ai-generation-drawer.md" },
+  { "category": "Recipes", "name": "App navbar", "publicModule": "recipes/app-navbar/app-navbar.component", "doc": "app-navbar.md" },
   { "category": "Recipes", "name": "Approval actions", "publicModule": "recipes/approval-actions/approval-actions.component", "doc": "approval-actions.md" },
   { "category": "Recipes", "name": "Decision comparison", "publicModule": "recipes/decision-comparison/decision-comparison.component", "doc": "decision-comparison.md" },
   { "category": "Recipes", "name": "Document section editor", "publicModule": "recipes/document-section-editor/document-section-editor.component", "doc": "document-section-editor.md" },

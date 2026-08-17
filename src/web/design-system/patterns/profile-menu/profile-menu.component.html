@@ -1,0 +1,49 @@
+<button #trigger type="button" class="lsd-profile-menu__trigger rounded-pill" [attr.popovertarget]="id() + '-panel'" [attr.aria-label]="name() + ' account menu'">
+  <span class="lsd-profile-menu__avatar" aria-hidden="true">{{ initialFor(name()) }}</span>
+</button>
+<div [id]="id() + '-panel'" popover class="lsd-profile-menu__panel border border-border-default bg-surface-panel" (beforetoggle)="positionPanel($event, trigger)">
+  <div class="lsd-profile-menu__header">
+    <span class="lsd-profile-menu__avatar lsd-profile-menu__avatar--large" aria-hidden="true">{{ initialFor(name()) }}</span>
+    <span class="lsd-profile-menu__identity">
+      <span class="lsd-profile-menu__name">{{ name() }}</span>
+      @if (email()) { <span class="lsd-profile-menu__email">{{ email() }}</span> }
+    </span>
+  </div>
+
+  <ul class="lsd-profile-menu__links" role="list">
+    <ng-content select="[lsdProfileMenuLink]" />
+  </ul>
+
+  <div class="lsd-profile-menu__settings">
+    <div class="lsd-profile-menu__setting">
+      <span class="lsd-profile-menu__setting-label" [id]="id() + '-appearance-label'">Appearance</span>
+      <div class="lsd-profile-menu__toggle-group" role="group" [attr.aria-labelledby]="id() + '-appearance-label'">
+        <button type="button" class="rounded-control" [attr.aria-pressed]="appearanceService.appearance() === 'light'" (click)="appearanceService.setAppearance('light')">Light</button>
+        <button type="button" class="rounded-control" [attr.aria-pressed]="appearanceService.appearance() === 'dark'" (click)="appearanceService.setAppearance('dark')">Dark</button>
+      </div>
+    </div>
+
+    <div class="lsd-profile-menu__setting">
+      <span class="lsd-profile-menu__setting-label" [id]="id() + '-accent-label'">Accent color</span>
+      <div class="lsd-profile-menu__swatches" role="group" [attr.aria-labelledby]="id() + '-accent-label'">
+        @for (color of accentColorNames; track color) {
+          <button type="button" class="lsd-profile-menu__swatch"
+            [style.background]="accentSwatchColor(color)"
+            [attr.aria-pressed]="appearanceService.accentColor() === color"
+            [attr.aria-label]="'Use ' + accentLabel(color) + ' accent'"
+            (click)="appearanceService.setAccentColor(color)"></button>
+        }
+      </div>
+    </div>
+
+    @if (directionControlEnabled()) {
+      <div class="lsd-profile-menu__setting">
+        <span class="lsd-profile-menu__setting-label" [id]="id() + '-direction-label'">Direction</span>
+        <div class="lsd-profile-menu__toggle-group" role="group" [attr.aria-labelledby]="id() + '-direction-label'">
+          <button type="button" class="rounded-control" [attr.aria-pressed]="appearanceService.direction() === 'ltr'" (click)="appearanceService.setDirection('ltr')">LTR</button>
+          <button type="button" class="rounded-control" [attr.aria-pressed]="appearanceService.direction() === 'rtl'" (click)="appearanceService.setDirection('rtl')">RTL</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
