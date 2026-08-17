@@ -1,4 +1,7 @@
 <section class="lsd-data-table" [attr.aria-label]="accessibleName()" role="region">
+  <div class="lsd-data-table__toolbar">
+    <ng-content select="[lsdDataTableToolbar]" />
+  </div>
   @if (error(); as errorMessage) {
     <div class="lsd-data-table__state border border-status-danger bg-status-danger/10 text-text-primary" role="alert">
       <span class="font-semibold">Unable to load data</span><span>{{ errorMessage }}</span>
@@ -15,19 +18,62 @@
       <table [attr.data-density]="density()">
         <caption class="lsd-sr-only">{{ accessibleName() }}</caption>
         <thead><tr>
+          @if (selectable()) {
+            <th scope="col" class="lsd-data-table__select-column">
+              <input type="checkbox" aria-label="Select all rows" [checked]="allSelected()" [indeterminate]="someSelected()" (change)="toggleAll()" />
+            </th>
+          }
           @for (column of columns(); track column.id) { <th scope="col" [class]="alignment(column.align)">{{ column.header }}</th> }
           @if (actions().length) { <th scope="col" class="text-right">{{ actionsLabel() }}</th> }
         </tr></thead>
         <tbody>
-          @for (row of rows(); track keyFor(row, $index)) {
-            <tr>
-              @for (column of columns(); track column.id) { <td [class]="alignment(column.align)">{{ column.value(row) }}</td> }
+          @for (row of visibleRows(); track keyFor(row, $index)) {
+            <tr [attr.aria-selected]="selectable() ? isRowSelected(row, $index) : null">
+              @if (selectable()) {
+                <td class="lsd-data-table__select-column">
+                  <input type="checkbox" [attr.aria-label]="'Select ' + rowLabel()(row)" [checked]="isRowSelected(row, $index)" (change)="toggleRow(row, $index)" />
+                </td>
+              }
+              @for (column of columns(); track column.id) {
+                <td [class]="alignment(column.align)">
+                  @switch (column.kind ?? 'text') {
+                    @case ('identity') {
+                      @if (identityFor(column, row); as identity) {
+                        <div class="lsd-data-table__identity">
+                          <span class="lsd-data-table__identity-avatar" aria-hidden="true">{{ initialsFor(identity) }}</span>
+                          <span class="lsd-data-table__identity-text">
+                            <span class="lsd-data-table__identity-primary">{{ identity.primary }}</span>
+                            @if (identity.secondary) { <span class="lsd-data-table__identity-secondary">{{ identity.secondary }}</span> }
+                          </span>
+                        </div>
+                      }
+                    }
+                    @case ('chips') {
+                      <ul class="lsd-data-table__chips" role="list">
+                        @for (chip of chipsFor(column, row); track chip) { <li class="lsd-data-table__chip">{{ chip }}</li> }
+                      </ul>
+                    }
+                    @default { {{ column.value(row) }} }
+                  }
+                </td>
+              }
               @if (actions().length) {
                 <td class="lsd-data-table__actions text-right">
-                  @for (action of actions(); track action.identity) {
-                    <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
-                      [disabled]="actionDisabled(action, row)" [attr.aria-label]="action.label + ': ' + rowLabel()(row)"
-                      (click)="activate(action, row)">{{ action.label }}</button>
+                  @if (actionsDisplay() === 'menu') {
+                    <button #actionsTrigger class="lsd-data-table__actions-trigger rounded-control" type="button"
+                      [attr.popovertarget]="'lsd-dt-actions-' + keyFor(row, $index)" [attr.aria-label]="actionsLabel() + ' for ' + rowLabel()(row)">&#8942;</button>
+                    <div [id]="'lsd-dt-actions-' + keyFor(row, $index)" popover class="lsd-data-table__actions-menu border border-border-default bg-surface-panel"
+                      (beforetoggle)="positionActionsMenu($event, actionsTrigger)">
+                      @for (action of actions(); track action.identity) {
+                        <button type="button" class="rounded-control" [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
+                      }
+                    </div>
+                  } @else {
+                    @for (action of actions(); track action.identity) {
+                      <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                        [disabled]="actionDisabled(action, row)" [attr.aria-label]="action.label + ': ' + rowLabel()(row)"
+                        (click)="activate(action, row)">{{ action.label }}</button>
+                    }
                   }
                 </td>
               }
@@ -37,18 +83,57 @@
       </table>
       @if (responsiveMode() === 'cards') {
         <ul class="lsd-data-table__cards" role="list">
-          @for (row of rows(); track keyFor(row, $index)) {
+          @for (row of visibleRows(); track keyFor(row, $index)) {
             <li class="lsd-data-table__card border border-border-default bg-surface-panel">
+              @if (selectable()) {
+                <label class="lsd-data-table__card-select">
+                  <input type="checkbox" [attr.aria-label]="'Select ' + rowLabel()(row)" [checked]="isRowSelected(row, $index)" (change)="toggleRow(row, $index)" />
+                  <span>{{ rowLabel()(row) }}</span>
+                </label>
+              }
               <dl>
                 @for (column of columns(); track column.id) {
-                  <div><dt class="text-sm font-semibold text-text-muted">{{ column.header }}</dt><dd>{{ column.value(row) }}</dd></div>
+                  <div>
+                    <dt class="text-sm font-semibold text-text-muted">{{ column.header }}</dt>
+                    <dd>
+                      @switch (column.kind ?? 'text') {
+                        @case ('identity') {
+                          @if (identityFor(column, row); as identity) {
+                            <div class="lsd-data-table__identity">
+                              <span class="lsd-data-table__identity-avatar" aria-hidden="true">{{ initialsFor(identity) }}</span>
+                              <span class="lsd-data-table__identity-text">
+                                <span class="lsd-data-table__identity-primary">{{ identity.primary }}</span>
+                                @if (identity.secondary) { <span class="lsd-data-table__identity-secondary">{{ identity.secondary }}</span> }
+                              </span>
+                            </div>
+                          }
+                        }
+                        @case ('chips') {
+                          <ul class="lsd-data-table__chips" role="list">
+                            @for (chip of chipsFor(column, row); track chip) { <li class="lsd-data-table__chip">{{ chip }}</li> }
+                          </ul>
+                        }
+                        @default { {{ column.value(row) }} }
+                      }
+                    </dd>
+                  </div>
                 }
               </dl>
               @if (actions().length) {
                 <div class="lsd-data-table__card-actions" [attr.aria-label]="actionsLabel() + ' for ' + rowLabel()(row)">
-                  @for (action of actions(); track action.identity) {
-                    <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
-                      [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
+                  @if (actionsDisplay() === 'menu') {
+                    <button class="lsd-data-table__actions-trigger rounded-control" type="button"
+                      [attr.popovertarget]="'lsd-dt-card-actions-' + keyFor(row, $index)" [attr.aria-label]="actionsLabel() + ' for ' + rowLabel()(row)">&#8942;</button>
+                    <div [id]="'lsd-dt-card-actions-' + keyFor(row, $index)" popover class="lsd-data-table__actions-menu border border-border-default bg-surface-panel">
+                      @for (action of actions(); track action.identity) {
+                        <button type="button" class="rounded-control" [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
+                      }
+                    </div>
+                  } @else {
+                    @for (action of actions(); track action.identity) {
+                      <button class="rounded-control text-sm font-semibold text-accent-primary hover:bg-surface-raised" type="button"
+                        [disabled]="actionDisabled(action, row)" (click)="activate(action, row)">{{ action.label }}</button>
+                    }
                   }
                 </div>
               }
@@ -57,5 +142,21 @@
         </ul>
       }
     </div>
+    @if (paginated()) {
+      <div class="lsd-data-table__footer">
+        <label class="lsd-data-table__page-size">
+          <span>Rows per page</span>
+          <select class="rounded-control" [value]="pageSize()" (change)="onPageSizeChange($any($event.target).value)">
+            @for (size of effectivePageSizeOptions(); track size) { <option [value]="size">{{ size }}</option> }
+          </select>
+        </label>
+        <span class="lsd-data-table__page-range" aria-live="polite">{{ pageRangeLabel() }}</span>
+        <div class="lsd-data-table__pager">
+          <button type="button" class="rounded-control" [disabled]="page() <= 1" (click)="goToPage(page() - 1)" aria-label="Previous page">&#8249;</button>
+          <span>Page {{ page() }} of {{ totalPages() }}</span>
+          <button type="button" class="rounded-control" [disabled]="page() >= totalPages()" (click)="goToPage(page() + 1)" aria-label="Next page">&#8250;</button>
+        </div>
+      </div>
+    }
   }
 </section>

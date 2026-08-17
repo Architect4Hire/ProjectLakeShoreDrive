@@ -9,10 +9,13 @@ Use the data table for typed, comparable rows with stable identities and optiona
 ## API
 
 - Required: `accessibleName`, typed `rows`, typed `columns`, stable `rowKey`, and contextual `rowLabel`.
-- Columns define stable ID, heading, typed value accessor, and optional alignment.
-- Optional typed `actions` emit `rowAction` with action identity and the original row. Caller-provided `disabled` predicates own action eligibility.
+- Columns define stable ID, heading, typed value accessor, and optional alignment. `kind` additively opts a column into `identity` (avatar-style initials + primary/secondary text, via an `identity` accessor) or `chips` (a pill-list, via a `chips` accessor) rendering instead of plain text; existing text columns are unaffected.
+- Optional typed `actions` emit `rowAction` with action identity and the original row. Caller-provided `disabled` predicates own action eligibility. `actionsDisplay` is `inline` (default; every action is its own visible, individually accessible-labeled button) or `menu` (collapses actions behind one native-popover kebab trigger per row — lower visual density, still keyboard/focus/dismiss-accessible via the browser's built-in Popover API).
 - States: `loading`, `loadingMessage`, `emptyMessage`, and `error`; precedence is error, loading, empty, then populated.
 - `density`: `comfortable` or `compact`; `responsiveMode`: `scroll` or `cards`.
+- `selectable` opts in a checkbox column (header select-all with indeterminate state, one checkbox per row); `selectedRows` is a two-way-bindable `model()` holding selected row keys (from `rowKey`), not row objects, so it survives row-array replacement.
+- `paginated` opts in a footer with a page-size select, an "X-Y of Z" range, and prev/next paging. `page`/`pageSize` are two-way-bindable `model()`s; `pageSizeOptions` defaults to `[10, 20, 50]` and always includes the current `pageSize` even if the caller didn't list it. Omit `totalCount` for client-side slicing of the full `rows()` array; provide it when the caller already fetched only the current page (the component then renders `rows()` as-is and drives the footer from `totalCount`).
+- A `[lsdDataTableToolbar]`-selected content-projection slot renders above the table, auto-collapsing when empty. The design system intentionally does not know about "status"/"search"/"sort" as concepts — callers project their own filter controls into this slot; the component only supplies the layout shell.
 
 ## Accessibility and keyboard behavior
 

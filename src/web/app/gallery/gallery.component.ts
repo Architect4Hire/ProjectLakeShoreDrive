@@ -7,6 +7,8 @@ import {
   BadgeComponent,
   ButtonComponent,
   CheckboxComponent,
+  DataTableComponent,
+  type DataTableColumn,
   FormSectionComponent,
   IconComponent,
   InputComponent,
@@ -20,6 +22,16 @@ import {
   TextareaComponent,
 } from '../../design-system/public-api';
 
+interface RequirementRow {
+  readonly id: string;
+  readonly title: string;
+  readonly owner: string;
+  readonly team: string;
+  readonly tags: readonly string[];
+  readonly status: string;
+  readonly date: string;
+}
+
 @Component({
   selector: 'lsd-gallery',
   standalone: true,
@@ -31,6 +43,7 @@ import {
     TextareaComponent,
     SelectComponent,
     CheckboxComponent,
+    DataTableComponent,
     SeparatorComponent,
     SurfaceComponent,
     TabsComponent,
@@ -159,33 +172,22 @@ import {
           <!-- Data Table -->
           <div class="mb-8 -mx-4 sm:mx-0">
             <h3 class="text-lg font-medium text-text-primary mb-4 px-4 sm:px-0">Data Table</h3>
-            <div class="overflow-x-auto px-4 sm:px-0">
-              <table class="w-full text-sm">
-                <thead class="border-b border-border-default bg-surface-panel">
-                  <tr>
-                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Item</th>
-                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Status</th>
-                    <th class="px-3 sm:px-4 py-3 text-left font-medium text-text-primary">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
-                    <td class="px-3 sm:px-4 py-3 text-text-primary">Requirement #1</td>
-                    <td class="px-3 sm:px-4 py-3"><lsd-badge>Approved</lsd-badge></td>
-                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-15</td>
-                  </tr>
-                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
-                    <td class="px-3 sm:px-4 py-3 text-text-primary">Architecture Pattern</td>
-                    <td class="px-3 sm:px-4 py-3"><lsd-badge>In Review</lsd-badge></td>
-                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-14</td>
-                  </tr>
-                  <tr class="border-b border-border-default hover:bg-surface-panel/50">
-                    <td class="px-3 sm:px-4 py-3 text-text-primary">Design System</td>
-                    <td class="px-3 sm:px-4 py-3"><lsd-badge>Complete</lsd-badge></td>
-                    <td class="px-3 sm:px-4 py-3 text-text-muted">2024-01-13</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="px-4 sm:px-0">
+              <lsd-data-table
+                id="gallery-data-table"
+                accessibleName="Requirements"
+                [rows]="requirementRows"
+                [columns]="requirementColumns"
+                [rowKey]="requirementRowKey"
+                [rowLabel]="requirementRowLabel"
+                [actions]="requirementActions"
+                actionsDisplay="menu"
+                [selectable]="true"
+                [(selectedRows)]="selectedRequirementRows"
+                [paginated]="true"
+                [pageSize]="3"
+                (rowAction)="onRequirementAction($event)"
+              />
             </div>
           </div>
 
@@ -373,6 +375,39 @@ export class GalleryComponent {
     { value: 'microservices', label: 'Microservices' },
     { value: 'ai-integration', label: 'AI Integration' },
   ];
+
+  protected readonly requirementRows: readonly RequirementRow[] = [
+    { id: 'req-1', title: 'Requirement #1', owner: 'Jamie Ortiz', team: 'Architect Team', tags: ['approved', 'phase-2'], status: 'Approved', date: '2024-01-15' },
+    { id: 'req-2', title: 'Architecture Pattern', owner: 'Priya Nair', team: 'Architect Team', tags: ['in-review'], status: 'In Review', date: '2024-01-14' },
+    { id: 'req-3', title: 'Design System', owner: 'Sam Lee', team: 'Platform Team', tags: ['complete', 'design-system'], status: 'Complete', date: '2024-01-13' },
+    { id: 'req-4', title: 'Estimate Model', owner: 'Priya Nair', team: 'Delivery Team', tags: ['draft'], status: 'Draft', date: '2024-01-12' },
+    { id: 'req-5', title: 'ADR: Messaging', owner: 'Jamie Ortiz', team: 'Architect Team', tags: ['approved'], status: 'Approved', date: '2024-01-11' },
+    { id: 'req-6', title: 'Risk Register', owner: 'Sam Lee', team: 'Platform Team', tags: ['in-review', 'raid'], status: 'In Review', date: '2024-01-10' },
+    { id: 'req-7', title: 'Kickoff Package', owner: 'Priya Nair', team: 'Delivery Team', tags: ['complete'], status: 'Complete', date: '2024-01-09' },
+  ];
+
+  protected readonly requirementColumns: readonly DataTableColumn<RequirementRow>[] = [
+    {
+      id: 'title',
+      header: 'Item',
+      value: (row) => row.title,
+      kind: 'identity',
+      identity: (row) => ({ primary: row.title, secondary: row.owner }),
+    },
+    { id: 'tags', header: 'Tags', value: (row) => row.tags.join(', '), kind: 'chips', chips: (row) => row.tags },
+    { id: 'status', header: 'Status', value: (row) => row.status },
+    { id: 'date', header: 'Date', value: (row) => row.date, align: 'end' },
+  ];
+
+  protected readonly requirementRowKey = (row: RequirementRow): string => row.id;
+  protected readonly requirementRowLabel = (row: RequirementRow): string => row.title;
+  protected readonly requirementActions = [{ identity: 'view', label: 'View' }, { identity: 'archive', label: 'Archive' }];
+  protected selectedRequirementRows: ReadonlySet<string | number> = new Set();
+
+  protected onRequirementAction(event: { action: string; row: RequirementRow }): void {
+    // Gallery demo only; a real consumer would route this to its own feature logic.
+    console.info(`data-table action "${event.action}" on "${event.row.title}"`);
+  }
 
   protected readonly stepperSteps = [
     { identity: 'discovery' as const, label: 'Discovery', state: 'complete' as const },
