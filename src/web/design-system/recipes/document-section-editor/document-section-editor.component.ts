@@ -14,7 +14,10 @@ export class DocumentSectionEditorComponent {
   readonly saveState = input<StructuredEditorSaveState>('saved'); readonly saveError = input<string | undefined>(undefined);
   readonly contextAvailable = input(false); readonly splitViewOpen = model(false); readonly actionsDisabled = input(false);
   readonly historyRequested = output<string>();
-  protected readonly sections = computed<readonly StructuredEditorSection<string>[]>(() => [{ identity: this.section().id, title: this.section().title, description: this.section().description }]);
+  protected readonly sections = computed<readonly StructuredEditorSection<string>[]>(() => {
+    const section = this.section();
+    return [{ identity: section.id, title: section.title, ...(section.description !== undefined ? { description: section.description } : {}) }];
+  });
   protected readonly provenance = computed(() => this.provenanceMap[this.section().provenance]);
   protected readonly approval = computed(() => this.approvalMap[this.section().approval]);
   protected requestHistory(): void { if (!this.actionsDisabled()) this.historyRequested.emit(this.section().id); }

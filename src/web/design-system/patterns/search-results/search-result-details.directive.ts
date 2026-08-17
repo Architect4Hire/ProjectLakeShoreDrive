@@ -14,8 +14,8 @@ export class SearchResultDetailsDirective<T = string> {
 
   static ngTemplateContextGuard<T>(
     _directive: SearchResultDetailsDirective<T>,
-    context: unknown,
-  ): context is SearchResultDetailsContext<T> { return true; }
+    _context: unknown,
+  ): _context is SearchResultDetailsContext<T> { return true; }
 }
 
 @Directive({ selector: 'ng-template[lsdSearchResultContent]', standalone: true })
@@ -24,6 +24,6 @@ export class SearchResultContentDirective<T = string> {
 
   static ngTemplateContextGuard<T>(
     _directive: SearchResultContentDirective<T>,
-    context: unknown,
-  ): context is SearchResultDetailsContext<T> { return true; }
+    _context: unknown,
+  ): _context is SearchResultDetailsContext<T> { return true; }
 }

@@ -1,28 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppearanceService } from '../../design-system/foundations/appearance.service';
-
-// Primitives
-import { ButtonComponent } from '../../design-system/primitives/button/button.component';
-import { BadgeComponent } from '../../design-system/primitives/badge/badge.component';
-import { InputComponent } from '../../design-system/primitives/input/input.component';
-import { TextareaComponent } from '../../design-system/primitives/textarea/textarea.component';
-import { SelectComponent } from '../../design-system/primitives/select/select.component';
-import { CheckboxComponent } from '../../design-system/primitives/checkbox/checkbox.component';
-import { SeparatorComponent } from '../../design-system/primitives/separator/separator.component';
-import { SurfaceComponent } from '../../design-system/primitives/surface/surface.component';
-import { TabsComponent } from '../../design-system/primitives/tabs/tabs.component';
-import { IconComponent } from '../../design-system/icons/icon.component';
-
-// Components
-import { StepperComponent } from '../../design-system/components/stepper/stepper.component';
-import { NotificationViewportComponent } from '../../design-system/components/notification/notification-viewport.component';
-import { AlertBannerComponent } from '../../design-system/components/alert-banner/alert-banner.component';
-
-// Patterns
-import { FormSectionComponent } from '../../design-system/patterns/form-section/form-section.component';
-import { StateFeedbackComponent } from '../../design-system/patterns/state-feedback/state-feedback.component';
-import { ActivityStreamComponent } from '../../design-system/patterns/activity-stream/activity-stream.component';
+import {
+  ActivityStreamComponent,
+  AlertBannerComponent,
+  AppearanceService,
+  BadgeComponent,
+  ButtonComponent,
+  CheckboxComponent,
+  FormSectionComponent,
+  IconComponent,
+  InputComponent,
+  NotificationViewportComponent,
+  SelectComponent,
+  SeparatorComponent,
+  StateFeedbackComponent,
+  StepperComponent,
+  SurfaceComponent,
+  TabsComponent,
+  TextareaComponent,
+} from '../../design-system/public-api';
 
 @Component({
   selector: 'lsd-gallery',

@@ -16,7 +16,10 @@ export class KnowledgeResultComponent {
   readonly result = input.required<KnowledgeSearchResult>(); readonly previewId = input.required<string>();
   readonly previewOpen = input(false); readonly selected = input(false); readonly actionsDisabled = input(false);
   readonly previewRequested = output<KnowledgeSearchResult>(); readonly openSourceRequested = output<KnowledgeSearchResult>(); readonly selectionRequested = output<KnowledgeSearchResult>();
-  protected readonly citation = computed<CitationReference>(() => ({ sourceId: this.result().sourceId, sourceTitle: this.result().title, sourceSection: this.result().section }));
+  protected readonly citation = computed<CitationReference>(() => {
+    const result = this.result();
+    return { sourceId: result.sourceId, sourceTitle: result.title, ...(result.section !== undefined ? { sourceSection: result.section } : {}) };
+  });
   protected readonly approvalView = computed(() => this.approvalMap[this.result().approval]);
   protected readonly confidentialityView = computed(() => this.confidentialityMap[this.result().confidentiality]);
   private readonly approvalMap: Record<KnowledgeApprovalState, { label:string; variant:BadgeVariant }> = { approved:{label:'Approved knowledge',variant:'approved'}, unapproved:{label:'Not approved',variant:'warning'}, deprecated:{label:'Deprecated',variant:'deprecated'} };

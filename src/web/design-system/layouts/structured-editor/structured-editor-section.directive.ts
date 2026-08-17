@@ -12,8 +12,8 @@ export class StructuredEditorSectionContentDirective<T = string> {
   constructor(readonly template: TemplateRef<StructuredEditorTemplateContext<T>>) {}
   static ngTemplateContextGuard<T>(
     _directive: StructuredEditorSectionContentDirective<T>,
-    context: unknown,
-  ): context is StructuredEditorTemplateContext<T> { return true; }
+    _context: unknown,
+  ): _context is StructuredEditorTemplateContext<T> { return true; }
 }
 
 @Directive({ selector: 'ng-template[lsdEditorSectionActions]', standalone: true })
@@ -22,6 +22,6 @@ export class StructuredEditorSectionActionsDirective<T = string> {
   constructor(readonly template: TemplateRef<StructuredEditorTemplateContext<T>>) {}
   static ngTemplateContextGuard<T>(
     _directive: StructuredEditorSectionActionsDirective<T>,
-    context: unknown,
-  ): context is StructuredEditorTemplateContext<T> { return true; }
+    _context: unknown,
+  ): _context is StructuredEditorTemplateContext<T> { return true; }
 }
