@@ -78,8 +78,14 @@
     "forbidDeepImports": true
   },
   "assets": {
-    "required": [],
-    "notes": "Components use the local typed icon registry; starter images, fonts, branding, avatars, and icon packs are not required."
+    "required": [
+      "src/web/design-system/foundations/fonts/poppins/poppins-latin-400-normal.woff2",
+      "src/web/design-system/foundations/fonts/poppins/poppins-latin-500-normal.woff2",
+      "src/web/design-system/foundations/fonts/poppins/poppins-latin-600-normal.woff2",
+      "src/web/design-system/foundations/fonts/poppins/poppins-latin-700-normal.woff2",
+      "src/web/design-system/foundations/fonts/poppins/OFL.txt"
+    ],
+    "notes": "Components use the local typed icon registry; starter images, branding, avatars, and icon packs are not required. The Poppins webfont is self-hosted under foundations/fonts/poppins (already included via the foundations directory copy) rather than loaded from a runtime Google Fonts request; see docs/design/third-party-notices.md for provenance/license."
   },
   "testSupport": {
     "copyDirectories": ["visual-regression"],
@@ -91,7 +97,7 @@
     ],
     "scripts": {
       "test:integration-manifest": "node src/web/design-system/testing/check-integration-manifest.mjs",
-      "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs",
+      "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs && node src/web/design-system/testing/check-foundation-token-sync.mjs",
       "test:accessibility": "playwright test visual-regression/tests/design-system.accessibility.spec.ts",
       "test:responsive": "playwright test visual-regression/tests/design-system.responsive.spec.ts",
       "test:visual": "playwright test visual-regression/tests/design-system.visual.spec.ts",
@@ -100,7 +106,8 @@
     "boundaryScripts": [
       "src/web/design-system/testing/check-integration-manifest.mjs",
       "src/web/design-system/testing/check-feature-boundaries.mjs",
-      "src/web/design-system/testing/check-design-system-boundaries.mjs"
+      "src/web/design-system/testing/check-design-system-boundaries.mjs",
+      "src/web/design-system/testing/check-foundation-token-sync.mjs"
     ],
     "baselinePolicy": "Copy approved baselines; do not regenerate them automatically during installation."
   },

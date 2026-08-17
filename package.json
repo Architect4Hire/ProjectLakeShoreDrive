@@ -10,7 +10,7 @@
     "start:visual": "ng serve visual-regression --host 127.0.0.1 --port 4207",
     "lint": "npm run test:integration-manifest && npm run test:boundaries && node src/web/design-system/documentation/check-documentation-coverage.mjs && node src/web/design-system/documentation/check-component-documentation.mjs && node src/web/design-system/documentation/check-responsive-documentation.mjs",
     "test": "npm run test:boundaries && npm run test:integration-manifest",
-    "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs",
+    "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs && node src/web/design-system/testing/check-foundation-token-sync.mjs",
     "test:integration-manifest": "node src/web/design-system/testing/check-integration-manifest.mjs",
     "test:visual": "playwright test visual-regression/tests/design-system.visual.spec.ts",
     "test:visual:update": "playwright test visual-regression/tests/design-system.visual.spec.ts --update-snapshots",

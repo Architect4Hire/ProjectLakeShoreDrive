@@ -61,6 +61,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+## Poppins typeface
+
+- Source: https://github.com/itfoundry/Poppins (distributed via Google Fonts, `fonts.gstatic.com`)
+- Fetched version: `v24` (Google Fonts CSS2 API, latin subset, weights 400/500/600/700, normal style)
+- License: SIL Open Font License, Version 1.1
+- Upstream copyright: Copyright 2020 The Poppins Project Authors (https://github.com/itfoundry/Poppins)
+
+Four woff2 files (`poppins-latin-{400,500,600,700}-normal.woff2`) are
+self-hosted at `src/web/design-system/foundations/fonts/poppins/` to match
+the angular-tailwind starter's typeface choice without depending on a
+runtime Google Fonts request (consistent with this design system's
+SSR-safety and no-external-network-dependency posture). The unmodified OFL
+license text is retained alongside the font files at
+`src/web/design-system/foundations/fonts/poppins/OFL.txt`. The OFL permits
+this kind of bundling/redistribution provided the font is not sold on its
+own and the license text accompanies it, both satisfied here.
+
 ## Asset provenance boundary
 
 The starter README separately attributes icons, patterns, or illustrations to
