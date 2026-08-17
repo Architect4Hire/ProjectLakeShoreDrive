@@ -2,6 +2,32 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "projects": {
+    "app": {
+      "projectType": "application",
+      "root": "src/web/app",
+      "sourceRoot": "src/web/app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/app",
+            "index": "src/web/app/index.html",
+            "browser": "src/web/app/main.ts",
+            "tsConfig": "src/web/app/tsconfig.app.json",
+            "styles": ["src/web/design-system/foundations/tailwind.css"],
+            "scripts": [],
+            "optimization": true,
+            "sourceMap": true
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "app:build"
+          }
+        }
+      }
+    },
     "visual-regression": {
       "projectType": "application",
       "root": "visual-regression/app",

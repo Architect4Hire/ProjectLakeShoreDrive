@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/primitives/textarea/textarea.component.css"],
+  "sourcesContent": [":host {\n  display: block;\n}\n\ntextarea {\n  box-sizing: border-box;\n  font: inherit;\n}\n\ntextarea::placeholder {\n  opacity: 1;\n}\n"],
+  "mappings": "AAAA,MACE,QAAA,KACF,CAEA,SACE,WAAA,WACA,KAAA,OACF,CAEA,QAAA,cACE,QAAA,CACF",
+  "names": []
+}

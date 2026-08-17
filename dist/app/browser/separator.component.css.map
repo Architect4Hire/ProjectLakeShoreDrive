@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/primitives/separator/separator.component.css"],
+  "sourcesContent": [":host {\n  display: contents;\n}\n\nhr,\ndiv {\n  border: 0;\n  box-sizing: border-box;\n  flex: none;\n  padding: 0;\n}\n\nhr {\n  inline-size: 100%;\n}\n\ndiv {\n  align-self: stretch;\n  min-block-size: 1em;\n}\n"],
+  "mappings": "AAAA,MACE,QAAA,QACF,CAEA,OAEE,OAAA,EACA,WAAA,WACA,KAAA,KARF,QASE,CACF,CAEA,GACE,YAAA,IACF,CAEA,IACE,WAAA,QACA,eAAA,GACF",
+  "names": []
+}

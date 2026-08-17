@@ -1,0 +1,100 @@
+# Dead-Letter Queue Observability Implementation Summary
+
+REQUIREMENT: OPS-002 Application Telemetry
+SCOPE: Create application/operations abstractions for observing and triaging dead-lettered messages
+CONSTRAINT: Smallest coherent change; preserve domain ownership and dependency direction
+RESTRICTION: Do not auto-replay DLQ messages
+DELIVERABLES: Contract tests and documentation
+
+## FILES CREATED
+
+### Source Code (6 files)
+src/ProjectLakeShoreDrive.Shared/Persistence/DeadLetter/
+  ✅ DeadLetteredMessage.cs                    - Entity with complete message metadata
+  ✅ DeadLetterTriageStatus.cs                 - State machine enum (Unreviewed → Resolved)
+  ✅ DeadLetteredMessageConfiguration.cs       - EF Core configuration with 4 operational indexes
+  ✅ IDeadLetterRegistry.cs                    - Application abstraction (8 operations)
+  ✅ DeadLetterRegistry.cs                     - Implementation using EF Core
+  ✅ DeadLetterTriageService.cs                - Replay eligibility analysis service
+
+### Contract Tests (3 files, 33 tests total)
+tests/unit/ProjectLakeShoreDrive.Shared.Tests/
+  ✅ DeadLetteredMessageConfigurationTests.cs  - 12 tests (EF mapping, indexes, nullability)
+  ✅ DeadLetterRegistryTests.cs                - 11 tests (CRUD, idempotence, queries)
+  ✅ DeadLetterTriageServiceTests.cs           - 10 tests (triage heuristics by failure type)
+
+### Documentation (2 files)
+  ✅ .claude/rules/dead-letter-observability.md
+     - 400+ lines covering architecture, usage, constraints, examples
+  ✅ docs/design/dead-letter-observability.md
+     - Design document with integration examples and dashboard guidance
+
+## KEY FEATURES
+
+✅ Captures: MessageId, CorrelationId, CausationId, EventType/Version, Consumer, Producer,
+            OccurredAt, ReceivedAt, DeadLetteredAt, AttemptCount, Reason, Description,
+            BusinessKey, TriageStatus, Notes, ReviewedBy/At
+
+✅ Triage Workflow: Unreviewed → Diagnosis → EligibleForReplay|IneligibleForReplay → Resolved
+
+✅ Guidance Heuristics:
+    - Attempt count ≥10 → likely systemic issue
+    - Deserialization/schema → likely permanent
+    - Authorization/permission → likely permanent  
+    - Not found → likely permanent
+    - Timeout/network → likely transient
+    - Age >24 hours → warn about state drift
+
+✅ Domain Ownership: Records owned by calling domain's DbContext (no cross-domain sharing)
+
+✅ Idempotent Recording: Duplicate message IDs safely ignored
+
+✅ Concurrency-Safe: RowVersion prevents silent overwrite of concurrent triage updates
+
+✅ No Auto-Replay: System provides eligibility guidance; operators make explicit decisions
+
+## ARCHITECTURAL ALIGNMENT
+
+✅ CLAUDE.md domain-ownership rules: Each domain owns its dead-letter records
+✅ Preserves onion-layer direction: Registry uses DbContext, not direct SQL
+✅ Provider abstraction: Uses IDeadLetterRegistry, not Service Bus SDK directly
+✅ Observability (OPS-002): Structured metadata enables correlation and triage
+✅ Follows project patterns: EF configuration, contract tests, rule documentation
+
+## DESIGN VERIFICATION
+
+✓ Scope: Focused on observation and triage only
+✓ Constraint: No new services invented; uses existing persistence layer
+✓ Restriction: No auto-replay (triage produces eligibility, not action)
+✓ Usage: All 7 required fields captured (entity, metadata, reason, correlation, timestamps, eligibility)
+✓ Behavior: 33 contract tests + comprehensive documentation
+
+## INTEGRATION CHECKLIST (for consumers)
+
+When implementing dead-letter handling in a domain:
+  [ ] Add DeadLetteredMessageConfiguration to domain DbContext
+  [ ] Inject IDeadLetterRegistry in message handlers/consumers
+  [ ] Call RecordDeadLetteredMessageAsync when message fails permanently
+  [ ] Expose GetUnreviewedAsync to operations dashboard
+  [ ] Use DeadLetterTriageService in triage workflow
+  [ ] Subscribe to triage events/hooks for alerting if needed
+
+## TESTING SUMMARY
+
+Total: 33 contract tests across 3 suites
+  - Configuration tests validate schema and indexes
+  - Registry tests validate CRUD and query contracts
+  - Service tests validate heuristic guidance
+  - All tests use in-memory provider for metadata inspection per database.md rules
+
+## NEXT STEPS (Not in this seam)
+
+Future enhancements (out of scope):
+  - Manual replay API endpoint
+  - Automatic triage alerts (messages stuck in Diagnosis)
+  - Batch operations (mark multiple messages)
+  - Advanced analytics (failure rate trends, success metrics)
+  - Dead-letter reason taxonomy/classification
+
+---
+Implementation complete. All deliverables present and tested. STOP.

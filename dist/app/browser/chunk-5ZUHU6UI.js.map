@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "sources": [
+    "src/web/app/features/engagements/engagements-list.component.ts",
+    "src/web/app/features/engagements/engagements.routes.ts"
+  ],
+  "sourcesContent": [
+    "import { Component, signal } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'lsd-engagements-list',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div>\n      <h1>Engagements</h1>\n      <p>{{ message() }}</p>\n    </div>\n  `,\n  styles: [],\n})\nexport class EngagementsListComponent {\n  message = signal('Welcome to Lake Shore Drive');\n}\n",
+    "import { Routes } from '@angular/router';\nimport { EngagementsListComponent } from './engagements-list.component';\n\nexport const ENGAGEMENTS_ROUTES: Routes = [\n  {\n    path: '',\n    component: EngagementsListComponent,\n  },\n];\n"
+  ],
+  "mappings": "gGAeM,IAAAA,GAAA,IAAA,CAAA,MAAOA,CAAwB,CACnC,QAAUC,EAAO,0EADND,EAAwB,2BAAxBA,EAAwB,UAAA,CAAA,CAAA,sBAAA,CAAA,EAAA,MAAA,EAAA,KAAA,EAAA,SAAA,SAAAE,EAAAC,EAAA,CAAAD,EAAA,IAPjCE,EAAA,EAAA,KAAA,EAAK,EAAA,IAAA,EACCC,EAAA,EAAA,aAAA,EAAWC,EAAA,EACfF,EAAA,EAAA,GAAA,EAAGC,EAAA,CAAA,EAAeC,EAAA,EAAI,SAAnBC,EAAA,CAAA,EAAAC,EAAAL,EAAA,QAAA,CAAA,kBAJGM,CAAY,EAAA,cAAA,CAAA,CAAA,eCHjB,IAAMC,EAA6B,CACxC,CACE,KAAM,GACN,UAAWC",
+  "names": [
+    "EngagementsListComponent",
+    "signal",
+    "rf",
+    "ctx",
+    "ɵɵdomElementStart",
+    "ɵɵtext",
+    "ɵɵdomElementEnd",
+    "ɵɵadvance",
+    "ɵɵtextInterpolate",
+    "CommonModule",
+    "ENGAGEMENTS_ROUTES",
+    "EngagementsListComponent"
+  ],
+  "debugId": "ae248b46-2ba6-5e54-84df-3bf8f7a18aec"
+}

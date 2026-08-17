@@ -14,6 +14,6 @@ export class ActivityStreamDetailsDirective<T = string> {
 
   static ngTemplateContextGuard<T>(
     _directive: ActivityStreamDetailsDirective<T>,
-    context: unknown,
-  ): context is ActivityStreamDetailsContext<T> { return true; }
+    _context: unknown,
+  ): _context is ActivityStreamDetailsContext<T> { return true; }
 }

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/primitives/surface/surface.component.css"],
+  "sourcesContent": [":host,\n.lsd-surface {\n  display: block;\n}\n"],
+  "mappings": "AAAA,mBAEE,QAAA,KACF",
+  "names": []
+}
