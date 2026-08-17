@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ProjectLakeShoreDrive_Messaging_OutboxRelay_Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7126",
+      "launchBrowser": false
+    }
+  }
+}

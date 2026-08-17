@@ -2,6 +2,12 @@
   <Folder Name="/ai/">
     <Project Path="ai/ProjectLakeShoreDrive.AI.Abstractions/ProjectLakeShoreDrive.AI.Abstractions.csproj" />
   </Folder>
+  <Folder Name="/messaging/">
+    <Project Path="messaging/ProjectLakeShoreDrive.Messaging.Abstractions/ProjectLakeShoreDrive.Messaging.Abstractions.csproj" />
+    <Project Path="messaging/ProjectLakeShoreDrive.Messaging.AzureServiceBus/ProjectLakeShoreDrive.Messaging.AzureServiceBus.csproj" />
+    <Project Path="messaging/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.csproj" />
+    <Project Path="messaging/ProjectLakeShoreDrive.Messaging.OutboxRelay/ProjectLakeShoreDrive.Messaging.OutboxRelay.csproj" />
+  </Folder>
   <Folder Name="/services/">
     <Project Path="services/ProjectLakeShoreDrive.DocumentGeneration.Core/ProjectLakeShoreDrive.DocumentGeneration.Core.csproj" />
     <Project Path="services/ProjectLakeShoreDrive.DocumentGeneration/ProjectLakeShoreDrive.DocumentGeneration.csproj" />
@@ -11,7 +17,12 @@
     <Project Path="services/ProjectLakeShoreDrive.Knowledge/ProjectLakeShoreDrive.Knowledge.csproj" />
   </Folder>
   <Project Path="../tests/architecture/ProjectLakeShoreDrive.Architecture.Tests/ProjectLakeShoreDrive.Architecture.Tests.csproj" />
+  <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/ProjectLakeShoreDrive.Shared.Integration.Tests/ProjectLakeShoreDrive.Shared.Integration.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.AI.Abstractions.Tests/ProjectLakeShoreDrive.AI.Abstractions.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.Messaging.AzureServiceBus.Tests/ProjectLakeShoreDrive.Messaging.AzureServiceBus.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.ServiceDefaults.Tests/ProjectLakeShoreDrive.ServiceDefaults.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.Shared.Tests/ProjectLakeShoreDrive.Shared.Tests.csproj" />
   <Project Path="ProjectLakeShoreDrive.AppHost/ProjectLakeShoreDrive.AppHost.csproj" />
