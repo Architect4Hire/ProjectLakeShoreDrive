@@ -30,7 +30,7 @@ export interface ActivityStreamItem<T> {
 @Component({
   selector: 'lsd-activity-stream',
   standalone: true,
-  imports: [ActivityStreamDetailsDirective, BadgeComponent, NgTemplateOutlet, StateFeedbackComponent, SurfaceComponent],
+  imports: [BadgeComponent, NgTemplateOutlet, StateFeedbackComponent, SurfaceComponent, ActivityStreamDetailsDirective],
   templateUrl: './activity-stream.component.html',
   styleUrl: './activity-stream.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

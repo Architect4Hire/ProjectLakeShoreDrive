@@ -1,4 +1,4 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { VisualFixturesComponent } from './visual-fixtures.component';
+import { VisualRegressionShellComponent } from './visual-regression-shell.component';
 
-bootstrapApplication(VisualFixturesComponent).catch((error: unknown) => console.error(error));
+bootstrapApplication(VisualRegressionShellComponent).catch((error: unknown) => console.error(error));

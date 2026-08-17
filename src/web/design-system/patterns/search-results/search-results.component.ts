@@ -24,7 +24,7 @@ export interface SearchResultItem<T> {
 @Component({
   selector: 'lsd-search-results',
   standalone: true,
-  imports: [FilterActionBarComponent, NgTemplateOutlet, SearchResultContentDirective, SearchResultDetailsDirective, StateFeedbackComponent, SurfaceComponent],
+  imports: [FilterActionBarComponent, NgTemplateOutlet, StateFeedbackComponent, SurfaceComponent, SearchResultDetailsDirective, SearchResultContentDirective],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
