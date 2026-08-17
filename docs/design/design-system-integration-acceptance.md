@@ -12,22 +12,28 @@ An initial pass of this record (same day) found 8 production files where the ins
 
 Remediation taken: no design-system source was changed. Instead, `node src/web/design-system/testing/package-integration.mjs` (the DS-077 packaging step) was re-run to mint a new accepted drop directly from the current, already-corrected `src/web/design-system/` working tree, replacing `artifacts/project-lake-shore-drive-design-system*`. This makes the corrected local state the new accepted upstream revision instead of leaving it as an undocumented local patch. The full remainder of this record was then re-run against the new drop.
 
+### 2026-08-17 — Template visual re-skin and navigation-component pass
+
+The design system's visual character was deliberately re-skinned toward its reference template (`docs/design/third-party-notices.md`'s Angular Tailwind starter entry) across nine commits: a token-layer re-skin (rose brand accent replacing generic blue, violet-tinted shadows, self-hosted Poppins), `@theme`-wiring radius/shadow into Tailwind plus a full component sweep off hardcoded literals, a new accent-color (7-option) and RTL/direction axis on `AppearanceService`, button shadow/focus-ring/press-state closure, data-table pagination/selection/identity-and-chip-cell/toolbar-slot closure, three new components (`nav-menu`, `profile-menu`, `app-navbar`) closing the previously-total absence of a navigation component tree, and a Phase-7 re-verification pass.
+
+That re-verification pass itself caught one real regression before it shipped: applying radius via `AppearanceService` at runtime (done to keep shadow's real color values out of `check-design-system-boundaries.mjs`'s raw-literal scan) meant radius silently stopped working in any context that never instantiates the service — exactly what the `visual-regression/app` fixture does, since it drives its light/dark test cases via a raw `data-appearance` attribute rather than the service. Fixed by moving radius to genuinely static CSS (no color literal, so no scanner conflict, and no dependency on service instantiation), leaving only elevation on the runtime path. All 5 visual baselines were reviewed pixel-diff-by-pixel-diff before deliberate regeneration — confirmed as font-metric reflow from the Poppins swap, not structural breakage — then regenerated; all 5 visual, 11 accessibility, and 8 responsive checks pass.
+
+Remediation taken: same pattern as the entry above — no design-system source was left in an undocumented local-patch state. Every seam was committed individually, `final-acceptance-checklist.md` was regenerated against the final state, and `package-integration.mjs` was re-run against fully committed source (`git rev-parse HEAD` matches the packaged `gitCommit` exactly — no working-tree caveat this time). The full remainder of this record was then re-run against the new drop.
+
 ## 1. Source revision and checksum
 
 | Item | Value |
 | --- | --- |
 | Accepted upstream package | `artifacts/project-lake-shore-drive-design-system.tar.gz` |
-| Upstream git commit | `a4688dd318cf125e8be1fd2a0c931ebc46bf7db1` ("clean up", 2026-08-17) (per `artifacts/project-lake-shore-drive-design-system.tar.gz.source-revision.txt`) |
-| Upstream payload tree SHA-256 | `33027b588871d29c3f5816922f7a29fa22a151492d7f95ae5948c6e2a45bf516` |
-| Upstream tarball SHA-256 | `0ffb1a920e93812ec4ca5d056a330c1404cc24bf1ad55a7c00637529ccb94c72` (per `artifacts/project-lake-shore-drive-design-system.tar.gz.sha256`) |
+| Upstream git commit | `429506a99521da329013436f31f4ab67059d75cf` ("Regenerate final-acceptance-checklist.md for the template re-skin", 2026-08-17) (per `artifacts/project-lake-shore-drive-design-system.tar.gz.source-revision.txt`) — matches `git rev-parse HEAD` exactly; no uncommitted-worktree caveat this time |
+| Upstream payload tree SHA-256 | `9d5bb0274d64d4f4d0d5df9f883a9b36580155b54b76afb7cae2dabf3944300d` |
+| Upstream tarball SHA-256 | `66404502db91bb62e571caf60ecaec983417eec3ee809a9b6b86654a7a0e3ef7` (per `artifacts/project-lake-shore-drive-design-system.tar.gz.sha256`) |
 | Local reference extraction | `artifacts/project-lake-shore-drive-design-system/` (gitignored, not tracked — comparison-only, not the durable record) |
 | Installed copy | `src/web/design-system/` — identical to the payload above by construction (packaged directly from this tree) |
 
 **Result: PASS.** A file-level comparison of the installed copy against the freshly re-packaged payload shows no production-file content differences. The only remaining differences are `*.spec.ts` / `*.visual.spec.ts` files and `documentation/migration/`, which are present in the installed working tree but intentionally absent from the packaged payload per `integration-manifest.json`'s `copy.exclude` — this is the manifest's designed behavior, not drift, and `check-integration-manifest.mjs` passes.
 
-An empty, untracked stray directory `src/web/design-system/layouts/workbench-shell` also exists (the real recipe lives at `recipes/workbench-shell`, matching the payload); it has no content and is not a drift finding, only leftover clutter. It was left in place — cleaning it up is unrelated to this acceptance step.
-
-**Caveat:** because the new payload was packaged from the working tree, `source-revision.txt`'s `gitCommit` reflects `HEAD` at packaging time, not a commit that itself contains the design-system fixes (the 4 previously-uncommitted files — `structured-editor-section.directive.ts`, `search-result-details.directive.ts`, `document-section-editor.component.ts`, `knowledge-result.component.ts` — are still uncommitted in the working tree; the other fixes were already in `4b4e9a6`). The packaging script's own `sourceWorktree` note in `source-revision.txt` exists for exactly this case. If a fully commit-pinned revision is wanted, commit those 4 files and re-run the packaging script once more before treating this as final.
+An empty, untracked stray directory `src/web/design-system/layouts/workbench-shell` still exists (the real recipe lives at `recipes/workbench-shell`, matching the payload); it has no content and is not a drift finding, only leftover clutter carried forward from the prior acceptance pass. Left in place again — cleaning it up remains unrelated to this acceptance step.
 
 ## 2. Installed path
 
@@ -63,11 +69,14 @@ Commands run from the repository root against the current working tree:
 | Command | Result |
 | --- | --- |
 | `npm run test:integration-manifest` | PASS — 14 payload paths, 13 dependencies, 10 visual baselines |
-| `npm run test:boundaries` | PASS — feature-boundary and design-system-boundary checks both pass |
-| `npm run lint` | PASS — integration manifest, boundaries, and all three documentation-coverage checks (70 public modules / 74 catalog entries; DS-011 coverage for 20 modules in 19 guides; all 12 critical recipes document narrow-screen behavior) |
-| `npm run build` (`ng build app`) | PASS — production bundle compiles; 9 pre-existing `NG8113` unused-directive-import warnings (on the same components listed as cosmetic drift in §1) are non-blocking and were not introduced by this step |
+| `npm run test:boundaries` | PASS — feature-boundary, design-system-boundary, and foundation-token-sync checks all pass |
+| `npm run lint` | PASS — integration manifest, boundaries, and all three documentation-coverage checks (73 public modules / 77 catalog entries; DS-011 coverage for 21 modules in 20 guides; all 12 critical recipes document narrow-screen behavior) |
+| `npm run build` (`ng build app`) | PASS — production bundle compiles; 9 pre-existing `NG8113` unused-directive-import warnings (unchanged count from the prior acceptance pass — no new warnings introduced despite substantial changes) are non-blocking |
+| `npm run test:visual` | PASS — all 5 cases, against baselines deliberately regenerated and reviewed in this pass (see remediation history) |
+| `npm run test:accessibility` | PASS — all 11 checks, including WCAG color-contrast in both appearances against the new rose/accent-color palette |
+| `npm run test:responsive` | PASS — all 8 checks |
 
-Not re-run in this step (already covered by Prompts 038/039 and out of scope for an integration-only acceptance pass): the design system's own accessibility, responsive, and visual-regression Playwright suites.
+Unlike the prior acceptance pass, this one re-ran the design system's own accessibility, responsive, and visual-regression Playwright suites directly (not deferred to an earlier prompt), since this pass's changes were visual/appearance changes at the design-system level, not an integration-only concern.
 
 ## 6. Feature-development escape-hatch rule
 
@@ -79,6 +88,6 @@ The design system is consumed as an upstream accepted product dependency, frozen
 
 ## Acceptance result
 
-**PASS — 6 of 6 acceptance checks (source fidelity, installed path, dependency/config, public import boundary, automated tests, escape-hatch rule) have current, non-fabricated evidence.** The consumption contract is frozen at upstream payload tree SHA-256 `33027b588871d29c3f5816922f7a29fa22a151492d7f95ae5948c6e2a45bf516`.
+**PASS — 6 of 6 acceptance checks (source fidelity, installed path, dependency/config, public import boundary, automated tests, escape-hatch rule) have current, non-fabricated evidence.** The consumption contract is frozen at upstream payload tree SHA-256 `9d5bb0274d64d4f4d0d5df9f883a9b36580155b54b76afb7cae2dabf3944300d`, commit-pinned to `429506a99521da329013436f31f4ab67059d75cf`.
 
-Outstanding housekeeping (non-blocking for Prompt 044, tracked here for traceability): 4 files that contributed to this repackaged drop remain uncommitted in the application's git history (see §1 caveat). Commit them at a natural point so `git rev-parse HEAD` in a future re-package matches the code that produced the payload.
+Capabilities newly available for feature consumption as of this drop, per the escape-hatch rule in §6: the accent-color (7-option) and RTL/direction axes on `AppearanceService`; `ButtonComponent`'s `shadow` input and tone-colored focus ring; `DataTableComponent`'s pagination, row selection, identity/chips column kinds, `actionsDisplay="menu"`, and toolbar-projection slot; and the three new navigation components `NavMenuComponent`, `ProfileMenuComponent`, and `AppNavbarComponent`. No outstanding housekeeping this pass — the packaged commit exactly matches the code that produced the payload.
