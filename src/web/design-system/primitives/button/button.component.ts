@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 
 export type ButtonImpact = 'bold' | 'light' | 'minimal';
+export type ButtonShadow = 'none' | 'small' | 'medium' | 'large';
 export type ButtonShape = 'square' | 'rounded' | 'pill';
 export type ButtonSize = 'small' | 'medium' | 'large';
 export type ButtonTone = 'primary' | 'danger' | 'success' | 'warning' | 'info' | 'neutral';
@@ -15,6 +16,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 })
 export class ButtonComponent {
   readonly impact = input<ButtonImpact>('bold');
+  readonly shadow = input<ButtonShadow>('none');
   readonly shape = input<ButtonShape>('rounded');
   readonly size = input<ButtonSize>('medium');
   readonly tone = input<ButtonTone>('primary');
@@ -34,9 +36,10 @@ export class ButtonComponent {
 
   protected readonly classes = computed(() =>
     [
-      'lsd-button inline-flex items-center justify-center gap-2 font-semibold',
+      'lsd-button inline-flex items-center justify-center gap-2 font-semibold active:translate-y-px',
       this.sizeClasses[this.size()],
       this.shapeClasses[this.shape()],
+      this.shadowClasses[this.shadow()],
       this.impactClasses[this.tone()][this.impact()],
       this.fullWidth() ? 'w-full' : '',
     ]
@@ -60,6 +63,13 @@ export class ButtonComponent {
     square: 'rounded-none',
     rounded: 'rounded-panel',
     pill: 'rounded-pill',
+  };
+
+  private readonly shadowClasses: Record<ButtonShadow, string> = {
+    none: '',
+    small: 'shadow-raised',
+    medium: 'shadow-popover',
+    large: 'shadow-overlay',
   };
 
   private readonly impactClasses: Record<ButtonTone, Record<ButtonImpact, string>> = {

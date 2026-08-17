@@ -15,12 +15,13 @@
 - `impact`: `bold | light | minimal`
 - `size`: `small | medium | large`; narrow/coarse-pointer layouts retain a 44px minimum target
 - `shape`: `square | rounded | pill`
+- `shadow`: `none | small | medium | large`, defaulting to `none`; maps to the token-backed `shadow-raised`/`shadow-popover`/`shadow-overlay` elevation classes
 - `type`: `button | submit | reset`, defaulting to the safer `button`
 - `disabled` and `loading` both make the native button unavailable. Loading also sets `aria-busy` and announces `loadingLabel` through a polite status.
 - `pressed` supplies native toggle-button state when defined.
 - `accessibleLabel` forwards an accessible name for icon-only usage. Visible button text remains preferred.
 - Icons compose through `lsdButtonLeadingIcon` and `lsdButtonTrailingIcon`; projected icons are decorative because the button label owns the accessible name.
 
-Native `<button>` behavior supplies Enter/Space activation, form semantics, focus order, and disabled-event suppression. The shared interaction foundation supplies focus-visible and disabled treatment. All colors use semantic light/dark tokens, and reduced-motion mode removes the transition and spinner rotation without hiding loading state.
+Native `<button>` behavior supplies Enter/Space activation, form semantics, focus order, and disabled-event suppression. The shared interaction foundation supplies focus-visible and disabled treatment; the button additionally scopes `--lsd-color-focus-ring` per `tone` (via a `data-tone` attribute) so the focus ring matches the button's own tone color instead of always resolving to accent-primary. All colors use semantic light/dark tokens, and reduced-motion mode removes the transition and spinner rotation without hiding loading state.
 
 Focused component tests cover native semantics, activation, disabled/loading behavior, accessible status, and icon projection. Run them with the Angular workspace test target once that target is present.

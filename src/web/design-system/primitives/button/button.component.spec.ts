@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonComponent } from './button.component';
+import { ButtonComponent, type ButtonShadow, type ButtonTone } from './button.component';
 
 @Component({
   standalone: true,
@@ -12,6 +12,8 @@ import { ButtonComponent } from './button.component';
       [disabled]="disabled"
       [loading]="loading"
       [type]="type"
+      [tone]="tone"
+      [shadow]="shadow"
       accessibleLabel="Save document"
       controls="save-details"
       [expanded]="expanded"
@@ -26,6 +28,8 @@ class ButtonTestHostComponent {
   disabled = false;
   loading = false;
   type: 'button' | 'submit' | 'reset' = 'button';
+  tone: ButtonTone = 'primary';
+  shadow: ButtonShadow = 'none';
   activations = 0;
   expanded = false;
 }
@@ -77,5 +81,27 @@ describe('ButtonComponent', () => {
     const icons = fixture.debugElement.queryAll(By.css('.lsd-button__icon'));
     expect(icons).toHaveSize(2);
     expect(icons.every((icon) => icon.attributes['aria-hidden'] === 'true')).toBeTrue();
+  });
+
+  it('exposes tone as a data attribute so the global focus ring can resolve a tone-matched color', () => {
+    host.tone = 'danger';
+    fixture.detectChanges();
+    expect(nativeButton().getAttribute('data-tone')).toBe('danger');
+  });
+
+  it('applies a token-backed shadow class for each shadow variant, and no class for none', () => {
+    expect(nativeButton().className).not.toContain('shadow-');
+
+    host.shadow = 'small';
+    fixture.detectChanges();
+    expect(nativeButton().className).toContain('shadow-raised');
+
+    host.shadow = 'medium';
+    fixture.detectChanges();
+    expect(nativeButton().className).toContain('shadow-popover');
+
+    host.shadow = 'large';
+    fixture.detectChanges();
+    expect(nativeButton().className).toContain('shadow-overlay');
   });
 });

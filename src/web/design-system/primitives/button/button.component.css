@@ -9,8 +9,22 @@
 .lsd-button {
   transition:
     background-color var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease),
-    color var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease);
+    color var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease),
+    transform var(--motion-duration-fast, 120ms) var(--motion-easing-standard, ease);
 }
+
+/*
+ * Scopes the focus ring color per tone. interaction-states.css already
+ * applies a global `outline: ... var(--lsd-color-focus-ring) !important`
+ * on :focus-visible for every focusable element; overriding the custom
+ * property here (rather than the outline declaration) lets that rule
+ * resolve to a tone-matched color without fighting its !important.
+ */
+.lsd-button[data-tone='danger'] { --lsd-color-focus-ring: var(--lsd-color-status-danger); }
+.lsd-button[data-tone='success'] { --lsd-color-focus-ring: var(--lsd-color-status-success); }
+.lsd-button[data-tone='warning'] { --lsd-color-focus-ring: var(--lsd-color-status-warning); }
+.lsd-button[data-tone='info'] { --lsd-color-focus-ring: var(--lsd-color-status-info); }
+.lsd-button[data-tone='neutral'] { --lsd-color-focus-ring: var(--lsd-color-text-primary); }
 
 .lsd-button__icon:empty {
   display: none;
