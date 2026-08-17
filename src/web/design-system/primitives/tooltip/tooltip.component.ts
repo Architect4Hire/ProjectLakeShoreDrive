@@ -34,7 +34,7 @@ export class TooltipComponent {
   );
   protected readonly tooltipClass = computed(() =>
     [
-      'pointer-events-none absolute max-w-64 rounded-md border border-border-default bg-surface-raised px-2.5 py-1.5 text-xs text-text-primary',
+      'pointer-events-none absolute max-w-64 rounded-control border border-border-default bg-surface-raised px-2.5 py-1.5 text-xs text-text-primary',
       this.placementClasses[this.placement()],
     ].join(' '),
   );

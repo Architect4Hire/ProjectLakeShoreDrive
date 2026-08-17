@@ -58,8 +58,8 @@ export class ButtonComponent {
 
   private readonly shapeClasses: Record<ButtonShape, string> = {
     square: 'rounded-none',
-    rounded: 'rounded-lg',
-    pill: 'rounded-full',
+    rounded: 'rounded-panel',
+    pill: 'rounded-pill',
   };
 
   private readonly impactClasses: Record<ButtonTone, Record<ButtonImpact, string>> = {

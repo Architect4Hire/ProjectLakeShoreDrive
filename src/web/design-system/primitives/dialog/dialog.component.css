@@ -3,7 +3,7 @@
 .lsd-dialog {
   inline-size: calc(100% - 2rem);
   max-block-size: calc(100dvh - 2rem);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-overlay);
   overflow: hidden;
 }
 

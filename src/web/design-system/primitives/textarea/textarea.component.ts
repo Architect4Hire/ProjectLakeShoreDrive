@@ -44,7 +44,7 @@ export class TextareaComponent {
   );
   protected readonly classes = computed(() =>
     [
-      'block w-full rounded-md border border-border-default bg-surface-panel text-text-primary placeholder:text-text-muted',
+      'block w-full rounded-control border border-border-default bg-surface-panel text-text-primary placeholder:text-text-muted',
       this.densityClasses[this.density()],
       this.resizeClasses[this.resize()],
     ].join(' '),

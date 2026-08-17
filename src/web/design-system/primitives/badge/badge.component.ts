@@ -28,7 +28,7 @@ export class BadgeComponent {
 
   protected readonly classes = computed(() =>
     [
-      'inline-flex max-w-full items-center gap-1.5 rounded-full border font-semibold leading-none',
+      'inline-flex max-w-full items-center gap-1.5 rounded-pill border font-semibold leading-none',
       this.sizeClasses[this.size()],
       this.variantClasses[this.variant()],
     ].join(' '),

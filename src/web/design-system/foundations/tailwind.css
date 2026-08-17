@@ -44,4 +44,17 @@
   --color-ai-approved-text: var(--lsd-color-ai-approved-text);
   --color-ai-approved-border: var(--lsd-color-ai-approved-border);
   --color-ai-approved-accent: var(--lsd-color-ai-approved-accent);
+
+  --radius-control: var(--lsd-radius-control);
+  --radius-panel: var(--lsd-radius-panel);
+  --radius-panel-prominent: var(--lsd-radius-panel-prominent);
+  --radius-overlay: var(--lsd-radius-overlay);
+  --radius-pill: var(--lsd-radius-pill);
+
+  --shadow-flat: var(--lsd-elevation-flat);
+  --shadow-raised: var(--lsd-elevation-raised);
+  --shadow-sticky: var(--lsd-elevation-sticky);
+  --shadow-popover: var(--lsd-elevation-popover);
+  --shadow-overlay: var(--lsd-elevation-overlay);
+  --shadow-overlay-prominent: var(--lsd-elevation-overlay-prominent);
 }

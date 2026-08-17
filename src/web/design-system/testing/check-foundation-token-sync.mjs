@@ -143,7 +143,6 @@ function runSelfTest() {
       path.join(foundationsDir, 'typography.css'),
       ':root {\n  --font-family-interface: Poppins;\n  --font-size-md: 1rem;\n  --line-height-md: 1.5rem;\n  --font-weight-regular: 400;\n  --letter-spacing-normal: 0em;\n}\n',
     );
-
     const failures = checkFoundationTokenSync(fixtureRoot);
     const mismatch = failures.some((message) => message.includes('motion durations') && message.includes('fast'));
     if (!mismatch || failures.length !== 1) {
