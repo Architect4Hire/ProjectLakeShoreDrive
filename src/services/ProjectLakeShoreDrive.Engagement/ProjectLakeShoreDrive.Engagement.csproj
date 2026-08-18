@@ -5,6 +5,16 @@
     <ProjectReference Include="..\..\ProjectLakeShoreDrive.ServiceDefaults\ProjectLakeShoreDrive.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- SQL Server is the composition-boundary choice for this host; Engagement.Core stays
+         provider-agnostic (backend.md: "no provider leakage into domain"). -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>

@@ -17,10 +17,12 @@
     <Project Path="services/ProjectLakeShoreDrive.Knowledge/ProjectLakeShoreDrive.Knowledge.csproj" />
   </Folder>
   <Project Path="../tests/architecture/ProjectLakeShoreDrive.Architecture.Tests/ProjectLakeShoreDrive.Architecture.Tests.csproj" />
+  <Project Path="../tests/integration/ProjectLakeShoreDrive.Engagement.Core.Integration.Tests/ProjectLakeShoreDrive.Engagement.Core.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Shared.Integration.Tests/ProjectLakeShoreDrive.Shared.Integration.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.AI.Abstractions.Tests/ProjectLakeShoreDrive.AI.Abstractions.Tests.csproj" />
+  <Project Path="../tests/unit/ProjectLakeShoreDrive.Engagement.Core.Tests/ProjectLakeShoreDrive.Engagement.Core.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.Messaging.AzureServiceBus.Tests/ProjectLakeShoreDrive.Messaging.AzureServiceBus.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Tests.csproj" />
   <Project Path="../tests/unit/ProjectLakeShoreDrive.ServiceDefaults.Tests/ProjectLakeShoreDrive.ServiceDefaults.Tests.csproj" />
