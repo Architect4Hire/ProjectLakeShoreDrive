@@ -1,6 +1,9 @@
 <a class="lsd-workbench-shell__skip" [href]="'#' + contentId()" [style.--lsd-workbench-skip-layer]="skipLayer">Skip to workbench content</a>
 
-<div class="lsd-workbench-shell bg-surface-page text-text-primary">
+<div
+  class="lsd-workbench-shell bg-surface-page text-text-primary"
+  [attr.data-nav-collapsed]="navigationCollapsed()"
+  [style.--lsd-workbench-nav-collapsed-width]="navigationCollapsedWidth">
   @if (navigationOpen()) {
     <button class="lsd-workbench-shell__scrim" type="button" aria-label="Close navigation" [style.--lsd-workbench-scrim-layer]="scrimLayer" (click)="closeNavigation()"></button>
   }
@@ -9,6 +12,7 @@
     class="lsd-workbench-shell__navigation"
     [attr.aria-label]="navigationLabel()"
     [attr.data-open]="navigationOpen()"
+    [attr.data-collapsed]="navigationCollapsed()"
     [attr.id]="navigationId()"
     [style.--lsd-workbench-overlay-layer]="overlayLayer">
     <lsd-surface tone="panel" padding="none" radius="none" border="none">

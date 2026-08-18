@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/recipes/approval-actions/approval-actions.component.css"],
+  "sourcesContent": [":host { display: block; min-inline-size: 0; }\n.lsd-approval-actions[data-mode='sticky'] { position: sticky; z-index: var(--lsd-approval-sticky-layer); inset-block-end: 0; }\n.lsd-approval-actions__bar, .lsd-approval-actions__state, .lsd-approval-actions__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }\n.lsd-approval-actions__bar { justify-content: space-between; margin-block-start: 0.75rem; }\n.lsd-approval-actions__buttons { justify-content: flex-end; }\n@media (max-width: 47.99rem) { .lsd-approval-actions__bar { display: grid; } .lsd-approval-actions__buttons { justify-content: stretch; } }\n@media (max-width: 29.99rem) { .lsd-approval-actions__buttons { align-items: stretch; flex-direction: column; } }\n"],
+  "mappings": "AAAA,MAAQ,QAAA,MAAgB,gBAAA,CAAoB,CAC5C,CAAA,oBAAA,CAAA,kBAA4C,SAAA,OAAkB,QAAA,IAAA,6BAA2C,gBAAA,CAAoB,CAC7H,CAAA,0BAAA,CAAA,4BAAA,CAAA,8BAA2F,QAAA,KAAe,UAAA,KAAiB,YAAA,OAAqB,IAAA,KAAa,CAC7J,CADA,0BAC6B,gBAAA,cAAgC,mBAAA,MAA6B,CAC1F,CAFA,8BAEiC,gBAAA,QAA2B,CAC5D,OAAA,UAAA,UAA+B,CAH/B,0BAG4D,QAAA,IAAe,CAAE,CAH7E,8BAG8G,gBAAA,OAA0B,CAAE,CAC1I,OAAA,UAAA,UAA+B,CAJ/B,8BAIgE,YAAA,QAAsB,eAAA,MAAwB,CAAE",
+  "names": []
+}

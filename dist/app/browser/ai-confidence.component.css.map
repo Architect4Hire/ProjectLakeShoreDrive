@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/patterns/ai-confidence/ai-confidence.component.css"],
+  "sourcesContent": [":host { display: block; }\n.lsd-ai-confidence { display: grid; gap: 0.75rem; }\n.lsd-ai-confidence__labels { align-items: center; display: flex; flex-wrap: wrap; gap: 0.5rem; }\n.lsd-ai-confidence__labels strong { color: var(--lsd-color-ai-draft-text); font-size: var(--font-size-sm); }\n.lsd-ai-confidence__summary, .lsd-ai-confidence__verification { margin: 0; }\n.lsd-ai-confidence__verification { font-weight: 700; }\n.lsd-ai-confidence__details { border-block-start: 0.0625rem solid var(--lsd-color-border-default); padding-block-start: 0.75rem; }\n.lsd-ai-confidence__details summary { cursor: pointer; font-weight: 700; }\n.lsd-ai-confidence__details section { margin-block-start: 0.75rem; }\n.lsd-ai-confidence__details h3 { font-size: var(--font-size-sm); font-weight: 700; }\n@media (max-width: 29.999rem) { .lsd-ai-confidence__labels { align-items: flex-start; flex-direction: column; } }\n"],
+  "mappings": "AAAA,MAAQ,QAAA,KAAgB,CACxB,CAAA,kBAAqB,QAAA,KAAe,IAAA,MAAc,CAClD,CAAA,0BAA6B,YAAA,OAAqB,QAAA,KAAe,UAAA,KAAiB,IAAA,KAAa,CAC/F,CADA,0BACA,OAAoC,MAAA,IAAA,2BAAuC,UAAA,IAAA,eAAgC,CAC3G,CAAA,2BAAA,CAAA,gCAJA,OAIgE,CAAW,CAC3E,CADA,gCACmC,YAAA,GAAkB,CACrD,CAAA,2BAA8B,mBAAA,SAAA,MAAA,IAAA,4BAAqE,oBAAA,MAA8B,CACjI,CADA,2BACA,QAAsC,OAAA,QAAiB,YAAA,GAAkB,CACzE,CAFA,2BAEA,QAAsC,mBAAA,MAA6B,CACnE,CAHA,2BAGA,GAAiC,UAAA,IAAA,gBAAgC,YAAA,GAAkB,CACnF,OAAA,UAAA,WAAgC,CARhC,0BAQ6D,YAAA,WAAyB,eAAA,MAAwB,CAAE",
+  "names": []
+}

@@ -42,11 +42,13 @@ interface PrimaryNavItem {
       id="app-shell"
       navigationTitle="Lake Shore Drive"
       contentLabel="Workbench content"
-      [(navigationOpen)]="navigationOpen">
+      [(navigationOpen)]="navigationOpen"
+      [(navigationCollapsed)]="navigationCollapsed">
       <lsd-nav-menu
         lsdWorkbenchNavigation
         accessibleName="Primary"
         [groups]="navGroups"
+        [(collapsed)]="navigationCollapsed"
         (itemActivated)="navigationOpen.set(false)" />
 
       <div lsdWorkbenchEngagement class="flex items-center gap-2">
@@ -146,6 +148,7 @@ export class ShellComponent {
   ];
 
   protected readonly navigationOpen = signal(false);
+  protected readonly navigationCollapsed = signal(false);
   protected readonly searchQuery = signal('');
   protected readonly commandPaletteOpen = signal(false);
   protected readonly commandPaletteQuery = signal('');

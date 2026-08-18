@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/recipes/raid-register/raid-register.component.css"],
+  "sourcesContent": [":host { display: block; min-inline-size: 0; }\n"],
+  "mappings": "AAAA,MAAQ,QAAA,MAAgB,gBAAA,CAAoB",
+  "names": []
+}

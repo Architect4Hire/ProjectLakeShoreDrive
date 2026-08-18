@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener, input, model } from '
 
 import { ButtonComponent, SurfaceComponent } from '../../primitives';
 import { globalLayers } from '../../tokens/layers';
+import { panelSizes } from '../../tokens/sizing';
 
 @Component({
   selector: 'lsd-workbench-shell-recipe',
@@ -17,11 +18,14 @@ export class WorkbenchShellRecipeComponent {
   readonly navigationTitle = input('Lake Shore Drive navigation');
   readonly contentLabel = input('Workbench content');
   readonly navigationOpen = model(false);
+  /** Persistent desktop icon-rail state; bridges a composed `lsd-nav-menu`'s own `collapsed` model to this shell's sidebar width. */
+  readonly navigationCollapsed = model(false);
 
   protected readonly stickyLayer = globalLayers.sticky;
   protected readonly overlayLayer = globalLayers.overlay;
   protected readonly scrimLayer = globalLayers.popover;
   protected readonly skipLayer = globalLayers.notification;
+  protected readonly navigationCollapsedWidth = panelSizes['navigation-collapsed'];
 
   protected contentId(): string { return `${this.id()}-content`; }
   protected navigationId(): string { return `${this.id()}-navigation`; }

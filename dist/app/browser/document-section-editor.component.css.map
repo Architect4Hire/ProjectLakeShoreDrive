@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/recipes/document-section-editor/document-section-editor.component.css"],
+  "sourcesContent": [":host { display: block; min-inline-size: 0; }\n.lsd-document-section-editor__toolbar, .lsd-document-section-editor__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }\n.lsd-document-section-editor__content { min-inline-size: 0; }\n.lsd-document-section-editor__citations { margin-block-start: 1rem; }\n.lsd-document-section-editor__citations:empty { display: none; }\n@media (max-width: 29.99rem) { .lsd-document-section-editor__actions { align-items: stretch; flex-direction: column; } }\n"],
+  "mappings": "AAAA,MAAQ,QAAA,MAAgB,gBAAA,CAAoB,CAC5C,CAAA,qCAAA,CAAA,qCAA+E,QAAA,KAAe,UAAA,KAAiB,YAAA,OAAqB,IAAA,KAAa,CACjJ,CAAA,qCAAwC,gBAAA,CAAoB,CAC5D,CAAA,uCAA0C,mBAAA,IAA0B,CACpE,CADA,sCACA,OAAgD,QAAA,IAAe,CAC/D,OAAA,UAAA,UAA+B,CAJ/B,qCAIuE,YAAA,QAAsB,eAAA,MAAwB,CAAE",
+  "names": []
+}

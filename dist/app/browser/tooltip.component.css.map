@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/primitives/tooltip/tooltip.component.css"],
+  "sourcesContent": [":host {\n  display: inline-flex;\n}\n\n[role='tooltip'] {\n  inline-size: max-content;\n  max-inline-size: min(16rem, calc(100vw - 2rem));\n  white-space: normal;\n}\n"],
+  "mappings": "AAAA,MACE,QAAA,WACF,CAEA,CAAA,cACE,YAAA,YACA,gBAAA,IAAA,KAAA,CAAA,KAAA,MAAA,EAAA,OACA,YAAA,MACF",
+  "names": []
+}

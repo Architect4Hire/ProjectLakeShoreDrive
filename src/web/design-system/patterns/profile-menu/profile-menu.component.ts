@@ -39,5 +39,7 @@ export class ProfileMenuComponent {
     panel.style.position = 'fixed';
     panel.style.insetBlockStart = `${anchor.bottom + 4}px`;
     panel.style.insetInlineEnd = `${window.innerWidth - anchor.right}px`;
+    panel.style.insetInlineStart = 'auto';
+    panel.style.insetBlockEnd = 'auto';
   }
 }

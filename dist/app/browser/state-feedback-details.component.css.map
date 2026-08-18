@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["state-feedback-details.component.ts"],
+  "sourcesContent": ["\n    :host { display: block; inline-size: 100%; }\n    .lsd-state-details { border-block-start: 0.0625rem solid var(--lsd-color-border-default); padding-block-start: 0.75rem; }\n    .lsd-state-details__summary { color: var(--lsd-color-text-muted); cursor: pointer; font-weight: 600; }\n    .lsd-state-details__content { color: var(--lsd-color-text-muted); margin-block-start: 0.5rem; }\n  "],
+  "mappings": "AACI,MAAQ,QAAA,MAAgB,YAAA,IAAmB,CAC3C,CAAA,kBAAqB,mBAAA,SAAA,MAAA,IAAA,4BAAqE,oBAAA,MAA8B,CACxH,CAAA,2BAA8B,MAAA,IAAA,wBAAoC,OAAA,QAAiB,YAAA,GAAkB,CACrG,CAAA,2BAA8B,MAAA,IAAA,wBAAoC,mBAAA,KAA4B",
+  "names": []
+}

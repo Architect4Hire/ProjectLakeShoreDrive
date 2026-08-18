@@ -1,3 +1,0 @@
-import{Ia as n,Ja as o,Ya as m,Z as i,Za as p,ka as s,ta as a,vb as d}from"./chunk-2HGWY2FG.js";var r=(()=>{class e{message=i("Welcome to Lake Shore Drive");static \u0275fac=function(t){return new(t||e)};static \u0275cmp=a({type:e,selectors:[["lsd-engagements-list"]],decls:5,vars:1,template:function(t,l){t&1&&(n(0,"div")(1,"h1"),m(2,"Engagements"),o(),n(3,"p"),m(4),o()()),t&2&&(s(4),p(l.message()))},dependencies:[d],encapsulation:2})}return e})();var x=[{path:"",component:r}];export{x as ENGAGEMENTS_ROUTES};
-//# debugId=ae248b46-2ba6-5e54-84df-3bf8f7a18aec
-//# sourceMappingURL=chunk-5ZUHU6UI.js.map

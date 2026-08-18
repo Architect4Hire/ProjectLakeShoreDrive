@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/web/design-system/recipes/ai-generation-drawer/ai-generation-drawer.component.css"],
+  "sourcesContent": [":host { display: contents; }\n.lsd-ai-generation-drawer { display: grid; gap: 1rem; }\n.lsd-ai-generation-drawer__summary, .lsd-ai-generation-drawer__section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }\n.lsd-ai-generation-drawer__summary > div { display: grid; gap: 0.25rem; }\n.lsd-ai-generation-drawer__context { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-block-start: 0.75rem; }\n.lsd-ai-generation-drawer__context div { display: flex; gap: 0.375rem; }\n.lsd-ai-generation-drawer__context dt { color: var(--lsd-color-text-muted); }\n.lsd-ai-generation-drawer__context dd { font-weight: 600; }\n.lsd-ai-generation-drawer__sources { display: grid; gap: 0.5rem; }\n@media (max-width: 29.99rem) { .lsd-ai-generation-drawer__summary { display: grid; } }\n"],
+  "mappings": "AAAA,MAAQ,QAAA,QAAmB,CAC3B,CAAA,yBAA4B,QAAA,KAAe,IAAA,IAAW,CACtD,CAAA,kCAAA,CAAA,0CAAiF,QAAA,KAAe,YAAA,WAAyB,gBAAA,cAAgC,IAAA,IAAW,CACpK,CADA,iCACA,CAAA,IAA2C,QAAA,KAAe,IAAA,MAAc,CACxE,CAAA,kCAAqC,QAAA,KAAe,UAAA,KAAiB,IAAA,OAAA,OAAqB,mBAAA,MAA6B,CACvH,CADA,kCACA,IAAyC,QAAA,KAAe,IAAA,OAAe,CACvE,CAFA,kCAEA,GAAwC,MAAA,IAAA,uBAAoC,CAC5E,CAHA,kCAGA,GAAwC,YAAA,GAAkB,CAC1D,CAAA,kCAAqC,QAAA,KAAe,IAAA,KAAa,CACjE,OAAA,UAAA,UAA+B,CAP/B,kCAOoE,QAAA,IAAe,CAAE",
+  "names": []
+}
