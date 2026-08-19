@@ -23,7 +23,16 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "app:build"
+            "buildTarget": "app:build",
+            "proxyConfig": "src/web/proxy.conf.json"
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "app:build",
+            "runner": "vitest",
+            "tsConfig": "src/web/app/tsconfig.spec.json"
           }
         }
       }

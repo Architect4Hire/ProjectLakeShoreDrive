@@ -1,0 +1,56 @@
+<div class="lsd-engagement-phase-transition">
+  <h3>Change phase</h3>
+  <ul class="lsd-engagement-phase-transition__options">
+    @for (option of transitionOptions(); track option.status) {
+      <li>
+        <lsd-button
+          [tone]="option.status === 'Archived' ? 'danger' : 'primary'"
+          impact="light"
+          [disabled]="!option.allowed"
+          [accessibleLabel]="'Move to ' + option.status"
+          (activated)="requestTransition(option.status)">
+          Move to {{ option.status }}
+        </lsd-button>
+        @if (!option.allowed) {
+          <span class="lsd-engagement-phase-transition__reason">{{ option.reason }}</span>
+        }
+      </li>
+    }
+  </ul>
+
+  <lsd-dialog
+    id="engagement-phase-transition-dialog"
+    [title]="isArchiveTarget() ? 'Archive this engagement?' : 'Move to ' + pendingTarget() + '?'"
+    [open]="dialogOpen()"
+    [dismissible]="!submitting()"
+    (closeRequested)="cancel()">
+    @if (isArchiveTarget()) {
+      <p role="alert">Archiving is not reversible through this workflow. The engagement will be removed from the default list.</p>
+    }
+    <p>This transition is recorded in the engagement's history.</p>
+    <lsd-textarea
+      id="engagement-phase-transition-reason"
+      label="Reason (optional)"
+      [value]="reason()"
+      (valueChange)="reason.set($event)" />
+
+    @if (errorMessage(); as message) {
+      <p role="alert">
+        {{ message }}
+        @if (concurrencyConflict()) {
+          <span> Reload the engagement and try again.</span>
+        }
+      </p>
+    }
+
+    <div class="lsd-engagement-phase-transition__dialog-actions">
+      <lsd-button tone="neutral" impact="light" [disabled]="submitting()" (activated)="cancel()">Cancel</lsd-button>
+      <lsd-button
+        [tone]="isArchiveTarget() ? 'danger' : 'primary'"
+        [loading]="submitting()"
+        (activated)="confirm()">
+        Confirm
+      </lsd-button>
+    </div>
+  </lsd-dialog>
+</div>

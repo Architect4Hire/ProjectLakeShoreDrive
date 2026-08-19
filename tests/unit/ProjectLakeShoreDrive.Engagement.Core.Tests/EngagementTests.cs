@@ -142,6 +142,69 @@ public class EngagementTests
         Assert.Equal("Engagement cancelled by client.", engagement.LifecycleHistory[^1].Reason);
     }
 
+    [Fact]
+    public void UpdateDetails_WithValidFields_ReplacesStructuredData()
+    {
+        var engagement = CreateEngagement();
+
+        engagement.UpdateDetails(
+            "Renamed Engagement",
+            EngagementType.ApplicationModernization,
+            "Updated business problem.",
+            EngagementConfidentiality.EngagementRestricted,
+            businessObjectives: ["New objective"],
+            stakeholders: [new Stakeholder("Jane Doe", "VP Engineering")]);
+
+        Assert.Equal("Renamed Engagement", engagement.Name);
+        Assert.Equal(EngagementType.ApplicationModernization, engagement.Type);
+        Assert.Equal("Updated business problem.", engagement.BusinessProblem);
+        Assert.Equal(EngagementConfidentiality.EngagementRestricted, engagement.Confidentiality);
+        Assert.Equal(["New objective"], engagement.BusinessObjectives);
+        Assert.Single(engagement.Stakeholders);
+    }
+
+    [Fact]
+    public void UpdateDetails_ClearsCollections_WhenNotSupplied()
+    {
+        var engagement = Domain.Engagement.Create(
+            DefaultClient(),
+            "Contoso Cloud Migration",
+            EngagementType.CloudMigration,
+            "Legacy on-prem platform cannot scale for peak seasonal traffic.",
+            EngagementConfidentiality.ClientConfidential,
+            businessObjectives: ["Original objective"]);
+
+        engagement.UpdateDetails(
+            "Contoso Cloud Migration",
+            EngagementType.CloudMigration,
+            "Legacy on-prem platform cannot scale for peak seasonal traffic.",
+            EngagementConfidentiality.ClientConfidential);
+
+        Assert.Empty(engagement.BusinessObjectives);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void UpdateDetails_WithoutName_Throws(string? name)
+    {
+        var engagement = CreateEngagement();
+
+        Assert.Throws<ArgumentException>(() => engagement.UpdateDetails(
+            name!, EngagementType.CloudMigration, "Business problem", EngagementConfidentiality.ClientConfidential));
+    }
+
+    [Fact]
+    public void UpdateDetails_WhenArchived_Throws()
+    {
+        var engagement = CreateEngagement();
+        engagement.Archive("pm@architect4hire.com");
+
+        Assert.Throws<InvalidOperationException>(() => engagement.UpdateDetails(
+            "New Name", EngagementType.CloudMigration, "Business problem", EngagementConfidentiality.ClientConfidential));
+    }
+
     private static void AdvanceTo(Domain.Engagement engagement, EngagementStatus target)
     {
         if (target == EngagementStatus.Draft)

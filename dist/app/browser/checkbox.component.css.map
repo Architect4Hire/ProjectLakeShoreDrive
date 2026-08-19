@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/web/design-system/primitives/checkbox/checkbox.component.css"],
-  "sourcesContent": [":host {\n  display: block;\n}\n"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n"],
   "mappings": "AAAA,MACE,QAAA,KACF",
   "names": []
 }

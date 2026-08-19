@@ -1,0 +1,3 @@
+import{Dt as p,E as B,H as Nw,Nt as td,X as Tt,ht as ed,jt as sd,kt as rS,nt as Zl}from"./main.js";import{r as L}from"./chunk-DWvdCJX_.js";var E=(()=>{class e{route=p(Tt);phaseLabel=L(this.route.data.pipe(B(a=>a.phaseLabel??`This phase`)),{initialValue:this.route.snapshot.data.phaseLabel??`This phase`});static ɵfac=function(t){return new(t||e)};static ɵcmp=Zl({type:e,selectors:[[`lsd-engagement-phase-placeholder`]],decls:2,vars:1,consts:[[1,`text-sm`,`text-text-secondary`]],template:function(t,h){t&1&&(ed(0,`p`,0),rS(1),td()),t&2&&(Nw(),sd(``,h.phaseLabel(),` is not yet implemented.`))},encapsulation:2})}return e})();export{E as EngagementPhasePlaceholderComponent};
+//# debugId=40fc9e35-eb41-5152-a833-338932b747ca
+//# sourceMappingURL=chunk-8Zmc-4XP.js.map

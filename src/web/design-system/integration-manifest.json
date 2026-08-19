@@ -46,7 +46,9 @@
     "testDev": {
       "@angular/platform-browser": "22.1.2",
       "@axe-core/playwright": "4.13.0",
-      "@playwright/test": "1.62.1"
+      "@playwright/test": "1.62.1",
+      "jsdom": "30.0.1",
+      "vitest": "4.1.11"
     },
     "notRequired": ["zone.js"]
   },
@@ -98,6 +100,7 @@
     "scripts": {
       "test:integration-manifest": "node src/web/design-system/testing/check-integration-manifest.mjs",
       "test:boundaries": "node src/web/design-system/testing/check-feature-boundaries.mjs && node src/web/design-system/testing/check-design-system-boundaries.mjs && node src/web/design-system/testing/check-foundation-token-sync.mjs",
+      "test:unit": "ng test app",
       "test:accessibility": "playwright test visual-regression/tests/design-system.accessibility.spec.ts",
       "test:responsive": "playwright test visual-regression/tests/design-system.responsive.spec.ts",
       "test:visual": "playwright test visual-regression/tests/design-system.visual.spec.ts",

@@ -1,0 +1,85 @@
+@if (store.detail(); as detail) {
+  <div class="lsd-engagement-overview">
+    <lsd-surface [accessibility]="{ role: 'region', label: 'Engagement summary' }">
+      <h2>Summary</h2>
+      <dl>
+        <div><dt>Client</dt><dd>{{ detail.clientName }}</dd></div>
+        <div><dt>Type</dt><dd>{{ detail.type }}</dd></div>
+        <div><dt>Confidentiality</dt><dd>{{ detail.confidentiality }}</dd></div>
+        <div><dt>Business problem</dt><dd>{{ detail.businessProblem }}</dd></div>
+        @if (detail.currentStateSummary) {
+          <div><dt>Current state</dt><dd>{{ detail.currentStateSummary }}</dd></div>
+        }
+        @if (detail.targetStateSummary) {
+          <div><dt>Target state</dt><dd>{{ detail.targetStateSummary }}</dd></div>
+        }
+        @if (detail.timeline; as timeline) {
+          <div>
+            <dt>Timeline</dt>
+            <dd>{{ timeline.startDate }} @if (timeline.targetEndDate) { – {{ timeline.targetEndDate }} }</dd>
+          </div>
+        }
+      </dl>
+
+      @if (detail.businessObjectives.length > 0) {
+        <h3>Business objectives</h3>
+        <ul>
+          @for (objective of detail.businessObjectives; track objective) { <li>{{ objective }}</li> }
+        </ul>
+      }
+
+      @if (detail.constraints.length > 0) {
+        <h3>Constraints</h3>
+        <ul>
+          @for (constraint of detail.constraints; track constraint) { <li>{{ constraint }}</li> }
+        </ul>
+      }
+
+      @if (detail.requestedDeliverables.length > 0) {
+        <h3>Requested deliverables</h3>
+        <ul>
+          @for (deliverable of detail.requestedDeliverables; track deliverable) { <li>{{ deliverable }}</li> }
+        </ul>
+      }
+
+      @if (detail.stakeholders.length > 0) {
+        <h3>Stakeholders</h3>
+        <ul>
+          @for (stakeholder of detail.stakeholders; track stakeholder.name) {
+            <li>{{ stakeholder.name }} — {{ stakeholder.role }}</li>
+          }
+        </ul>
+      }
+    </lsd-surface>
+
+    <lsd-surface [accessibility]="{ role: 'region', label: 'Current phase' }">
+      <h2>Current phase</h2>
+      <lsd-badge [variant]="statusBadgeVariant[detail.status]">{{ statusLabels[detail.status] }}</lsd-badge>
+      @if (phaseProgress(); as progress) {
+        <p>{{ progress }}</p>
+      }
+      <lsd-engagement-phase-transition [engagement]="detail" (transitioned)="onTransitioned()" />
+    </lsd-surface>
+
+    <div class="lsd-engagement-overview__capabilities">
+      @for (phase of remainingPhases; track phase.id) {
+        <lsd-state-feedback
+          [id]="'engagement-overview-' + phase.id"
+          kind="empty"
+          [title]="phase.label + ' not yet available'"
+          [description]="phase.label + ' has not been started for this engagement yet.'">
+          <a lsdStateActions [routerLink]="['..', phase.id]">Go to {{ phase.label }}</a>
+        </lsd-state-feedback>
+      }
+    </div>
+
+    <lsd-surface [accessibility]="{ role: 'region', label: 'Engagement history' }">
+      <h2>Activity</h2>
+      <lsd-activity-stream id="engagement-overview-activity" [items]="activityItems()" />
+    </lsd-surface>
+  </div>
+} @else if (store.loading()) {
+  <p class="text-sm text-text-muted">Loading engagement…</p>
+} @else if (store.error(); as error) {
+  <p role="alert">{{ error.message }}</p>
+}

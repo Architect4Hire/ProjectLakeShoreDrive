@@ -126,6 +126,61 @@ public sealed class Engagement
             createdAtUtc ?? DateTimeOffset.UtcNow);
     }
 
+    // BR-020: an engagement's structured data may be edited after creation. Client identity
+    // is not editable here (set at creation); an archived engagement is terminal (TR-DATA-004).
+    public void UpdateDetails(
+        string name,
+        EngagementType type,
+        string businessProblem,
+        EngagementConfidentiality confidentiality,
+        string? currentStateSummary = null,
+        string? targetStateSummary = null,
+        EngagementTimeline? timeline = null,
+        IEnumerable<string>? businessObjectives = null,
+        IEnumerable<string>? knownTechnologyLandscape = null,
+        IEnumerable<Stakeholder>? stakeholders = null,
+        IEnumerable<string>? constraints = null,
+        IEnumerable<string>? requestedDeliverables = null)
+    {
+        if (Status == EngagementStatus.Archived)
+        {
+            throw new InvalidOperationException("An archived engagement cannot be updated.");
+        }
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Engagement name is required.", nameof(name));
+        }
+
+        if (string.IsNullOrWhiteSpace(businessProblem))
+        {
+            throw new ArgumentException("Business problem is required.", nameof(businessProblem));
+        }
+
+        Name = name.Trim();
+        Type = type;
+        BusinessProblem = businessProblem.Trim();
+        Confidentiality = confidentiality;
+        CurrentStateSummary = string.IsNullOrWhiteSpace(currentStateSummary) ? null : currentStateSummary.Trim();
+        TargetStateSummary = string.IsNullOrWhiteSpace(targetStateSummary) ? null : targetStateSummary.Trim();
+        Timeline = timeline;
+
+        _businessObjectives.Clear();
+        _businessObjectives.AddRange(businessObjectives ?? []);
+
+        _knownTechnologyLandscape.Clear();
+        _knownTechnologyLandscape.AddRange(knownTechnologyLandscape ?? []);
+
+        _stakeholders.Clear();
+        _stakeholders.AddRange(stakeholders ?? []);
+
+        _constraints.Clear();
+        _constraints.AddRange(constraints ?? []);
+
+        _requestedDeliverables.Clear();
+        _requestedDeliverables.AddRange(requestedDeliverables ?? []);
+    }
+
     // BR-022: transitions must be auditable. Every accepted transition is recorded in
     // LifecycleHistory with who performed it, when, and an optional reason.
     public void TransitionTo(EngagementStatus targetStatus, string performedBy, string? reason = null, DateTimeOffset? occurredAtUtc = null)

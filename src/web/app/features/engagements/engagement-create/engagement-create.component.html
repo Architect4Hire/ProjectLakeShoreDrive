@@ -1,0 +1,161 @@
+<form class="lsd-engagement-create" [formGroup]="form" (ngSubmit)="submit()">
+  <h1>New engagement</h1>
+
+  @if (bannerErrors().length > 0) {
+    <div role="alert" class="lsd-engagement-create__banner">
+      <ul>
+        @for (message of bannerErrors(); track message) {
+          <li>{{ message }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  <lsd-form-section id="engagement-create-client" title="Client">
+    <lsd-input
+      id="engagement-create-client-id"
+      label="Client ID"
+      description="The GUID identifying the client this engagement is for."
+      [value]="form.controls.clientId.value"
+      (valueChange)="form.controls.clientId.setValue($event)"
+      [error]="form.controls.clientId.touched && form.controls.clientId.invalid ? 'A valid client GUID is required.' : undefined"
+      required />
+    <lsd-input
+      id="engagement-create-client-name"
+      label="Client name"
+      [value]="form.controls.clientName.value"
+      (valueChange)="form.controls.clientName.setValue($event)"
+      [error]="form.controls.clientName.touched && form.controls.clientName.invalid ? 'Client name is required.' : undefined"
+      required />
+  </lsd-form-section>
+
+  <lsd-form-section id="engagement-create-details" title="Engagement">
+    <lsd-input
+      id="engagement-create-name"
+      label="Engagement name"
+      [value]="form.controls.name.value"
+      (valueChange)="form.controls.name.setValue($event)"
+      [error]="form.controls.name.touched && form.controls.name.invalid ? 'Engagement name is required.' : undefined"
+      required />
+    <lsd-select
+      id="engagement-create-type"
+      label="Engagement type"
+      [options]="typeOptions"
+      [value]="form.controls.type.value"
+      (valueChange)="form.controls.type.setValue($event ?? form.controls.type.value)" />
+    <lsd-radio-group
+      id="engagement-create-confidentiality"
+      name="engagement-create-confidentiality"
+      label="Confidentiality"
+      [options]="confidentialityOptions"
+      [value]="form.controls.confidentiality.value"
+      (valueChange)="form.controls.confidentiality.setValue($event ?? form.controls.confidentiality.value)" />
+  </lsd-form-section>
+
+  <lsd-form-section id="engagement-create-problem" title="Problem and outcomes">
+    <lsd-textarea
+      id="engagement-create-business-problem"
+      label="Business problem"
+      [value]="form.controls.businessProblem.value"
+      (valueChange)="form.controls.businessProblem.setValue($event)"
+      [error]="form.controls.businessProblem.touched && form.controls.businessProblem.invalid ? 'Business problem is required.' : undefined"
+      required />
+    <lsd-textarea
+      id="engagement-create-current-state"
+      label="Current state summary"
+      [value]="form.controls.currentStateSummary.value"
+      (valueChange)="form.controls.currentStateSummary.setValue($event)" />
+    <lsd-textarea
+      id="engagement-create-target-state"
+      label="Target state summary"
+      [value]="form.controls.targetStateSummary.value"
+      (valueChange)="form.controls.targetStateSummary.setValue($event)" />
+  </lsd-form-section>
+
+  <lsd-form-section
+    id="engagement-create-timeline"
+    title="Timeline"
+    [errorTitle]="form.errors?.['timelineOrder'] ? 'Invalid timeline' : undefined">
+    @if (form.errors?.['timelineOrder']) {
+      <p role="alert">Target end date cannot precede the start date.</p>
+    }
+    <lsd-input
+      id="engagement-create-timeline-start"
+      label="Start date"
+      placeholder="YYYY-MM-DD"
+      description="ISO date format, e.g. 2026-03-01."
+      [value]="form.controls.timelineStartDate.value"
+      (valueChange)="form.controls.timelineStartDate.setValue($event)" />
+    <lsd-input
+      id="engagement-create-timeline-end"
+      label="Target end date"
+      placeholder="YYYY-MM-DD"
+      description="ISO date format, e.g. 2026-09-30."
+      [value]="form.controls.timelineTargetEndDate.value"
+      (valueChange)="form.controls.timelineTargetEndDate.setValue($event)" />
+  </lsd-form-section>
+
+  <lsd-form-section id="engagement-create-lists" title="Objectives, landscape, constraints, deliverables">
+    <lsd-textarea
+      id="engagement-create-business-objectives"
+      label="Business objectives"
+      description="One objective per line."
+      [value]="form.controls.businessObjectivesText.value"
+      (valueChange)="form.controls.businessObjectivesText.setValue($event)" />
+    <lsd-textarea
+      id="engagement-create-technology-landscape"
+      label="Known technology landscape"
+      description="One item per line."
+      [value]="form.controls.knownTechnologyLandscapeText.value"
+      (valueChange)="form.controls.knownTechnologyLandscapeText.setValue($event)" />
+    <lsd-textarea
+      id="engagement-create-constraints"
+      label="Constraints"
+      description="One constraint per line."
+      [value]="form.controls.constraintsText.value"
+      (valueChange)="form.controls.constraintsText.setValue($event)" />
+    <lsd-textarea
+      id="engagement-create-deliverables"
+      label="Requested deliverables"
+      description="One deliverable per line."
+      [value]="form.controls.requestedDeliverablesText.value"
+      (valueChange)="form.controls.requestedDeliverablesText.setValue($event)" />
+  </lsd-form-section>
+
+  <lsd-form-section id="engagement-create-stakeholders" title="Stakeholders">
+    @for (stakeholder of form.controls.stakeholders.controls; track $index) {
+      <div class="lsd-engagement-create__stakeholder" [formGroup]="stakeholder">
+        <lsd-input
+          [id]="'engagement-create-stakeholder-' + $index + '-name'"
+          label="Name"
+          [value]="stakeholder.controls.name.value"
+          (valueChange)="stakeholder.controls.name.setValue($event)"
+          required />
+        <lsd-input
+          [id]="'engagement-create-stakeholder-' + $index + '-role'"
+          label="Role"
+          [value]="stakeholder.controls.role.value"
+          (valueChange)="stakeholder.controls.role.setValue($event)"
+          required />
+        <lsd-input
+          [id]="'engagement-create-stakeholder-' + $index + '-email'"
+          label="Email"
+          type="email"
+          [value]="stakeholder.controls.email.value"
+          (valueChange)="stakeholder.controls.email.setValue($event)" />
+        <lsd-button
+          tone="danger"
+          impact="minimal"
+          [accessibleLabel]="'Remove stakeholder ' + ($index + 1)"
+          (activated)="removeStakeholder($index)">
+          Remove
+        </lsd-button>
+      </div>
+    }
+    <lsd-button impact="light" tone="neutral" (activated)="addStakeholder()">Add stakeholder</lsd-button>
+  </lsd-form-section>
+
+  <div class="lsd-engagement-create__actions">
+    <lsd-button type="submit" [disabled]="submitting()" [loading]="submitting()">Create engagement</lsd-button>
+  </div>
+</form>

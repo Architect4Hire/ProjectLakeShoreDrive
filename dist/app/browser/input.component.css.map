@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/web/design-system/primitives/input/input.component.css"],
-  "sourcesContent": [":host {\n  display: block;\n}\n\ninput {\n  font: inherit;\n  inline-size: 100%;\n}\n\ninput::placeholder {\n  opacity: 1;\n}\n\n.lsd-input__adornment:empty {\n  display: none;\n}\n"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\ninput {\r\n  font: inherit;\r\n  inline-size: 100%;\r\n}\r\n\r\ninput::placeholder {\r\n  opacity: 1;\r\n}\r\n\r\n.lsd-input__adornment:empty {\r\n  display: none;\r\n}\r\n"],
   "mappings": "AAAA,MACE,QAAA,KACF,CAEA,MACE,KAAA,QACA,YAAA,IACF,CAEA,KAAA,cACE,QAAA,CACF,CAEA,CAAA,oBAAA,OACE,QAAA,IACF",
   "names": []
 }

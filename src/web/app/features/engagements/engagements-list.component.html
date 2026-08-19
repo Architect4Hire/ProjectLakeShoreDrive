@@ -1,0 +1,76 @@
+<div class="lsd-engagements-list">
+  <h1>Engagements</h1>
+
+  <lsd-filter-action-bar id="engagements-filters" accessibleName="Engagement filters">
+    <lsd-input
+      lsdFilterBarSearch
+      id="engagements-search"
+      label="Search engagements"
+      type="search"
+      placeholder="Search by name, client, or business problem"
+      [(value)]="searchTerm" />
+    <lsd-select
+      lsdFilterBarFilters
+      id="engagements-status-filter"
+      label="Status"
+      [options]="statusOptions"
+      [value]="statusFilter()"
+      (valueChange)="onStatusFilterChange($event)" />
+    <lsd-checkbox
+      lsdFilterBarFilters
+      id="engagements-include-archived"
+      label="Include archived"
+      [checked]="includeArchived()"
+      (checkedChange)="onIncludeArchivedChange($event)" />
+    <lsd-button lsdFilterBarActions accessibleLabel="Create a new engagement" (activated)="createEngagement()">
+      New engagement
+    </lsd-button>
+  </lsd-filter-action-bar>
+
+  @if (engagements.error(); as loadError) {
+    <div role="alert" class="lsd-engagements-list__error">
+      <span>{{ loadError.message }}</span>
+      <lsd-button tone="neutral" impact="light" (activated)="engagements.reload()">Retry</lsd-button>
+    </div>
+  }
+
+  <lsd-data-table
+    accessibleName="Engagements"
+    [rows]="rows()"
+    [columns]="columns"
+    [rowKey]="rowKey"
+    [rowLabel]="rowLabel"
+    [actions]="rowActions"
+    [loading]="engagements.isLoading()"
+    loadingMessage="Loading engagements…"
+    emptyMessage="No engagements match the current filters."
+    [error]="engagements.error()?.message"
+    [paginated]="true"
+    [(page)]="page"
+    [(pageSize)]="pageSize"
+    [totalCount]="totalCount()"
+    (rowAction)="onRowAction($event)" />
+
+  <lsd-dialog
+    id="archive-engagement-dialog"
+    title="Archive engagement?"
+    [open]="archiveTarget() !== null"
+    [dismissible]="!archiving()"
+    (closeRequested)="cancelArchive()">
+    @if (archiveTarget(); as target) {
+      <p>
+        Archiving "{{ target.name }}" removes it from the default engagement list. It can still be found by
+        including archived engagements in the filters.
+      </p>
+      @if (archiveErrorMessage(); as message) {
+        <p role="alert">{{ message }}</p>
+      }
+    }
+    <div class="lsd-engagements-list__dialog-actions">
+      <lsd-button tone="neutral" impact="light" [disabled]="archiving()" (activated)="cancelArchive()">
+        Cancel
+      </lsd-button>
+      <lsd-button tone="danger" [loading]="archiving()" (activated)="confirmArchive()">Archive</lsd-button>
+    </div>
+  </lsd-dialog>
+</div>

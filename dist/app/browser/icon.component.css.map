@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/web/design-system/icons/icon.component.css"],
-  "sourcesContent": [":host {\n  display: inline-flex;\n  flex: none;\n  line-height: 0;\n}\n\n.lsd-icon {\n  display: block;\n  flex: none;\n}\n"],
+  "sourcesContent": [":host {\r\n  display: inline-flex;\r\n  flex: none;\r\n  line-height: 0;\r\n}\r\n\r\n.lsd-icon {\r\n  display: block;\r\n  flex: none;\r\n}\r\n"],
   "mappings": "AAAA,MACE,QAAA,YACA,KAAA,KACA,YAAA,CACF,CAEA,CAAA,SACE,QAAA,MACA,KAAA,IACF",
   "names": []
 }

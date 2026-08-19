@@ -10,6 +10,8 @@ public sealed record EngagementListQuery
 
     public Guid? ClientId { get; init; }
 
+    public bool IncludeArchived { get; init; }
+
     [Range(1, int.MaxValue)]
     public int Page { get; init; } = 1;
 

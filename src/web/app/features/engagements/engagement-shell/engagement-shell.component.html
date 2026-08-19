@@ -1,0 +1,16 @@
+<div class="lsd-engagement-shell">
+  @if (headerViewModel(); as engagement) {
+    <lsd-engagement-header [engagement]="engagement" />
+  } @else if (store.loading()) {
+    <p class="text-sm text-text-muted">Loading engagement…</p>
+  } @else if (store.error(); as error) {
+    <p role="alert">{{ error.message }}</p>
+  }
+
+  <lsd-phase-navigation
+    [label]="'Engagement ' + engagementId() + ' phases'"
+    [states]="phaseStates()"
+    (phaseRequested)="navigateToPhase($event)" />
+
+  <router-outlet />
+</div>

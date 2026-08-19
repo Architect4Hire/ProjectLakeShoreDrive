@@ -8,6 +8,11 @@ export const ENGAGEMENTS_ROUTES: Routes = [
     component: EngagementsListComponent,
   },
   {
+    path: 'new',
+    loadComponent: () =>
+      import('./engagement-create/engagement-create.component').then((m) => m.EngagementCreateComponent),
+  },
+  {
     path: ':id',
     loadComponent: () =>
       import('./engagement-shell/engagement-shell.component').then((m) => m.EngagementShellComponent),

@@ -1,0 +1,3 @@
+import{Dt as p,E as B,Vt as x,X as Tt,Z as Ve}from"./main.js";import{r as L,t as $}from"./chunk-DWvdCJX_.js";import{t as b$1}from"./chunk-BJ767X6C.js";var b=(()=>{class e{api=p(b$1);route=p(Tt);engagementId=L(this.route.paramMap.pipe(B(r=>r.get(`id`)??``)),{initialValue:this.route.snapshot.paramMap.get(`id`)??``});resource=$({params:()=>this.engagementId(),stream:({params:r})=>this.api.get(r)});detail=Ve(()=>this.resource.hasValue()?this.resource.value():void 0);loading=Ve(()=>this.resource.isLoading());error=Ve(()=>this.resource.error());reload(){this.resource.reload()}static ɵfac=function(p){return new(p||e)};static ɵprov=x({token:e,factory:e.ɵfac})}return e})();export{b as t};
+//# debugId=c8b04a47-fb57-5922-9290-1ccb5638fbc7
+//# sourceMappingURL=chunk-IO5NONhC.js.map

@@ -17,6 +17,7 @@
     <Project Path="services/ProjectLakeShoreDrive.Knowledge/ProjectLakeShoreDrive.Knowledge.csproj" />
   </Folder>
   <Project Path="../tests/architecture/ProjectLakeShoreDrive.Architecture.Tests/ProjectLakeShoreDrive.Architecture.Tests.csproj" />
+  <Project Path="../tests/integration/ProjectLakeShoreDrive.Engagement.Api.Integration.Tests/ProjectLakeShoreDrive.Engagement.Api.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Engagement.Core.Integration.Tests/ProjectLakeShoreDrive.Engagement.Core.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Functions.Integration.Tests.csproj" />
   <Project Path="../tests/integration/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests/ProjectLakeShoreDrive.Messaging.OutboxRelay.Integration.Tests.csproj" />

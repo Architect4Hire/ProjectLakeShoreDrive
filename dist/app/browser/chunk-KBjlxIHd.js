@@ -1,3 +1,0 @@
-import{Ln as xe,Nn as w,c as C$1,cn as oo,pt as XD}from"./chunk-o327Z66V.js";function C(r,e){let v=!e?.manualCleanup?e?.injector?.get(xe)??C$1(xe):null,a=f(e?.equal),n;e?.requireSync?n=oo({kind:0},{equal:a}):n=oo({kind:1,value:e?.initialValue},{equal:a});let s,d=r.subscribe({next:t=>n.set({kind:1,value:t}),error:t=>{n.set({kind:2,error:t}),s?.()},complete:()=>{s?.()}});if(e?.requireSync&&n().kind===0)throw new w(601,!1);return s=v?.onDestroy(d.unsubscribe.bind(d)),XD(()=>{let t=n();switch(t.kind){case 1:return t.value;case 2:throw t.error;case 0:throw new w(601,!1)}},{equal:e?.equal})}function f(r=Object.is){return(e,o)=>e.kind===1&&o.kind===1&&r(e.value,o.value)}export{C as t};
-//# debugId=4648a61b-c967-5330-91af-b2c41a65d1cb
-//# sourceMappingURL=chunk-KBjlxIHd.js.map

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/web/design-system/primitives/select/select.component.css"],
-  "sourcesContent": [":host {\n  display: block;\n}\n\nselect {\n  box-sizing: border-box;\n  font: inherit;\n}\n"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\nselect {\r\n  box-sizing: border-box;\r\n  font: inherit;\r\n}\r\n"],
   "mappings": "AAAA,MACE,QAAA,KACF,CAEA,OACE,WAAA,WACA,KAAA,OACF",
   "names": []
 }

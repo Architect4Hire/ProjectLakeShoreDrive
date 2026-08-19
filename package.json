@@ -16,7 +16,8 @@
     "test:visual:update": "playwright test visual-regression/tests/design-system.visual.spec.ts --update-snapshots",
     "test:accessibility": "playwright test visual-regression/tests/design-system.accessibility.spec.ts",
     "test:responsive": "playwright test visual-regression/tests/design-system.responsive.spec.ts",
-    "test:e2e": "npm run test:accessibility && npm run test:responsive"
+    "test:e2e": "npm run test:accessibility && npm run test:responsive",
+    "test:unit": "ng test app"
   },
   "devDependencies": {
     "@angular/build": "22.1.4",
@@ -25,6 +26,7 @@
     "@angular/compiler": "22.1.2",
     "@angular/compiler-cli": "22.1.2",
     "@angular/core": "22.1.2",
+    "@angular/forms": "22.1.2",
     "@angular/platform-browser": "22.1.2",
     "@angular/platform-browser-dynamic": "22.1.2",
     "@angular/router": "22.1.2",
@@ -32,9 +34,11 @@
     "@playwright/test": "1.62.1",
     "@tailwindcss/postcss": "4.1.14",
     "@types/node": "^22.7.7",
+    "jsdom": "30.0.1",
     "rxjs": "7.8.2",
     "tailwindcss": "4.1.14",
-    "typescript": "6.0.2"
+    "typescript": "6.0.2",
+    "vitest": "4.1.11"
   },
   "allowScripts": {
     "@parcel/watcher@2.6.0": true,

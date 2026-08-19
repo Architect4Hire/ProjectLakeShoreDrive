@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/web/design-system/recipes/source-citations/source-citations.component.css"],
-  "sourcesContent": [":host { display: block; min-inline-size: 0; }\n.lsd-source-citations { display: grid; min-inline-size: 0; gap: 0.75rem; }\n.lsd-source-citations__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }\n.lsd-source-citations__list { display: flex; min-inline-size: 0; flex-wrap: wrap; gap: 0.5rem; }\n@media (max-width: 29.99rem) {\n  .lsd-source-citations__list { display: grid; align-items: stretch; }\n}\n"],
+  "sourcesContent": [":host { display: block; min-inline-size: 0; }\r\n.lsd-source-citations { display: grid; min-inline-size: 0; gap: 0.75rem; }\r\n.lsd-source-citations__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }\r\n.lsd-source-citations__list { display: flex; min-inline-size: 0; flex-wrap: wrap; gap: 0.5rem; }\r\n@media (max-width: 29.99rem) {\r\n  .lsd-source-citations__list { display: grid; align-items: stretch; }\r\n}\r\n"],
   "mappings": "AAAA,MAAQ,QAAA,MAAgB,gBAAA,CAAoB,CAC5C,CAAA,qBAAwB,QAAA,KAAe,gBAAA,EAAoB,IAAA,MAAc,CACzE,CAAA,8BAAiC,QAAA,KAAe,YAAA,SAAuB,gBAAA,cAAgC,IAAA,IAAW,CAClH,CAAA,2BAA8B,QAAA,KAAe,gBAAA,EAAoB,UAAA,KAAiB,IAAA,KAAa,CAC/F,OAAA,UAAA,UACE,CAFF,2BAEgC,QAAA,KAAe,YAAA,OAAsB,CACrE",
   "names": []
 }
